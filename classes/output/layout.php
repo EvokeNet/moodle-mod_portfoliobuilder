@@ -35,12 +35,19 @@ class layout implements renderable, templatable {
      * @throws \moodle_exception
      */
     public function export_for_template(renderer_base $output) {
+        $layoututil = new \mod_portfoliobuilder\util\layout();
+        $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
+
         $data = [
             'id' => $this->portfoliobuilder->id,
             'name' => $this->portfoliobuilder->name,
             'cmid' => $this->context->instanceid,
             'courseid' => $this->portfoliobuilder->course,
-            'contextid' => $this->context->id
+            'contextid' => $this->context->id,
+            'sesskey' => sesskey(),
+            'istimeline' => $layout === 'timeline',
+            'ismansory' => $layout === 'mansory',
+            'isblog' => $layout === 'blog',
         ];
 
         return $data;

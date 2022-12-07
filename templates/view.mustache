@@ -1,8 +1,36 @@
-{{#haslayout}}
-    Você escolheu um layout, pode ver.
-{{/haslayout}}
-{{^haslayout}}
-    Você ainda não escolheu um layout.
+<div class="mb-3 d-flex">
+    <div class="left">
+        <a href="{{config.wwwroot}}/mod/portfoliobuilder/submit.php?id={{cmid}}" class="btn btn-primary" data-action="create-entry-modal">
+            <i class="fa fa-plus"></i> {{#str}}entry:add, mod_portfoliobuilder{{/str}}
+        </a>
+    </div>
 
-    Clica aqui e senta
-{{/haslayout}}
+    <div class="ml-auto">
+        <a href="{{config.wwwroot}}/mod/portfoliobuilder/layout.php?id={{cmid}}" class="btn btn-dark"><i class="fa fa-edit"></i> Change layout</a>
+
+        <div class="btn-group" role="group">
+            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <i class="fa fa-share"></i> Share portfolio
+            </button>
+            <div class="dropdown-menu">
+                <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-linkedin-square"></i> Linkedin</a>
+                <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-instagram"></i> Instagram</a>
+                <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-twitter-square"></i> Twitter</a>
+                <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-globe"></i> Copy public URL</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{{^hasentries}}
+    <div class="alert alert-info mt-4" role="alert">
+        <h4 class="alert-heading">Your portfolio is empty.</h4>
+        <hr>
+        <p>Dear student, you need to start building your portfolio, click on the above button to start adding entries to it.</p>
+    </div>
+{{/hasentries}}
+
+{{#hasentries}}
+    {{{entries}}}
+{{/hasentries}}

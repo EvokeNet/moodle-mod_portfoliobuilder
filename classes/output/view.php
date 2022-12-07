@@ -4,6 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+use mod_portfoliobuilder\util\entry;
 use renderable;
 use templatable;
 use renderer_base;
@@ -35,10 +36,7 @@ class view implements renderable, templatable {
      * @throws \moodle_exception
      */
     public function export_for_template(renderer_base $output) {
-
-        $prefname = 'portfoliolayout-course-' . $this->portfoliobuilder->course;
-
-        $userchoselayout = get_user_preferences($prefname, false);
+        $layoututil = new \mod_portfoliobuilder\util\layout();
 
         $data = [
             'id' => $this->portfoliobuilder->id,
@@ -49,8 +47,18 @@ class view implements renderable, templatable {
             'contextid' => $this->context->id,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
             'isevaluated' => $this->portfoliobuilder->grade != 0,
-            'userchoselayout' => $userchoselayout
+            'layout' => $layoututil->get_user_layout($this->portfoliobuilder->course)
         ];
+
+        $entryutil = new entry();
+        $entries = $entryutil->get_user_course_entries($this->portfoliobuilder->course);
+
+        $data['hasentries'] = !empty($entries);
+
+        $layoututil = new \mod_portfoliobuilder\util\layout();
+        $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
+
+        $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card", ['entries' => $entries]);
 
         return $data;
     }

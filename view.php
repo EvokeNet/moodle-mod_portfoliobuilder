@@ -51,7 +51,7 @@ $completion->set_module_viewed($cm);
 
 $PAGE->set_url('/mod/portfoliobuilder/view.php', ['id' => $cm->id]);
 $PAGE->set_title(format_string($portfoliobuilder->name));
-$PAGE->set_heading(format_string($course->fullname));
+$PAGE->set_heading(format_string($portfoliobuilder->name));
 $PAGE->set_context($context);
 
 echo $OUTPUT->header();

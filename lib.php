@@ -269,3 +269,32 @@ function portfoliobuilder_pluginfile($course, $cm, $context, $filearea, $args, $
     require_login($course, true, $cm);
     send_file_not_found();
 }
+
+/**
+ * Returns entry form fragment.
+ *
+ * @param $args
+ * @return string
+ */
+function mod_portfoliobuilder_output_fragment_entry_form($args) {
+    $args = (object) $args;
+
+    $formdata = [];
+    $serialiseddata = json_decode($args->jsonformdata);
+    if (!empty($serialiseddata)) {
+        $formdata = (array)$serialiseddata;
+//        parse_str($serialiseddata, $formdata);
+    }
+
+    $mform = new \mod_portfoliobuilder\form\entry($formdata, [
+        'courseid' => $serialiseddata->courseid,
+        'portfolioid' => $serialiseddata->portfolioid,
+    ]);
+
+    if (!empty($args->jsonformdata)) {
+        // If we were passed non-empty form data we want the mform to call validation functions and show errors.
+        $mform->is_validated();
+    }
+
+    return $mform->render();
+}

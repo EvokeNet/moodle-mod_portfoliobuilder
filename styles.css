@@ -1,3 +1,7 @@
+#page-mod-portfoliobuilder-layout .content {
+    padding: 1rem 1.5rem 1.5rem 1.5rem;
+}
+
 #page-mod-portfoliobuilder-layout .content label {
     cursor: pointer;
     margin: 0;
@@ -36,7 +40,7 @@
         width: 300px;
     }
     #page-mod-portfoliobuilder-layout input[type="radio"]:after {
-        font-size: 22px;
+        font-size: 32px;
     }
 }
 
@@ -46,12 +50,14 @@
 */
 
 /* The actual timeline (the vertical ruler) */
-#page-mod-portfoliobuilder-layout.timeline .main-timeline {
+#page-mod-portfoliobuilder-layout .main-timeline,
+#page-mod-portfoliobuilder-view .main-timeline {
     position: relative;
 }
 
 /* The actual timeline (the vertical ruler) */
-#page-mod-portfoliobuilder-layout.timeline  .main-timeline::after {
+#page-mod-portfoliobuilder-layout .main-timeline::after,
+#page-mod-portfoliobuilder-view .main-timeline::after {
     content: "";
     position: absolute;
     width: 3px;
@@ -63,14 +69,16 @@
 }
 
 /* Container around content */
-#page-mod-portfoliobuilder-layout.timeline .timeline {
+#page-mod-portfoliobuilder-layout .timeline,
+#page-mod-portfoliobuilder-view .timeline {
     position: relative;
     background-color: inherit;
     width: 50%;
 }
 
 /* The circles on the timeline */
-#page-mod-portfoliobuilder-layout.timeline .timeline::after {
+#page-mod-portfoliobuilder-layout .timeline::after,
+#page-mod-portfoliobuilder-view .timeline::after {
     content: "";
     position: absolute;
     width: 25px;
@@ -83,19 +91,22 @@
 }
 
 /* Place the container to the left */
-#page-mod-portfoliobuilder-layout.timeline .timeline-left {
+#page-mod-portfoliobuilder-layout .timeline-left,
+#page-mod-portfoliobuilder-view .timeline-left {
     padding: 0 40px 20px 0;
     left: 0;
 }
 
 /* Place the container to the right */
-#page-mod-portfoliobuilder-layout.timeline .timeline-right {
+#page-mod-portfoliobuilder-layout .timeline-right,
+#page-mod-portfoliobuilder-view .timeline-right {
     padding: 0 0 20px 40px;
     left: 50%;
 }
 
 /* Add arrows to the left container (pointing right) */
-#page-mod-portfoliobuilder-layout.timeline .timeline-left::before {
+#page-mod-portfoliobuilder-layout .timeline-left::before,
+#page-mod-portfoliobuilder-view .timeline-left::before {
     content: " ";
     position: absolute;
     top: 18px;
@@ -107,7 +118,8 @@
 }
 
 /* Add arrows to the right container (pointing left) */
-#page-mod-portfoliobuilder-layout.timeline .timeline-right::before {
+#page-mod-portfoliobuilder-layout .timeline-right::before,
+#page-mod-portfoliobuilder-view .timeline-right::before {
     content: " ";
     position: absolute;
     top: 18px;
@@ -119,26 +131,30 @@
 }
 
 /* Fix the circle for containers on the right side */
-#page-mod-portfoliobuilder-layout.timeline .timeline-right::after {
+#page-mod-portfoliobuilder-layout .timeline-right::after,
+#page-mod-portfoliobuilder-view .timeline-right::after {
     left: -14px;
 }
 
 /* Media queries - Responsive timeline on screens less than 600px wide */
 @media screen and (max-width: 600px) {
     /* Place the timelime to the left */
-    #page-mod-portfoliobuilder-layout.timeline .main-timeline::after {
+    #page-mod-portfoliobuilder-layout .main-timeline::after,
+    #page-mod-portfoliobuilder-view .main-timeline::after {
         left: 31px;
     }
 
     /* Full-width containers */
-    #page-mod-portfoliobuilder-layout.timeline .timeline {
+    #page-mod-portfoliobuilder-layout .timeline,
+    #page-mod-portfoliobuilder-view .timeline {
         width: 100%;
         padding-left: 70px;
         padding-right: 25px;
     }
 
     /* Make sure that all arrows are pointing leftwards */
-    #page-mod-portfoliobuilder-layout.timeline .timeline::before {
+    #page-mod-portfoliobuilder-layout .timeline::before,
+    #page-mod-portfoliobuilder-view .timeline::before {
         left: 60px;
         border: medium solid white;
         border-width: 10px 10px 10px 0;
@@ -146,17 +162,55 @@
     }
 
     /* Make sure all circles are at the same spot */
-    #page-mod-portfoliobuilder-layout.timeline .timeline-left::after,
-    #page-mod-portfoliobuilder-layout.timeline .timeline-right::after {
+    #page-mod-portfoliobuilder-layout .timeline-left::after,
+    #page-mod-portfoliobuilder-layout .timeline-right::after,
+    #page-mod-portfoliobuilder-view .timeline-left::after,
+    #page-mod-portfoliobuilder-view .timeline-right::after{
         left: 18px;
     }
 
-    #page-mod-portfoliobuilder-layout.timeline .timeline-left::before {
+    #page-mod-portfoliobuilder-layout .timeline-left::before,
+    #page-mod-portfoliobuilder-view .timeline-left::before {
         right: auto;
     }
 
     /* Make all right containers behave like the left ones */
-    #page-mod-portfoliobuilder-layout.timeline .timeline-right {
-        left: 0%;
+    #page-mod-portfoliobuilder-layout .timeline-right,
+    #page-mod-portfoliobuilder-view .timeline-right {
+        left: 0;
     }
+}
+
+#page-mod-portfoliobuilder-layout.blog .block-3 .image {
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    width: 40%;
+    padding: 10% 7%;
+}
+
+#page-mod-portfoliobuilder-layout.blog .block-3 .text {
+    width: 60%;
+    padding: 10% 7%;
+}
+
+#page-mod-portfoliobuilder-layout.blog .block-3 .text .heading a {
+    text-decoration: none;
+}
+
+#page-mod-portfoliobuilder-layout.blog .block-3 .text .heading {
+    font-size: 30px;
+    margin-bottom: 30px;
+}
+
+#page-mod-portfoliobuilder-layout.blog .block-3 .text .subheading {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    color: #8c8c8c;
+}
+
+
+#page-mod-portfoliobuilder-layout.blog #region-main {
+    overflow-y: initial;
 }

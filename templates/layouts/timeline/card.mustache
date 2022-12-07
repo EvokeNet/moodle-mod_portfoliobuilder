@@ -1,0 +1,21 @@
+<div class="main-timeline">
+
+{{#entries}}
+    <div class="timeline timeline-{{position}}">
+        <div class="card">
+            {{#image}}
+                <img src="{{config.wwwroot}}/mod/portfoliobuilder/pix/layouts/timeline/image{{image}}.png" class="card-img-top"
+                 alt="Responsive image">
+            {{/image}}
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-0">{{title}}</h4>
+                <p class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</p>
+                {{#content}}
+                    <p class="mb-0">{{{.}}}</p>
+                {{/content}}
+            </div>
+        </div>
+    </div>
+{{/entries}}
+
+</div>

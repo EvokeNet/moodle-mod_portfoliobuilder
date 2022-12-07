@@ -40,15 +40,5 @@ $string['privacy:metadata'] = 'Portfolio does not store any personal data';
 $string['view'] = 'View';
 
 $string['name'] = 'Name';
-$string['title'] = 'Title';
-$string['content'] = 'Content';
-$string['attachments'] = 'Attachments';
-$string['validation:titlerequirelen'] = 'Title is required and must have at least 3 characters long.';
-$string['validation:contentachmentsrequired'] = 'You must add text to your entry or submit at least one file.';
-$string['validation:contentlen'] = 'Post text needs to be at least 10 characters long';
 
-$string['entry:add'] = 'Add a new entry to your portfolio';
-$string['entry:add_success'] = 'Entry successfully created';
-$string['entry:update_success'] = 'Entry successfully updated';
-
-$string['backtolayoutchoose'] = 'Back to layout choose';
+$string['backtolayoutchoose'] = 'Voltar para a seleção de layout';

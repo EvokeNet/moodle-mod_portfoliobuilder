@@ -24,6 +24,12 @@ class layout {
     public function get_user_layout($courseid) {
         $prefname = 'portfoliolayout-course-' . $courseid;
 
-        return get_user_preferences($prefname, false);
+        return get_user_preferences($prefname, 'timeline');
+    }
+
+    public function set_user_layout($courseid, $layout) {
+        $prefname = 'portfoliolayout-course-' . $courseid;
+
+        return set_user_preference($prefname, $layout);
     }
 }
