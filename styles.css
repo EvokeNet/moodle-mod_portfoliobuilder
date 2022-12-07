@@ -44,6 +44,31 @@
     }
 }
 
+.path-mod-portfoliobuilder .attachment {
+    border: 1px solid #d7dfe3;
+    border-radius: .5rem;
+    padding: .5rem;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+}
+
+.path-mod-portfoliobuilder .attachment img {
+    max-width: 100%;
+    max-height: 460px;
+}
+
+.path-mod-portfoliobuilder .attachment .fileinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.path-mod-portfoliobuilder .attachment .filedownload {
+    flex-direction: row;
+    margin-left: auto;
+    flex-wrap: wrap;
+}
 
 /*
  Layouts styles

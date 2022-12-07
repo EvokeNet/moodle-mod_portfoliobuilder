@@ -78,7 +78,7 @@ if ($form->is_cancelled()) {
         } else {
             $entry = new \stdClass();
             $entry->courseid = $course->id;
-            $entry->portfolioid = $portfoliobuilder->id;
+            $entry->cmid = $cm->id;
             $entry->userid = $USER->id;
             $entry->title = $formdata->title;
             $entry->content = null;

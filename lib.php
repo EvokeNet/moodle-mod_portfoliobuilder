@@ -260,14 +260,27 @@ function portfoliobuilder_get_file_info($browser, $areas, $course, $cm, $context
  * @param array $options Additional options affecting the file serving.
  */
 function portfoliobuilder_pluginfile($course, $cm, $context, $filearea, $args, $forcedownload, $options = array()) {
-    global $DB, $CFG;
-
     if ($context->contextlevel != CONTEXT_MODULE) {
         send_file_not_found();
     }
 
-    require_login($course, true, $cm);
-    send_file_not_found();
+    require_login($course, false, $cm);
+
+    $itemid = (int)array_shift($args);
+    if ($itemid == 0) {
+        return false;
+    }
+
+    $relativepath = implode('/', $args);
+
+    $fullpath = "/{$context->id}/mod_portfoliobuilder/$filearea/$itemid/$relativepath";
+
+    $fs = get_file_storage();
+    if (!$file = $fs->get_file_by_hash(sha1($fullpath)) or $file->is_directory()) {
+        return false;
+    }
+
+    send_stored_file($file, 0, 0, $forcedownload, $options);
 }
 
 /**

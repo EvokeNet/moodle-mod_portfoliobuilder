@@ -27,15 +27,21 @@ class entry {
         $data = [];
         $i = 1;
         foreach ($records as $record) {
-            $entryfiles = $this->get_attachments($record->id, \context_module::instance($record->cmid));
+            $attachments = $this->get_attachments($record->id, \context_module::instance($record->cmid));
+
+            $images = $this->get_images($attachments);
+            $files = $this->get_files($attachments);
 
             $data[] = [
                 'id' => $record->id,
                 'title' => $record->title,
                 'content' => format_text($record->content, $record->contentformat),
                 'timecreated' => userdate($record->timecreated),
-                'images' => !empty($entryfiles) ? $this->get_images($entryfiles) : false,
-                'files' => !empty($entryfiles) ? $this->get_files($entryfiles) : false,
+                'hasimages' => !empty($images),
+                'images' => $images,
+                'singleimage' => !empty($images) && count($images) === 1,
+                'hasfiles' => !empty($files),
+                'files' => $files,
                 'position' => ($i % 2 == 0) ? 'right' : 'left',
             ];
 
@@ -50,9 +56,15 @@ class entry {
             return false;
         }
 
-        return array_filter($files, function($file) {
+        $files = array_filter($files, function($file) {
             return $file['isimage'] === true;
         });
+
+        $files = array_values($files);
+
+        $files[0]['active'] = true;
+
+        return $files;
     }
 
     public function get_files($files = null) {
@@ -60,9 +72,11 @@ class entry {
             return false;
         }
 
-        return array_filter($files, function($file) {
+        $files = array_filter($files, function($file) {
             return $file['isimage'] === false;
         });
+
+        return array_values($files);
     }
 
     public function get_attachments($entryid, $context) {

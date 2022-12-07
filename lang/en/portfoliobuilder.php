@@ -51,4 +51,6 @@ $string['entry:add'] = 'Add a new entry to your portfolio';
 $string['entry:add_success'] = 'Entry successfully created';
 $string['entry:update_success'] = 'Entry successfully updated';
 
+$string['downloadfile'] = 'Download file';
+
 $string['backtolayoutchoose'] = 'Back to layout choose';
