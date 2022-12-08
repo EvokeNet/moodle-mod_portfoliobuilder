@@ -11,8 +11,14 @@ defined('MOODLE_INTERNAL') || die();
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class layout {
-    public function user_chose_layout($courseid) {
-        $userlayout = $this->get_user_layout($courseid);
+    public function user_chose_layout($courseid, $userid = null) {
+        global $USER;
+
+        if (!$userid) {
+            $userid = $USER->id;
+        }
+
+        $userlayout = $this->get_user_layout($courseid, $userid);
 
         if (!$userlayout) {
             return false;
@@ -21,10 +27,16 @@ class layout {
         return true;
     }
 
-    public function get_user_layout($courseid) {
+    public function get_user_layout($courseid, $userid = null) {
+        global $USER;
+
+        if (!$userid) {
+            $userid = $USER->id;
+        }
+
         $prefname = 'portfoliolayout-course-' . $courseid;
 
-        return get_user_preferences($prefname, 'timeline');
+        return get_user_preferences($prefname, 'timeline', $userid);
     }
 
     public function set_user_layout($courseid, $layout) {

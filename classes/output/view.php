@@ -36,7 +36,10 @@ class view implements renderable, templatable {
      * @throws \moodle_exception
      */
     public function export_for_template(renderer_base $output) {
+        global $USER;
+
         $layoututil = new \mod_portfoliobuilder\util\layout();
+        $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
         $data = [
             'id' => $this->portfoliobuilder->id,
@@ -44,19 +47,16 @@ class view implements renderable, templatable {
             'intro' => format_module_intro('portfoliobuilder', $this->portfoliobuilder, $this->context->instanceid),
             'cmid' => $this->context->instanceid,
             'courseid' => $this->portfoliobuilder->course,
+            'userid' => $USER->id,
             'contextid' => $this->context->id,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
-            'isevaluated' => $this->portfoliobuilder->grade != 0,
-            'layout' => $layoututil->get_user_layout($this->portfoliobuilder->course)
+            'isevaluated' => $this->portfoliobuilder->grade != 0
         ];
 
         $entryutil = new entry();
         $entries = $entryutil->get_user_course_entries($this->portfoliobuilder->course);
 
         $data['hasentries'] = !empty($entries);
-
-        $layoututil = new \mod_portfoliobuilder\util\layout();
-        $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
         $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card", ['entries' => $entries]);
 

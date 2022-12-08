@@ -52,5 +52,6 @@ $string['entry:add_success'] = 'Entry successfully created';
 $string['entry:update_success'] = 'Entry successfully updated';
 
 $string['downloadfile'] = 'Download file';
+$string['linkccopiedtoclipboard'] = 'Link copied to clipboard';
 
 $string['backtolayoutchoose'] = 'Back to layout choose';

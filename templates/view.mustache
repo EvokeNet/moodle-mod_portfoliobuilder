@@ -16,10 +16,9 @@
                 <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-linkedin-square"></i> Linkedin</a>
                 <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-instagram"></i> Instagram</a>
                 <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-twitter-square"></i> Twitter</a>
-                <a class="dropdown-item text-decoration-none" href="#"><i class="fa fa-globe"></i> Copy public URL</a>
+                <a id="share-url" class="dropdown-item text-decoration-none" href="{{config.wwwroot}}/mod/portfoliobuilder/portfolio.php?id={{cmid}}&userid={{userid}}"><i class="fa fa-globe"></i> Copy public URL</a>
             </div>
         </div>
-
     </div>
 </div>
 
@@ -36,10 +35,33 @@
 {{/hasentries}}
 
 {{#js}}
-    require(['jquery'], function($) {
+    require(['jquery', 'mod_portfoliobuilder/sweetalert'], function($, Swal) {
         $('.carousel').carousel({
             interval: 5000,
             pause: 'hover'
         });
+
+        $("#share-url").click(function(event) {
+            event.preventDefault();
+
+            navigator.clipboard.writeText(event.currentTarget.href);
+
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 8000,
+                timerProgressBar: true,
+                onOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
+
+            Toast.fire({
+                icon: 'success',
+                title: '{{#str}}linkccopiedtoclipboard, mod_portfoliobuilder{{/str}}'
+                });
+            });
     });
 {{/js}}
