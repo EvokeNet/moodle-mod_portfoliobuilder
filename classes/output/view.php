@@ -41,6 +41,7 @@ class view implements renderable, templatable {
         $layoututil = new \mod_portfoliobuilder\util\layout();
         $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
+        $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $this->context->instanceid, 'userid' => $USER->id]);
         $data = [
             'id' => $this->portfoliobuilder->id,
             'name' => $this->portfoliobuilder->name,
@@ -50,7 +51,8 @@ class view implements renderable, templatable {
             'userid' => $USER->id,
             'contextid' => $this->context->id,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
-            'isevaluated' => $this->portfoliobuilder->grade != 0
+            'isevaluated' => $this->portfoliobuilder->grade != 0,
+            'encodedpublicurl' => $publicurl
         ];
 
         $entryutil = new entry();
