@@ -27,9 +27,9 @@ class renderer extends plugin_renderer_base {
     public function render_view(renderable $page) {
         $data = $page->export_for_template($this);
 
-//        if (has_capability('mod/portfoliobuilder:grade', $page->context)) {
-//            return $this->render_from_template('mod_portfoliobuilder/view_admin', $data);
-//        }
+        if (has_capability('mod/portfoliobuilder:grade', $page->context)) {
+            return $this->render_from_template('mod_portfoliobuilder/view_admin', $data);
+        }
 
         return $this->render_from_template('mod_portfoliobuilder/view', $data);
     }
