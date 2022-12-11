@@ -311,3 +311,21 @@ function mod_portfoliobuilder_output_fragment_entry_form($args) {
 
     return $mform->render();
 }
+
+function mod_portfoliobuilder_before_standard_html_head() {
+    global $PAGE, $USER;
+
+    if ($PAGE->pagetype == 'mod-portfoliobuilder-view') {
+        $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $PAGE->context->instanceid, 'u' => $USER->id]);
+
+        $header = '
+            <meta property="og:url"           content="'.$publicurl.'" />
+            <meta property="og:type"          content="website" />
+            <meta property="og:title"         content="My portfolio on evoke" />
+            <meta property="og:description"   content="This is my portfolio on evoke site." />
+            <meta property="og:image"         content="https://eskadauema.com/pluginfile.php/1050120/course/overviewfiles/ensinando_moodle.png" />
+        ';
+
+        return $header;
+    }
+}

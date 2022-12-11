@@ -52,7 +52,7 @@ class view implements renderable, templatable {
             'contextid' => $this->context->id,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
             'isevaluated' => $this->portfoliobuilder->grade != 0,
-            'encodedpublicurl' => $publicurl
+            'encodedpublicurl' => htmlentities($publicurl)
         ];
 
         $entryutil = new entry();
