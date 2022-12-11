@@ -315,7 +315,7 @@ function mod_portfoliobuilder_output_fragment_entry_form($args) {
 function mod_portfoliobuilder_before_standard_html_head() {
     global $PAGE, $USER;
 
-    if ($PAGE->pagetype == 'mod-portfoliobuilder-view') {
+    if ($PAGE->pagetype == 'mod-portfoliobuilder-portfolio') {
         $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $PAGE->context->instanceid, 'u' => $USER->id]);
 
         $header = '
