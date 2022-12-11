@@ -14,7 +14,7 @@ global $DB;
 
 // Course module id.
 $id = required_param('id', PARAM_INT);
-$userid = required_param('userid', PARAM_INT);
+$userid = required_param('u', PARAM_INT);
 
 list ($course, $cm) = get_course_and_cm_from_cmid($id, 'portfoliobuilder');
 $portfoliobuilder = $DB->get_record('portfoliobuilder', ['id' => $cm->instance], '*', MUST_EXIST);
