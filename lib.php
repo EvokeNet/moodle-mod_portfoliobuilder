@@ -316,7 +316,10 @@ function mod_portfoliobuilder_before_standard_html_head() {
     global $PAGE, $USER;
 
     if ($PAGE->pagetype == 'mod-portfoliobuilder-portfolio') {
-        $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $PAGE->context->instanceid, 'u' => $USER->id]);
+        $id = required_param('id', PARAM_INT);
+        $u = required_param('u', PARAM_INT);
+
+        $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $id, 'u' => $u]);
 
         $header = '
             <meta property="og:url"           content="'.$publicurl->out(false).'" />
