@@ -321,12 +321,14 @@ function mod_portfoliobuilder_before_standard_html_head() {
 
         $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $id, 'u' => $u]);
 
+        $ogimage = new \moodle_url('/mod/portfoliobuilder/pix/og_image.png');
+
         $header = '
             <meta property="og:url"           content="'.$publicurl->out(false).'" />
             <meta property="og:type"          content="website" />
             <meta property="og:title"         content="My portfolio on evoke" />
             <meta property="og:description"   content="This is my portfolio on evoke site." />
-            <meta property="og:image"         content="https://eskadauema.com/pluginfile.php/1050120/course/overviewfiles/ensinando_moodle.png" />
+            <meta property="og:image"         content="'.$ogimage->out().'" />
         ';
 
         return $header;
