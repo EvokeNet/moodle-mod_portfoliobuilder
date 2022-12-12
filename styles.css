@@ -70,7 +70,7 @@
     flex-wrap: wrap;
 }
 
-#page-mod-portfoliobuilder-portfolio .portfolio-header {
+.path-mod-portfoliobuilder .portfolio-header {
     margin: 0 0 1rem 0;
     background-color: #f8f9fa;
     padding-left: 1rem;
@@ -78,7 +78,7 @@
     border-radius: .5rem;
 }
 
-#page-mod-portfoliobuilder-portfolio .user-image img {
+.path-mod-portfoliobuilder .user-image img {
     width: 80px;
 }
 

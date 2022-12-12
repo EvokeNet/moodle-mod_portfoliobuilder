@@ -48,8 +48,4 @@ class renderer extends plugin_renderer_base {
 
         return $this->render_from_template("mod_portfoliobuilder/layouts/{$data['type']}/preview", $data);
     }
-
-    public function render_card_timeline(renderable $page) {
-
-    }
 }
