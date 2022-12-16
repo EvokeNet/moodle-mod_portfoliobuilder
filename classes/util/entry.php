@@ -11,7 +11,7 @@ defined('MOODLE_INTERNAL') || die();
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class entry {
-    public function get_user_course_entries($courseid, $userid = null) {
+    public function get_user_course_entries($context, $courseid, $userid = null) {
         global $DB, $USER;
 
         if (!$userid) {
@@ -27,12 +27,12 @@ class entry {
         $data = [];
         $i = 1;
         foreach ($records as $record) {
-            $attachments = $this->get_attachments($record->id, \context_module::instance($record->cmid));
+            $attachments = $this->get_attachments($record->id, $context);
 
             $images = $this->get_images($attachments);
             $files = $this->get_files($attachments);
 
-            $data[] = [
+            $entry = [
                 'id' => $record->id,
                 'title' => $record->title,
                 'content' => format_text($record->content, $record->contentformat),
@@ -44,6 +44,8 @@ class entry {
                 'files' => $files,
                 'position' => ($i % 2 == 0) ? 'right' : 'left',
             ];
+
+            $data[] = array_merge($entry, $this->get_entry_reactions($record->id));
 
             $i++;
         }
@@ -115,35 +117,15 @@ class entry {
         return $entryfiles;
     }
 
-    public function get_mock_entries($total = 10) {
-        $data = [];
+    public function get_entry_reactions($entryid) {
+        $reactionutil = new reaction();
 
-        for ($i = 1; $i <= $total; $i++) {
-            $hasimage = (bool)random_int(0, 1);
+        $totalreactions = $reactionutil->get_total_reactions($entryid, reaction::LIKE);
+        $userreacted = $reactionutil->user_reacted($entryid, reaction::LIKE);
 
-            $data[] = [
-                'id' => $i,
-                'title' => $this->titles[rand(0,3)],
-                'content' => $this->paragraphs[rand(0,3)],
-                'position' => ($i % 2 == 0) ? 'right' : 'left',
-                'image' => $hasimage ? random_int(1, 4) : null
-            ];
-        }
-
-        return $data;
+        return [
+            'totalreactions' => $totalreactions,
+            'userreacted' => $userreacted
+        ];
     }
-
-    protected $titles = [
-        'Random title',
-        'Big random title',
-        'Another random title',
-        'More one random title'
-    ];
-
-    protected $paragraphs = [
-        'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rem perspiciatis est fuga quas dolorem doloribus itaque omnis repudiandae animi accusamus hic maxime corporis doloremque cumque vel numquam, molestias, consequatur officiis.',
-        'Architecto enim, reiciendis repudiandae voluptatem iure sequi quo reprehenderit, temporibus sint minima voluptates quibusdam consectetur libero suscipit illum exercitationem odio obcaecati itaque inventore rerum molestias, doloribus quos cum aut? Ratione!',
-        'Fuga enim et impedit distinctio, similique sunt repellat voluptas eligendi modi, doloremque corporis, soluta dicta quod aut aliquam nam. Obcaecati fugit aspernatur id nobis officiis, dolorem delectus amet. Eaque, quibusdam!',
-        'In perferendis, eos, ipsum labore quibusdam laboriosam fugit adipisci accusantium molestias non! Sunt, dignissimos, optio. Incidunt consequatur, sed saepe quidem quis facilis aliquam corporis exercitationem aspernatur vel neque quas necessitatibus!'
-    ];
 }
