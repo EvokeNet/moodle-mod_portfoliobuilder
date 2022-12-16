@@ -70,6 +70,121 @@
     flex-wrap: wrap;
 }
 
+/* Reactions. */
+.path-mod-portfoliobuilder .submission .post {
+    background-color: #e5e7e6;
+    padding: 1.25rem;
+    border-top-left-radius: .5rem;
+    border-top-right-radius: .5rem;
+}
+
+.path-mod-portfoliobuilder .submissions .reactions {
+    padding: .5rem 0;
+}
+
+.path-mod-portfoliobuilder .reactions .status .fa {
+    background-color: #ff0540;
+    padding: 0.35rem 0.4rem;
+    border-radius: 50%;
+    color: #fff;
+}
+
+.path-mod-portfoliobuilder .reactions .actions {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.path-mod-portfoliobuilder .reactions .actions .button {
+    text-align: center;
+    flex: 0 0 auto;
+    cursor: pointer;
+    padding: .25rem .5rem;
+    border-radius: 5px;
+}
+
+.path-mod-portfoliobuilder .reactions .actions .likebutton .fa:before {
+    content: "\f08a";
+}
+
+.path-mod-portfoliobuilder .reactions .actions .likebutton.hasreacted .fa:before {
+    content: "\f004";
+}
+
+.path-mod-portfoliobuilder .reactions .actions .button:hover {
+    background-color: #ededed;
+}
+
+.path-mod-portfoliobuilder .reactions .actions .button.hasreacted {
+    color: #ff0540;
+}
+
+/* Add comment box. */
+.path-mod-portfoliobuilder .add-comment {
+    display: flex;
+    flex-direction: row;
+    padding: .5rem;
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
+}
+
+.path-mod-portfoliobuilder .add-comment .userimg {
+    border-radius: 50%;
+    height: calc(1.5em + .75rem + 2px);
+    align-self: flex-start;
+    position: relative;
+    display: block;
+    border: 1px solid #ededed;
+    margin-right: .5rem;
+}
+
+.path-mod-portfoliobuilder .add-comment .input-group {
+    display: block;
+    width: 100%;
+}
+
+.path-mod-portfoliobuilder .add-comment .post-comment-input {
+    position: relative;
+    width: 100%;
+    margin-bottom: 0;
+    display: block;
+    min-height: 80px;
+    padding: .375rem .75rem;
+    font-size: .9375rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    -o-transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    outline: none;
+    cursor: text;
+}
+
+.path-mod-portfoliobuilder .add-comment .post-comment-input:focus {
+    color: #495057;
+    background-color: #fff;
+    border-color: #6eb5f3;
+    outline: 0;
+    -webkit-box-shadow: 0 0 0 0.2rem rgba(17, 119, 209, .25);
+    box-shadow: 0 0 0 0.2rem rgba(17, 119, 209, .25);
+}
+
+.path-mod-portfoliobuilder .add-comment .post-comment-input[contenteditable="true"]:empty:before {
+    content: attr(placeholder);
+    display: block;
+    color: #ccc;
+}
+
+.path-mod-portfoliobuilder .add-comment .post-comment-input a.usermentioned {
+    padding: 0 .5rem;
+    background-color: #d9edff;
+    border-radius: 12px;
+    display: inline-block;
+}
+
 .path-mod-portfoliobuilder .portfolio-header {
     margin: 0 0 1rem 0;
     background-color: #f8f9fa;

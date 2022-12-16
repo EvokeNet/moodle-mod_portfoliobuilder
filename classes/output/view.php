@@ -4,6 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+use mod_portfoliobuilder\util\user;
 use mod_portfoliobuilder\util\entry;
 use renderable;
 use templatable;
@@ -38,6 +39,13 @@ class view implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $USER;
 
+        $userutil = new user();
+        $userdata = [
+            'id' => $USER->id,
+            'fullname' => fullname($USER),
+            'picture' => $userutil->get_user_image_or_avatar($USER)
+        ];
+
         $layoututil = new \mod_portfoliobuilder\util\layout();
         $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
@@ -48,11 +56,13 @@ class view implements renderable, templatable {
             'intro' => format_module_intro('portfoliobuilder', $this->portfoliobuilder, $this->context->instanceid),
             'cmid' => $this->context->instanceid,
             'courseid' => $this->portfoliobuilder->course,
-            'userid' => $USER->id,
+            'userid' => $userdata['id'],
+            'userfullname' => $userdata['fullname'],
+            'userpicture' => $userdata['picture'],
             'contextid' => $this->context->id,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
             'isevaluated' => $this->portfoliobuilder->grade != 0,
-            'encodedpublicurl' => htmlentities($publicurl)
+            'encodedpublicurl' => htmlentities($publicurl),
         ];
 
         $entryutil = new entry();
@@ -60,7 +70,8 @@ class view implements renderable, templatable {
 
         $data['hasentries'] = !empty($entries);
 
-        $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card", ['entries' => $entries]);
+        $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card", ['entries' => $entries, 'user' => $userdata]);
+
 
         return $data;
     }

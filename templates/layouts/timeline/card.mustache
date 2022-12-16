@@ -30,10 +30,32 @@
             {{/hasimages}}
             <div class="card-body p-4">
                 <h4 class="fw-bold mb-0">{{title}}</h4>
+
                 <p class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</p>
+
                 {{#content}}
                     <p class="mb-0">{{{.}}}</p>
                 {{/content}}
+
+                <div class="reactions">
+                    <div class="actions">
+                        <div class="button likebutton {{#userreacted}}hasreacted{{/userreacted}}">
+                            {{#userreacted}}
+                                <i class="fa "></i>
+                            {{/userreacted}}
+                            {{^userreacted}}
+                                <i class="fa "></i>
+                            {{/userreacted}}
+
+                            <span class="totalreactions">{{{totalreactions}}}</span>
+                        </div>
+                        <div class="button commentbutton">
+                            <i class="fa fa-comment-o"></i>
+
+                            <span class="totalcomments">{{{totalcomments}}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
             {{#hasfiles}}
                 <div class="card-footer">
@@ -51,6 +73,41 @@
                     {{/files}}
                 </div>
             {{/hasfiles}}
+            <div class="card-footer">
+                {{#comments}}
+                    <div class="submissioncomment">
+                        <div class="userinfo">
+                            <div class="userimg">
+                                <img src="{{{commentuserpicture}}}" alt="{{{commentuserfullname}}}">
+                            </div>
+                            <div class="nameanddate">
+                                <p class="username">{{{commentuserfullname}}}</p>
+                                <span class="small">{{{humantimecreated}}}</span>
+                                {{#edited}}<span class="badge badge-secondary">{{#str}}edited, mod_evokeportfolio{{/str}}</span>{{/edited}}
+                            </div>
+                            {{#isowner}}
+                                <div class="editbutton ml-auto">
+                                    <a class="btn-editcomment btn btn-sm btn-primary" data-id="{{{commentid}}}">{{#str}}editcomment, mod_evokeportfolio{{/str}}</a>
+                                </div>
+                            {{/isowner}}
+                        </div>
+
+                        <p class="text">{{{text}}}</p>
+                    </div>
+                {{/comments}}
+
+                <div class="add-comment">
+                    <img src="{{{user.picture}}}" class="userimg" alt="{{{user.fullname}}}">
+
+                    <div class="input-group">
+                        <p class="post-comment-input" placeholder="{{#str}}writeacomment, mod_evokeportfolio{{/str}}" contenteditable="true" data-tribute="true"></p>
+
+                        <button class="btn btn-outline-primary post-comment-btn mt-2" type="button">
+                            <i class="fa fa-commenting-o"></i> {{#str}}comment, mod_evokeportfolio{{/str}}
+                        </button>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {{/entries}}
