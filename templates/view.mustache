@@ -45,7 +45,7 @@
 {{/hasentries}}
 
 {{#js}}
-    require(['jquery', 'mod_portfoliobuilder/sweetalert'], function($, Swal) {
+    require(['jquery', 'mod_portfoliobuilder/sweetalert', 'mod_portfoliobuilder/togglelike'], function($, Swal, ToggleLike) {
         $('.carousel').carousel({
             interval: 5000,
             pause: 'hover'
@@ -73,5 +73,7 @@
                 title: '{{#str}}linkccopiedtoclipboard, mod_portfoliobuilder{{/str}}'
             });
         });
+
+        ToggleLike.init();
     });
 {{/js}}
