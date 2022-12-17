@@ -70,7 +70,8 @@ class view implements renderable, templatable {
 
         $data['hasentries'] = !empty($entries);
 
-        $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card", ['entries' => $entries, 'user' => $userdata]);
+        $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/card",
+            ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->portfoliobuilder->course]);
 
 
         return $data;

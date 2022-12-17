@@ -11,6 +11,14 @@
 defined('MOODLE_INTERNAL') || die();
 
 $functions = [
+    'mod_portfoliobuilder_enrolledusers' => [
+        'classname' => 'mod_portfoliobuilder\external\course',
+        'classpath' => 'mod/portfoliobuilder/classes/external/course.php',
+        'methodname' => 'enrolledusers',
+        'description' => 'Get the list of enrolled users in a course',
+        'type' => 'read',
+        'ajax' => true
+    ],
     'mod_portfoliobuilder_createentry' => [
         'classname' => 'mod_portfoliobuilder\external\entry',
         'classpath' => 'mod/portfoliobuilder/classes/external/entry.php',

@@ -45,11 +45,18 @@
 {{/hasentries}}
 
 {{#js}}
-    require(['jquery', 'mod_portfoliobuilder/sweetalert', 'mod_portfoliobuilder/togglelike'], function($, Swal, ToggleLike) {
+    require([
+        'jquery',
+        'mod_portfoliobuilder/sweetalert',
+        'mod_portfoliobuilder/togglelike',
+        'mod_portfoliobuilder/tribute_init'
+    ], function($, Swal, ToggleLike, TributeInit) {
         $('.carousel').carousel({
             interval: 5000,
             pause: 'hover'
         });
+
+        TributeInit.init();
 
         $("#share-url").click(function(event) {
             event.preventDefault();

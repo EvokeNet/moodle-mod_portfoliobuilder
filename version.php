@@ -26,6 +26,6 @@ defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'mod_portfoliobuilder';
 $plugin->release = '0.1.0';
-$plugin->version = 2022121000;
+$plugin->version = 2022121200;
 $plugin->requires = 2022041900;
 $plugin->maturity = MATURITY_BETA;
