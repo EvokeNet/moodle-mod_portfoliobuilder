@@ -49,14 +49,19 @@
         'jquery',
         'mod_portfoliobuilder/sweetalert',
         'mod_portfoliobuilder/togglelike',
-        'mod_portfoliobuilder/tribute_init'
-    ], function($, Swal, ToggleLike, TributeInit) {
+        'mod_portfoliobuilder/tribute_init',
+        'mod_evokeportfolio/addcomment'
+    ], function($, Swal, ToggleLike, TributeInit, AddComment) {
+        TributeInit.init();
+
+        AddComment.init();
+
+        ToggleLike.init();
+
         $('.carousel').carousel({
             interval: 5000,
             pause: 'hover'
         });
-
-        TributeInit.init();
 
         $("#share-url").click(function(event) {
             event.preventDefault();
@@ -80,7 +85,5 @@
                 title: '{{#str}}linkccopiedtoclipboard, mod_portfoliobuilder{{/str}}'
             });
         });
-
-        ToggleLike.init();
     });
 {{/js}}

@@ -35,4 +35,20 @@ $functions = [
         'type' => 'write',
         'ajax' => true
     ],
+    'mod_portfoliobuilder_addcomment' => [
+        'classname' => 'mod_portfoliobuilder\external\comment',
+        'classpath' => 'mod/portfoliobuilder/classes/external/comment.php',
+        'methodname' => 'add',
+        'description' => 'Add a new comment',
+        'type' => 'write',
+        'ajax' => true
+    ],
+    'mod_portfoliobuilder_editcomment' => [
+        'classname' => 'mod_portfoliobuilder\external\comment',
+        'classpath' => 'mod/portfoliobuilder/classes/external/comment.php',
+        'methodname' => 'edit',
+        'description' => 'Edit a new comment',
+        'type' => 'write',
+        'ajax' => true
+    ],
 ];
