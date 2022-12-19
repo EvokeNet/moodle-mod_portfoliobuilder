@@ -78,7 +78,7 @@
     border-top-right-radius: .5rem;
 }
 
-.path-mod-portfoliobuilder .submissions .reactions {
+.path-mod-portfoliobuilder .reactions {
     padding: .5rem 0;
 }
 
@@ -142,7 +142,8 @@
     width: 100%;
 }
 
-.path-mod-portfoliobuilder .add-comment .post-comment-input {
+.path-mod-portfoliobuilder .add-comment .post-comment-input,
+.path-mod-portfoliobuilder .modal-body .post-comment-input {
     position: relative;
     width: 100%;
     margin-bottom: 0;
@@ -163,7 +164,8 @@
     cursor: text;
 }
 
-.path-mod-portfoliobuilder .add-comment .post-comment-input:focus {
+.path-mod-portfoliobuilder .add-comment .post-comment-input:focus,
+.path-mod-portfoliobuilder .modal-body .add-comment .post-comment-input:focus {
     color: #495057;
     background-color: #fff;
     border-color: #6eb5f3;
@@ -172,17 +174,123 @@
     box-shadow: 0 0 0 0.2rem rgba(17, 119, 209, .25);
 }
 
-.path-mod-portfoliobuilder .add-comment .post-comment-input[contenteditable="true"]:empty:before {
+.path-mod-portfoliobuilder .add-comment .post-comment-input[contenteditable="true"]:empty:before,
+.path-mod-portfoliobuilder .modal-body .add-comment .post-comment-input[contenteditable="true"]:empty:before {
     content: attr(placeholder);
     display: block;
     color: #ccc;
 }
 
-.path-mod-portfoliobuilder .add-comment .post-comment-input a.usermentioned {
+.path-mod-portfoliobuilder .add-comment .post-comment-input a.usermentioned,
+.path-mod-portfoliobuilder .modal-body .add-comment .post-comment-input a.usermentioned {
     padding: 0 .5rem;
     background-color: #d9edff;
     border-radius: 12px;
     display: inline-block;
+}
+
+/* Commments. */
+.path-mod-portfoliobuilder .fadeIn {
+    -webkit-animation: mod-portfoliobuilder_fadein 1s ease-in-out;
+    -moz-animation: mod-portfoliobuilder_fadein 1s ease-in-out;
+    -o-animation: mod-portfoliobuilder_fadein 1s ease-in-out;
+    animation: mod-portfoliobuilder_fadein 1s ease-in-out;
+}
+
+.path-mod-portfoliobuilder .submissioncomment {
+    padding: .5rem;
+}
+
+.path-mod-portfoliobuilder .submissioncomment .text a {
+    font-weight: 700;
+}
+
+.path-mod-evokeportfolio .submissions .userinfo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.path-mod-portfoliobuilder .userinfo img,
+.path-mod-portfoliobuilder .userinfo h3 {
+    display: inline-block;
+}
+
+.path-mod-portfoliobuilder .userinfo h3 {
+    margin-left: .25rem;
+    margin-bottom: 0;
+}
+
+.path-mod-portfoliobuilder .userinfo {
+    display: flex;
+    margin-bottom: .5rem;
+}
+
+.path-mod-portfoliobuilder .userimg img {
+    display: inline;
+    width: 42px;
+    border-radius: 50%;
+    border: 1px solid #ededed;
+}
+
+.path-mod-portfoliobuilder .userinfo .nameanddate {
+    margin-left: .5rem;
+}
+
+.path-mod-portfoliobuilder .userinfo .nameanddate .username {
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.path-mod-portfoliobuilder .userinfo .nameanddate .groupmembers img {
+    width: 42px;
+    border-radius: 50%;
+}
+
+.path-mod-portfoliobuilder .submissioncomment .userinfo {
+    justify-content: initial;
+    align-items: initial;
+}
+
+/* Some animations. */
+@-webkit-keyframes mod-portfoliobuilder_fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes mod-portfoliobuilder_fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@-o-keyframes mod-portfoliobuilder_fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes mod-portfoliobuilder_fadein {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
 
 .path-mod-portfoliobuilder .portfolio-header {

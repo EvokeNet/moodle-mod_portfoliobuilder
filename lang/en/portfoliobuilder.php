@@ -55,3 +55,9 @@ $string['downloadfile'] = 'Download file';
 $string['linkccopiedtoclipboard'] = 'Link copied to clipboard';
 
 $string['backtolayoutchoose'] = 'Back to layout choose';
+
+$string['comment'] = 'Comment';
+$string['writeacomment'] = '+ Share your thoughts...';
+$string['editcomment'] = 'Edit comment';
+$string['editcomment_success'] = 'Comment successfully edited.';
+$string['edited'] = 'Edited';

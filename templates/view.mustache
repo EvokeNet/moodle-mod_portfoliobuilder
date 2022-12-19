@@ -50,11 +50,14 @@
         'mod_portfoliobuilder/sweetalert',
         'mod_portfoliobuilder/togglelike',
         'mod_portfoliobuilder/tribute_init',
-        'mod_evokeportfolio/addcomment'
-    ], function($, Swal, ToggleLike, TributeInit, AddComment) {
+        'mod_portfoliobuilder/comment/add',
+        'mod_portfoliobuilder/comment/edit'
+    ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
         TributeInit.init();
 
         AddComment.init();
+
+        EditComment.init({{{contextid}}});
 
         ToggleLike.init();
 

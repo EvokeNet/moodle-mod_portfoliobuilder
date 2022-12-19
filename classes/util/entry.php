@@ -45,7 +45,7 @@ class entry {
                 'position' => ($i % 2 == 0) ? 'right' : 'left',
             ];
 
-            $data[] = array_merge($entry, $this->get_entry_reactions($record->id));
+            $data[] = array_merge($entry, $this->get_entry_reactions($record->id), $this->get_entry_comments($record->id));
 
             $i++;
         }
@@ -126,6 +126,47 @@ class entry {
         return [
             'totalreactions' => $totalreactions,
             'userreacted' => $userreacted
+        ];
+    }
+
+    public function get_entry_comments($entryid) {
+        global $DB, $USER;
+
+
+        $sql = 'SELECT c.id as commentid, c.text, c.timecreated as ctimecreated, c.timemodified as ctimemodified, u.id as userid, u.*
+            FROM {portfoliobuilder_comments} c
+            INNER JOIN {user} u ON u.id = c.userid
+            WHERE c.entryid = :entryid';
+
+        $comments = $DB->get_records_sql($sql, ['entryid' => $entryid]);
+
+        if (!$comments) {
+            return [
+                'comments' => false,
+                'totalcomments' => 0
+            ];
+        }
+
+        $userutil = new user();
+
+        $commentsdata = [];
+        foreach ($comments as $comment) {
+            $userpicture = $userutil->get_user_image_or_avatar($comment);
+
+            $commentsdata[] = [
+                'commentid' => $comment->commentid,
+                'text' => $comment->text,
+                'commentuserpicture' => $userpicture,
+                'commentuserfullname' => fullname($comment),
+                'isowner' => $USER->id == $comment->userid,
+                'edited' => $comment->ctimecreated != $comment->ctimemodified,
+                'humantimecreated' => userdate($comment->ctimecreated)
+            ];
+        }
+
+        return [
+            'comments' => $commentsdata,
+            'totalcomments' => count($commentsdata)
         ];
     }
 }

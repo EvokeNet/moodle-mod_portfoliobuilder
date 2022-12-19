@@ -29,7 +29,7 @@ class comment extends external_api {
     public static function add_parameters() {
         return new external_function_parameters([
             'comment' => new external_single_structure([
-                'submissionid' => new external_value(PARAM_INT, 'The submission id', VALUE_REQUIRED),
+                'entryid' => new external_value(PARAM_INT, 'The entry id', VALUE_REQUIRED),
                 'message' => new external_value(PARAM_RAW, 'The post message', VALUE_REQUIRED)
             ])
         ]);

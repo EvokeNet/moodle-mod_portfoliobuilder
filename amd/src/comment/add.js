@@ -13,6 +13,15 @@ define(['jquery', 'core/str', 'core/ajax', 'mod_portfoliobuilder/sweetalert'], f
     };
 
     AddComment.prototype.registerEventListeners = function() {
+        $(document).on('click', '.commentbutton', function(event) {
+            var inputtarget = $(event.currentTarget).closest('.entry')
+                .find('.comments .add-comment .input-group .post-comment-input');
+
+            if (inputtarget.length > 0) {
+                inputtarget.focus();
+            }
+        });
+
         $(document).on('click', '.post-comment-btn', function(event) {
             var target = $(event.currentTarget).closest('.input-group').children('.post-comment-input');
 

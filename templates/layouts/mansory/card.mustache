@@ -73,7 +73,7 @@
                 </div>
             {{/hasfiles}}
 
-            <div class="card-footer">
+            <div class="card-footer comments">
                 {{#comments}}
                     <div class="submissioncomment">
                         <div class="userinfo">
@@ -83,11 +83,11 @@
                             <div class="nameanddate">
                                 <p class="username">{{{commentuserfullname}}}</p>
                                 <span class="small">{{{humantimecreated}}}</span>
-                                {{#edited}}<span class="badge badge-secondary">{{#str}}edited, mod_evokeportfolio{{/str}}</span>{{/edited}}
+                                {{#edited}}<span class="badge badge-secondary">{{#str}}edited, mod_portfoliobuilder{{/str}}</span>{{/edited}}
                             </div>
                             {{#isowner}}
                                 <div class="editbutton ml-auto">
-                                    <a class="btn-editcomment btn btn-sm btn-primary" data-id="{{{commentid}}}">{{#str}}editcomment, mod_evokeportfolio{{/str}}</a>
+                                    <a class="btn-editcomment btn btn-sm btn-primary" data-id="{{{commentid}}}">{{#str}}editcomment, mod_portfoliobuilder{{/str}}</a>
                                 </div>
                             {{/isowner}}
                         </div>
@@ -100,10 +100,10 @@
                     <img src="{{{user.picture}}}" class="userimg" alt="{{{user.fullname}}}">
 
                     <div class="input-group">
-                        <p class="post-comment-input" placeholder="{{#str}}writeacomment, mod_evokeportfolio{{/str}}" contenteditable="true" data-tribute="true"></p>
+                        <p class="post-comment-input" placeholder="{{#str}}writeacomment, mod_portfoliobuilder{{/str}}" contenteditable="true" data-tribute="true"></p>
 
                         <button class="btn btn-outline-primary post-comment-btn mt-2" type="button">
-                            <i class="fa fa-commenting-o"></i> {{#str}}comment, mod_evokeportfolio{{/str}}
+                            <i class="fa fa-commenting-o"></i> {{#str}}comment, mod_portfoliobuilder{{/str}}
                         </button>
                     </div>
                 </div>
