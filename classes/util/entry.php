@@ -11,7 +11,21 @@ defined('MOODLE_INTERNAL') || die();
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class entry {
-    public function get_user_course_entries($context, $courseid, $userid = null) {
+    private $portfoliocontexts = [];
+
+    private function get_entry_context($portfolioid) {
+        if (isset($this->portfoliocontexts[$portfolioid])) {
+            return $this->portfoliocontexts[$portfolioid];
+        }
+
+        $coursemodule = get_coursemodule_from_instance('portfoliobuilder', $portfolioid);
+
+        $this->portfoliocontexts[$portfolioid] = \context_module::instance($coursemodule->id);
+
+        return $this->portfoliocontexts[$portfolioid];
+    }
+
+    public function get_user_course_entries($courseid, $userid = null) {
         global $DB, $USER;
 
         if (!$userid) {
@@ -27,6 +41,8 @@ class entry {
         $data = [];
         $i = 1;
         foreach ($records as $record) {
+            $context = $this->get_entry_context($record->portfolioid);
+
             $attachments = $this->get_attachments($record->id, $context);
 
             $images = $this->get_images($attachments);

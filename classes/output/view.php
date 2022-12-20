@@ -66,7 +66,7 @@ class view implements renderable, templatable {
         ];
 
         $entryutil = new entry();
-        $entries = $entryutil->get_user_course_entries($this->context, $this->portfoliobuilder->course);
+        $entries = $entryutil->get_user_course_entries($this->portfoliobuilder->course);
 
         $data['hasentries'] = !empty($entries);
 
