@@ -1,56 +1,71 @@
-{{#hasgroupsmembers}}
-    <div class="mb-2 p-2 border-radius border">
-        <h3 class="h5">{{#str}}myteam, mod_portfoliobuilder{{/str}}</h3>
-        {{#groupsmembers}}
-            <div class="groupmember">
-                <a href="{{config.wwwroot}}/local/evokegame/profile.php?id={{courseid}}&userid={{id}}">
-                    <img src="{{userpicture}}" alt="{{fullname}}"> {{fullname}}
-                </a>
-            </div>
-        {{/groupsmembers}}
-    </div>
+<ul class="nav nav-tabs nav-fill" id="portfolios-tab" role="tablist">
+    {{#hasgroup}}
+        <li class="nav-item">
+            <a
+                id="teamportfolio-tab"
+                class="nav-link active"
+                href="#"
+                data-toggle="tab"
+                data-target="#teamportfolio"
+                data-loaded="false"
+                role="tab"
+                aria-controls="teamportfolio"
+                aria-selected="true"
+                data-type="team">
+                    {{#str}}teamportfolio, mod_portfoliobuilder{{/str}}
+            </a>
+        </li>
+    {{/hasgroup}}
+    <li class="nav-item {{^hasgroup}}active{{/hasgroup}}">
+        <a
+            id="networkportfolio-tab"
+            class="nav-link"
+            href="#"
+            data-toggle="tab"
+            data-target="#networkportfolio"
+            data-loaded="false"
+            role="tab"
+            aria-controls="networkportfolio"
+            {{#hasgroup}}aria-selected="false"{{/hasgroup}}
+            {{^hasgroup}}aria-selected="true"{{/hasgroup}}
+            data-type="network">
+                {{#str}}networkportfolio, mod_portfoliobuilder{{/str}}
+        </a>
+    </li>
+</ul>
 
-    <div class="card-columns columns-4">
-        {{#groupsmembers}}
-            <div class="card border border-radius profile-card-4 text-center">
-                <div class="ribbon">{{layout}}</div>
-                <img src="{{config.wwwroot}}/mod/portfoliobuilder/pix/layouts/{{layout}}/index.png" class="img img-responsive" alt="{{fullname}}">
-                <div class="card-body py-4">
-                    <div class="profile">
-                        <img src="{{userpicture}}" class="img img-responsive userpicture" alt="{{fullname}}">
-                    </div>
-                    <p>{{fullname}}</p>
-                    {{#lastentry}}
-                        <div class="last-entry">
-                            <div>
-                                <span class="badge badge-secondary">Last entry</span>
-                            </div>
-                            <p class="mb-0">{{title}}</p>
-                            <span class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</span>
+<div class="tab-content border p-3 border-radius-bottom" id="entries" data-courseid="{{{courseid}}}">
+    {{#hasgroup}}
+        <div class="tab-pane fade show active" id="teamportfolio" role="tabpanel" aria-labelledby="teamportfolio-tab">
+            <div class="entries mt-2" data-courseid="{{{courseid}}}">
+                <div class="mb-4 p-2 border-radius border">
+                    <h3 class="h5">{{#str}}myteam, mod_portfoliobuilder{{/str}}</h3>
+                    {{#groupsmembers}}
+                        <div class="groupmember">
+                            <a href="{{config.wwwroot}}/local/evokegame/profile.php?id={{courseid}}&userid={{id}}">
+                            <img src="{{userpicture}}" alt="{{fullname}}"> {{fullname}}
+                            </a>
                         </div>
-                    {{/lastentry}}
-                </div>
-                <div class="card-footer">
-                    <a href="{{config.wwwroot}}/mod/portfoliobuilder/portfolio.php?id={{courseid}}&u={{id}}">View portfolio</a>
-                </div>
-                <div class="card-footer">
-                    <div class="d-flex flex-row">
-                        <div class="flex-fill">
-                            <p class="mb-0"><i class="fa fa-list-ol"></i> Entries</p>
-                            <p class="mb-0">{{totalentries}}</p>
-                        </div>
-                        <div class="flex-fill">
-                            <p class="mb-0"><i class="fa fa-thumbs-o-up"></i> Likes</p>
-                            <p class="mb-0">{{totallikes}}</p>
-                        </div>
-                        <div class="flex-fill">
-                            <p class="mb-0"><i class="fa fa-comment-o"></i> Comments</p>
-                            <p class="mb-0">{{totalcomments}}</p>
-                        </div>
-                    </div>
+                    {{/groupsmembers}}
                 </div>
 
+                {{> mod_portfoliobuilder/loading_portfolios }}
+
+                <div class="card-columns columns-4"></div>
             </div>
-        {{/groupsmembers}}
+        </div>
+    {{/hasgroup}}
+    <div class="tab-pane fade {{^hasgroup}}show active{{/hasgroup}}" id="networkportfolio" role="tabpanel" aria-labelledby="networkportfolio-tab">
+        <div class="entries mt-2" data-courseid="{{{courseid}}}">
+            {{> mod_portfoliobuilder/loading_portfolios }}
+
+            <div class="card-columns columns-4"></div>
+        </div>
     </div>
-{{/hasgroupsmembers}}
+</div>
+
+{{#js}}
+    require(['mod_portfoliobuilder/loadportfolios'], function(LoadPortfolios) {
+        LoadPortfolios.init({{{courseid}}}{{^hasgroup}}, 'network'{{/hasgroup}});
+    });
+{{/js}}

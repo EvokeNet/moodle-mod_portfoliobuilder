@@ -19,6 +19,16 @@ $userid = required_param('u', PARAM_INT);
 $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
 $user = $DB->get_record('user', ['id' => $userid], '*', MUST_EXIST);
 
+if ($user->id == $USER->id) {
+    $instances = get_all_instances_in_course('portfoliobuilder', $course);
+
+    if ($instances) {
+        $current = current($instances);
+
+        redirect(new moodle_url('/mod/portfoliobuilder/view.php', ['id' => $current->coursemodule]));
+    }
+}
+
 $context = context_course::instance($course->id);
 
 $PAGE->set_context($context);

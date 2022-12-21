@@ -55,4 +55,12 @@ $capabilities = [
             'manager' => CAP_ALLOW
         ]
     ],
+
+    'mod/portfoliobuilder:submit' => [
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_MODULE,
+        'archetypes' => [
+            'student' => CAP_ALLOW
+        ]
+    ],
 ];

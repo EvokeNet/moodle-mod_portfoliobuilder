@@ -36,6 +36,8 @@ $string['pluginadministration'] = 'Portfolio administration';
 $string['pluginname'] = 'Portfolio';
 $string['portfoliobuilder:addinstance'] = 'Add instance';
 $string['portfoliobuilder:view'] = 'View instance';
+$string['portfoliobuilder:submit'] = 'Submit portfolio entries';
+$string['portfoliobuilder:grade'] = 'Grade portfolio';
 $string['privacy:metadata'] = 'Portfolio does not store any personal data';
 $string['view'] = 'View';
 

@@ -51,12 +51,13 @@ $functions = [
         'type' => 'write',
         'ajax' => true
     ],
-    'mod_portfoliobuilder_loadtimeline' => [
-        'classname' => 'mod_portfoliobuilder\external\timeline',
-        'classpath' => 'mod/portfoliobuilder/classes/external/timeline.php',
+    'mod_portfoliobuilder_loadportfolios' => [
+        'classname' => 'mod_portfoliobuilder\external\portfolio',
+        'classpath' => 'mod/portfoliobuilder/classes/external/portfolio.php',
         'methodname' => 'load',
-        'description' => 'Load a timeline',
+        'description' => 'Load users portfolios',
         'type' => 'read',
         'ajax' => true
     ],
+
 ];

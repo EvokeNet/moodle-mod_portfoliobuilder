@@ -49,7 +49,7 @@ class index implements renderable, templatable {
             $groupsmembers = $groupsutil->get_groups_members($usercoursegroups, true, $this->context);
         }
 
-        if ($groupsmembers) {
+        if (!empty($groupsmembers)) {
             $reactionutil = new reaction();
             $commentutil = new comment();
             $entryutil = new entry();

@@ -1,0 +1,38 @@
+<div class="card border border-radius profile-card-4 text-center shadow-none">
+    <div class="ribbon">{{layout}}</div>
+    <img src="{{globals.config.wwwroot}}/mod/portfoliobuilder/pix/layouts/{{layout}}/index.png" class="img img-responsive" alt="{{fullname}}">
+    <div class="card-body py-4">
+        <div class="profile">
+            <img src="{{userpicture}}" class="img img-responsive userpicture" alt="{{fullname}}">
+        </div>
+        <p>{{fullname}}</p>
+        {{#lastentry}}
+            <div class="last-entry">
+                <div>
+                    <span class="badge badge-secondary">Last entry</span>
+                </div>
+                <p class="mb-0">{{title}}</p>
+                <span class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</span>
+            </div>
+        {{/lastentry}}
+    </div>
+    <div class="card-footer">
+        <a href="{{globals.config.wwwroot}}/mod/portfoliobuilder/portfolio.php?id={{globals.config.courseId}}&u={{id}}">View portfolio</a>
+    </div>
+    <div class="card-footer">
+        <div class="d-flex flex-row">
+            <div class="flex-fill">
+                <p class="mb-0"><i class="fa fa-list-ol"></i> Entries</p>
+                <p class="mb-0">{{totalentries}}</p>
+            </div>
+            <div class="flex-fill">
+                <p class="mb-0"><i class="fa fa-thumbs-o-up"></i> Likes</p>
+                <p class="mb-0">{{totallikes}}</p>
+            </div>
+            <div class="flex-fill">
+                <p class="mb-0"><i class="fa fa-comment-o"></i> Comments</p>
+                <p class="mb-0">{{totalcomments}}</p>
+            </div>
+        </div>
+    </div>
+</div>

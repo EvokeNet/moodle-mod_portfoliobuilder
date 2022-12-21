@@ -28,7 +28,6 @@ $PAGE->set_title(format_string($portfoliobuilder->name));
 $PAGE->set_heading(format_string($course->fullname));
 $PAGE->set_context($context);
 
-
 if (!$action) {
     echo $OUTPUT->header();
 

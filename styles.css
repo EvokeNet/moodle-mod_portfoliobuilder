@@ -544,6 +544,7 @@
 
 .path-mod-portfoliobuilder .columns-4 {
     column-count: 4;
+    column-gap: 1rem;
 }
 
 .path-mod-portfoliobuilder .profile-card-4 {
@@ -633,4 +634,9 @@
     line-height: 1;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+}
+
+.path-mod-portfoliobuilder .border-radius-bottom {
+    border-bottom-left-radius: .5rem;
+    border-bottom-right-radius: .5rem;
 }
