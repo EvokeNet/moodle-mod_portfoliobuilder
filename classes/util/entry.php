@@ -210,7 +210,7 @@ class entry {
             return false;
         }
 
-        $record->timecreated = userdate($record->timecreated);
+        $record->humantimecreated = userdate($record->timecreated);
 
         return $record;
     }

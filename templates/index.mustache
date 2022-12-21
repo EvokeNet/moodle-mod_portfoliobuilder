@@ -38,17 +38,6 @@
     {{#hasgroup}}
         <div class="tab-pane fade show active" id="teamportfolio" role="tabpanel" aria-labelledby="teamportfolio-tab">
             <div class="entries mt-2" data-courseid="{{{courseid}}}">
-                <div class="mb-4 p-2 border-radius border">
-                    <h3 class="h5">{{#str}}myteam, mod_portfoliobuilder{{/str}}</h3>
-                    {{#groupsmembers}}
-                        <div class="groupmember">
-                            <a href="{{config.wwwroot}}/local/evokegame/profile.php?id={{courseid}}&userid={{id}}">
-                            <img src="{{userpicture}}" alt="{{fullname}}"> {{fullname}}
-                            </a>
-                        </div>
-                    {{/groupsmembers}}
-                </div>
-
                 {{> mod_portfoliobuilder/loading_portfolios }}
 
                 <div class="card-columns columns-4"></div>

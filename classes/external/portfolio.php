@@ -48,18 +48,19 @@ class portfolio extends external_api {
         // We always must pass webservice params through validate_parameters.
         self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type]);
 
-        $portfolioutil = new \mod_portfoliobuilder\util\portfolio();
-
         $context = \context_course::instance($courseid);
+
         $PAGE->set_context($context);
+
+        $portfolioutil = new \mod_portfoliobuilder\util\portfolio($context, $courseid);
 
         $portfolios = [];
         if ($type == 'team') {
-            $portfolios = $portfolioutil->get_user_course_groups_portfolios($context, $courseid);
+            $portfolios = $portfolioutil->get_user_course_groups_portfolios();
         }
 
         if ($type == 'network') {
-            $portfolios = $portfolioutil->get_course_portfolios($context, $courseid);
+            $portfolios = $portfolioutil->get_course_portfolios();
         }
 
         return [

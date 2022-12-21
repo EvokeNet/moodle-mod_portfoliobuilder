@@ -1,5 +1,6 @@
 <div class="card border border-radius profile-card-4 text-center shadow-none">
     <div class="ribbon">{{layout}}</div>
+    {{#hasnews}}<div class="ribbon ribbon-2 bg-pulse-gold"><i class="fa fa-star"></i> NEWS</div>{{/hasnews}}
     <img src="{{globals.config.wwwroot}}/mod/portfoliobuilder/pix/layouts/{{layout}}/index.png" class="img img-responsive" alt="{{fullname}}">
     <div class="card-body py-4">
         <div class="profile">
@@ -12,7 +13,7 @@
                     <span class="badge badge-secondary">Last entry</span>
                 </div>
                 <p class="mb-0">{{title}}</p>
-                <span class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</span>
+                <span class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{humantimecreated}}</span>
             </div>
         {{/lastentry}}
     </div>

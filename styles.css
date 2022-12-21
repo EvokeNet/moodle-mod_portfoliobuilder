@@ -522,6 +522,12 @@
     }
 }
 
+.path-mod-portfoliobuilder .nav-tabs .nav-link.active {
+    color: #fff;
+    background-color: #0f47ad;
+    border-color: #0f47ad;
+}
+
 .path-mod-portfoliobuilder .groupmember {
     display: inline-block;
     background-color: #f1f0f0;
@@ -634,6 +640,28 @@
     line-height: 1;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+}
+
+.path-mod-portfoliobuilder .ribbon-2 {
+    top: 50px;
+    color: #fff;
+    background-color: #fab900;
+}
+
+.path-mod-portfoliobuilder .bg-pulse-gold {
+    animation: portfoliobuilder-bg-pulse-gold 2s infinite linear;
+}
+
+@keyframes portfoliobuilder-bg-pulse-gold {
+    0% {
+        background-color: #fab900;
+    }
+    50% {
+        background-color: #ffda75;
+    }
+    100% {
+        background-color: #fab900;
+    }
 }
 
 .path-mod-portfoliobuilder .border-radius-bottom {
