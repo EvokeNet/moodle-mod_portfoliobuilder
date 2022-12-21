@@ -31,62 +31,29 @@ $id = required_param('id', PARAM_INT);
 $course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
 require_course_login($course);
 
-$coursecontext = context_course::instance($course->id);
+$context = context_course::instance($course->id);
 
-$event = \mod_portfoliobuilder\event\course_module_instance_list_viewed::create(array(
-    'context' => $modulecontext
-));
+$event = \mod_portfoliobuilder\event\course_module_instance_list_viewed::create([
+    'context' => $context
+]);
 $event->add_record_snapshot('course', $course);
 $event->trigger();
 
-$PAGE->set_url('/mod/portfoliobuilder/index.php', array('id' => $id));
-$PAGE->set_title(format_string($course->fullname));
-$PAGE->set_heading(format_string($course->fullname));
-$PAGE->set_context($coursecontext);
+$pagetitle = format_string($course->fullname);
+
+$PAGE->set_url('/mod/portfoliobuilder/index.php', ['id' => $id]);
+$PAGE->set_title($pagetitle);
+$PAGE->set_heading($pagetitle);
+$PAGE->set_context($context);
+
+$PAGE->navbar->add($pagetitle);
 
 echo $OUTPUT->header();
 
-$modulenameplural = get_string('modulenameplural', 'mod_portfoliobuilder');
-echo $OUTPUT->heading($modulenameplural);
+$renderer = $PAGE->get_renderer('mod_portfoliobuilder');
 
-$portfoliobuilders = get_all_instances_in_course('portfoliobuilder', $course);
+$contentrenderable = new \mod_portfoliobuilder\output\index($context, $course);
 
-if (empty($portfoliobuilders)) {
-    notice(get_string('no$portfoliobuilderinstances', 'mod_portfoliobuilder'), new moodle_url('/course/view.php', array('id' => $course->id)));
-}
+echo $renderer->render($contentrenderable);
 
-$table = new html_table();
-$table->attributes['class'] = 'generaltable mod_index';
-
-if ($course->format == 'weeks') {
-    $table->head  = array(get_string('week'), get_string('name'));
-    $table->align = array('center', 'left');
-} else if ($course->format == 'topics') {
-    $table->head  = array(get_string('topic'), get_string('name'));
-    $table->align = array('center', 'left', 'left', 'left');
-} else {
-    $table->head  = array(get_string('name'));
-    $table->align = array('left', 'left', 'left');
-}
-
-foreach ($portfoliobuilders as $portfoliobuilder) {
-    if (!$portfoliobuilder->visible) {
-        $link = html_writer::link(
-            new moodle_url('/mod/portfoliobuilder/view.php', array('id' => $portfoliobuilder->coursemodule)),
-            format_string($portfoliobuilder->name, true),
-            array('class' => 'dimmed'));
-    } else {
-        $link = html_writer::link(
-            new moodle_url('/mod/portfoliobuilder/view.php', array('id' => $portfoliobuilder->coursemodule)),
-            format_string($portfoliobuilder->name, true));
-    }
-
-    if ($course->format == 'weeks' or $course->format == 'topics') {
-        $table->data[] = array($portfoliobuilder->section, $link);
-    } else {
-        $table->data[] = array($link);
-    }
-}
-
-echo html_writer::table($table);
 echo $OUTPUT->footer();

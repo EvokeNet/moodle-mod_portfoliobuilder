@@ -68,13 +68,24 @@ class reaction {
         $event->trigger();
     }
 
-    public function get_total_reactions($entryid, $reactionid) {
+    public function get_total_reactions($entryid, $reactionid = 1) {
         global $DB;
 
         return $DB->count_records('portfoliobuilder_reactions', [
             'entryid' => $entryid,
             'reaction' => $reactionid
         ]);
+    }
+
+    public function get_total_course_reactions($courseid, $userid, $reactionid = 1) {
+        global $DB;
+
+        $sql = 'SELECT count(*)
+                FROM {portfoliobuilder_reactions} r
+                INNER JOIN {portfoliobuilder_entries} e ON e.id = r.entryid
+                WHERE e.courseid = :courseid AND e.userid = :userid AND r.reaction = :reactionid';
+
+        return $DB->count_records_sql($sql, ['courseid' => $courseid, 'userid' => $userid, 'reactionid' => $reactionid]);
     }
 
     public function user_reacted($entryid, $reactionid) {

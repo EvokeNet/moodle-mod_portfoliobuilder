@@ -61,3 +61,9 @@ $string['writeacomment'] = '+ Share your thoughts...';
 $string['editcomment'] = 'Edit comment';
 $string['editcomment_success'] = 'Comment successfully edited.';
 $string['edited'] = 'Edited';
+
+$string['myteam'] = 'My team';
+$string['myportfolios'] = 'My Portfolios';
+$string['myportfolio'] = 'My Portfolio';
+$string['teamportfolio'] = 'Team Portfolio';
+$string['networkportfolio'] = 'Network Portfolio';

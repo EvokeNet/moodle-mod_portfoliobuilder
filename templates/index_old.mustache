@@ -1,0 +1,93 @@
+{{#hasgroupsmembers}}
+    <div class="mb-2 p-2 border-radius border">
+        <h3 class="h5">{{#str}}myteam, mod_portfoliobuilder{{/str}}</h3>
+        {{#groupsmembers}}
+            <div class="groupmember">
+                <a href="{{config.wwwroot}}/local/evokegame/profile.php?id={{courseid}}&userid={{id}}">
+                    <img src="{{userpicture}}" alt="{{fullname}}"> {{fullname}}
+                </a>
+            </div>
+        {{/groupsmembers}}
+    </div>
+{{/hasgroupsmembers}}
+
+<ul class="nav nav-pills" id="portfolios-tab" role="tablist">
+    <li class="nav-item">
+        <button class="nav-link active"
+                id="myportfolio-tab"
+                data-toggle="tab"
+                data-target="#myportfolio"
+                type="button"
+                role="tab"
+                aria-controls="myportfolio"
+                aria-selected="true"
+                data-timeline_type="my"
+                data-timeline_offset="0"
+                data-timeline_portfolioid="{{{portfolioid}}}"
+                data-timeline_hasmoreitems="true">
+                {{#str}}myportfolio, mod_portfoliobuilder{{/str}}
+        </button>
+    </li>
+    {{#hasgroup}}
+        <li class="nav-item">
+            <button class="nav-link"
+                    id="teamportfolio-tab"
+                    data-toggle="tab"
+                    data-target="#teamportfolio"
+                    type="button"
+                    role="tab"
+                    aria-controls="teamportfolio"
+                    aria-selected="false"
+                    data-timeline_type="team"
+                    data-timeline_offset="0"
+                    data-timeline_portfolioid="{{{portfolioid}}}"
+                    data-timeline_hasmoreitems="true">
+                    {{#str}}teamportfolio, mod_portfoliobuilder{{/str}}
+            </button>
+        </li>
+    {{/hasgroup}}
+    <li class="nav-item">
+        <button class="nav-link"
+                id="networkportfolio-tab"
+                data-toggle="tab"
+                data-target="#networkportfolio"
+                type="button"
+                role="tab"
+                aria-controls="networkportfolio"
+                aria-selected="false"
+                data-timeline_type="network"
+                data-timeline_offset="0"
+                data-timeline_portfolioid="{{{portfolioid}}}"
+                data-timeline_hasmoreitems="true">
+                {{#str}}networkportfolio, mod_portfoliobuilder{{/str}}
+        </button>
+    </li>
+</ul>
+
+<div class="tab-content" id="entries" data-courseid="{{{courseid}}}">
+    <div class="tab-pane fade show active" id="myportfolio" role="tabpanel" aria-labelledby="myportfolio-tab">
+        <div class="entries mt-2" data-courseid="{{{courseid}}}">
+            {{> mod_portfoliobuilder/loading_timeline_placeholder }}
+        </div>
+    </div>
+    {{#hasgroup}}
+        <div class="tab-pane fade {{#groupactivity}}show active{{/groupactivity}}" id="teamportfolio" role="tabpanel" aria-labelledby="teamportfolio-tab">
+            <div class="entries mt-2" data-courseid="{{{courseid}}}">
+                {{> mod_portfoliobuilder/loading_timeline_placeholder }}
+            </div>
+        </div>
+    {{/hasgroup}}
+    <div class="tab-pane fade" id="networkportfolio" role="tabpanel" aria-labelledby="networkportfolio-tab">
+        <div class="entries mt-2" data-courseid="{{{courseid}}}">
+            {{> mod_portfoliobuilder/loading_timeline_placeholder }}
+        </div>
+    </div>
+</div>
+
+{{#js}}
+    require([
+        'mod_portfoliobuilder/infinitescroll'
+    ], function(InfiniteScroll) {
+        InfiniteScroll.init({{{courseid}}});
+    });
+{{/js}}

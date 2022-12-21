@@ -521,3 +521,116 @@
         width: 100%;
     }
 }
+
+.path-mod-portfoliobuilder .groupmember {
+    display: inline-block;
+    background-color: #f1f0f0;
+    padding: .5rem 1rem .5rem .5rem;
+    margin: .25rem;
+    color: #000;
+    border-radius: 40px;
+}
+
+.path-mod-portfoliobuilder .groupmember a {
+    color: #000;
+    text-decoration: none !important;
+}
+
+.path-mod-portfoliobuilder .groupmember img {
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+}
+
+.path-mod-portfoliobuilder .columns-4 {
+    column-count: 4;
+}
+
+.path-mod-portfoliobuilder .profile-card-4 {
+    overflow: hidden;
+    position: relative;
+}
+
+.profile-card-4 img {
+    transition: all 0.25s linear;
+}
+
+.profile-card-4 .card-body {
+    position: relative;
+    padding: 15px;
+    background-color: #FFF;
+}
+
+.profile-card-4 .card-body::before {
+    content: "";
+    position: absolute;
+    height: 20px;
+    top: -10px;
+    left: 0;
+    right: 0;
+    background-color: #FFF;
+    z-index: 0;
+    transform: skewY(3deg);
+}
+
+.profile-card-4 .profile {
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -60px;
+    color: #FFF;
+    font-size: 17px;
+}
+
+.profile-card-4 .profile .name {
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 1.5px;
+}
+
+.profile-card-4 .profile .userpicture {
+    width: 80px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+}
+
+.profile-card-4 .profile-overview {
+    padding: 15px 0;
+}
+
+.profile-card-4 .profile-overview p {
+    font-size: 10px;
+    font-weight: 600;
+    color: #777;
+}
+
+.profile-card-4 .profile-overview h4 {
+    color: #273751;
+    font-weight: bold;
+}
+
+.profile-card-4:hover img:not(.userpicture) {
+    transform: rotate(5deg) scale(1.1, 1.1);
+    filter: brightness(110%);
+}
+
+.profile-card-4 .last-entry {
+    text-align: left;
+}
+
+.profile-card-4 .last-entry span.text-muted {
+    font-size: 75%;
+}
+
+.path-mod-portfoliobuilder .ribbon {
+    position: absolute;
+    top: 10px;
+    color: #1d2125;
+    background-color: #fff;
+    padding: .5em 0.75em;
+    font-weight: 700;
+    line-height: 1;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}

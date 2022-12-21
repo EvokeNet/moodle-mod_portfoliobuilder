@@ -185,4 +185,33 @@ class entry {
             'totalcomments' => count($commentsdata)
         ];
     }
+
+    public function get_total_course_entries($courseid, $userid) {
+        global $DB;
+
+        $sql = 'SELECT count(*)
+                FROM {portfoliobuilder_entries}
+                WHERE courseid = :courseid AND userid = :userid';
+
+        return $DB->count_records_sql($sql, ['userid' => $userid, 'courseid' => $courseid]);
+    }
+
+    public function get_last_course_entry($courseid, $userid) {
+        global $DB;
+
+        $sql = 'SELECT id, title, timecreated
+                FROM {portfoliobuilder_entries}
+                WHERE courseid = :courseid AND userid = :userid
+                ORDER BY id DESC LIMIT 1';
+
+        $record = $DB->get_record_sql($sql, ['courseid' => $courseid, 'userid' => $userid]);
+
+        if (!$record) {
+            return false;
+        }
+
+        $record->timecreated = userdate($record->timecreated);
+
+        return $record;
+    }
 }
