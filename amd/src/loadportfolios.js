@@ -8,14 +8,14 @@
  */
 /* eslint-disable */
 define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
-    var LoadPortfolios = function(courseid) {
+    var LoadPortfolios = function(courseid, type) {
         this.courseid = courseid;
+
+        this.type = type;
 
         this.targetdiv = '#' + this.type + 'portfolio';
 
         this.controlbutton = document.getElementById(this.type + 'portfolio-tab');
-
-        this.type = this.controlbutton.dataset.type;
 
         this.loadItems();
 
@@ -26,7 +26,6 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
 
             this.targetdiv = event.target.dataset.target;
 
-            console.log(event.target.dataset.loaded);
             if (event.target.dataset.loaded === 'false') {
                 this.loadItems();
             }
@@ -72,8 +71,8 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
     LoadPortfolios.prototype.controlbutton = null;
 
     return {
-        'init': function(courseid) {
-            return new LoadPortfolios(courseid);
+        'init': function(courseid, type = 'team') {
+            return new LoadPortfolios(courseid, type);
         }
     };
 });
