@@ -264,7 +264,7 @@ function portfoliobuilder_pluginfile($course, $cm, $context, $filearea, $args, $
         send_file_not_found();
     }
 
-    require_login($course, false, $cm);
+//    require_login($course, false, $cm);
 
     $itemid = (int)array_shift($args);
     if ($itemid == 0) {

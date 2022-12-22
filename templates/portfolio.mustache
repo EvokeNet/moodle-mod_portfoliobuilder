@@ -1,9 +1,11 @@
-<div class="mb-3">
-    <a class="btn btn-primary"
-       href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
-        <i class="fa fa-angle-left"></i> Back to portfolios
-    </a>
-</div>
+{{#isloggedin}}
+    <div class="mb-3">
+        <a class="btn btn-primary"
+           href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
+            <i class="fa fa-angle-left"></i> Back to portfolios
+        </a>
+    </div>
+{{/isloggedin}}
 
 <div class="portfolio-header mx-0 d-flex align-items-center p-2 rounded border">
     <div class="user-image">
@@ -28,48 +30,31 @@
 {{/hasentries}}
 
 {{#js}}
-    require([
-        'jquery',
-        'mod_portfoliobuilder/sweetalert',
-        'mod_portfoliobuilder/togglelike',
-        'mod_portfoliobuilder/tribute_init',
-        'mod_portfoliobuilder/comment/add',
-        'mod_portfoliobuilder/comment/edit'
-    ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
-        TributeInit.init();
-
-        AddComment.init();
-
-        EditComment.init({{{contextid}}});
-
-        ToggleLike.init();
-
+    require(['jquery'], function($) {
         $('.carousel').carousel({
             interval: 5000,
             pause: 'hover'
         });
-
-        $("#share-url").click(function(event) {
-            event.preventDefault();
-
-            navigator.clipboard.writeText(event.currentTarget.href);
-
-            var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 8000,
-                timerProgressBar: true,
-                onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: '{{#str}}linkccopiedtoclipboard, mod_portfoliobuilder{{/str}}'
-            });
-        });
     });
 {{/js}}
+
+{{#isloggedin}}
+    {{#js}}
+        require([
+            'jquery',
+            'mod_portfoliobuilder/sweetalert',
+            'mod_portfoliobuilder/togglelike',
+            'mod_portfoliobuilder/tribute_init',
+            'mod_portfoliobuilder/comment/add',
+            'mod_portfoliobuilder/comment/edit'
+        ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
+            TributeInit.init();
+
+            AddComment.init();
+
+            EditComment.init({{{contextid}}});
+
+            ToggleLike.init();
+        });
+    {{/js}}
+{{/isloggedin}}

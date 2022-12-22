@@ -39,6 +39,8 @@ class view implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $USER;
 
+        $isloggedin = isloggedin();
+
         $userutil = new user();
         $userdata = [
             'id' => $USER->id,
@@ -63,6 +65,7 @@ class view implements renderable, templatable {
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
             'isevaluated' => $this->portfoliobuilder->grade != 0,
             'encodedpublicurl' => htmlentities($publicurl),
+            'isloggedin' => $isloggedin
         ];
 
         $entryutil = new entry();
@@ -71,7 +74,7 @@ class view implements renderable, templatable {
         $data['hasentries'] = !empty($entries);
 
         $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/entries",
-            ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->portfoliobuilder->course]);
+            ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->portfoliobuilder->course, 'isloggedin' => $isloggedin]);
 
         return $data;
     }

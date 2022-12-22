@@ -36,25 +36,27 @@
             <p class="mb-0">{{{.}}}</p>
         {{/content}}
 
-        <div class="reactions mb-2">
-            <div class="actions">
-                <div class="button likebutton {{#userreacted}}hasreacted{{/userreacted}}">
-                    {{#userreacted}}
-                        <i class="fa "></i>
-                    {{/userreacted}}
-                    {{^userreacted}}
-                        <i class="fa "></i>
-                    {{/userreacted}}
+        {{#isloggedin}}
+            <div class="reactions mb-2">
+                <div class="actions">
+                    <div class="button likebutton {{#userreacted}}hasreacted{{/userreacted}}">
+                        {{#userreacted}}
+                            <i class="fa "></i>
+                        {{/userreacted}}
+                        {{^userreacted}}
+                            <i class="fa "></i>
+                        {{/userreacted}}
 
-                    <span class="totalreactions">{{{totalreactions}}}</span>
-                </div>
-                <div class="button commentbutton">
-                    <i class="fa fa-comment-o"></i>
+                        <span class="totalreactions">{{{totalreactions}}}</span>
+                    </div>
+                    <div class="button commentbutton">
+                        <i class="fa fa-comment-o"></i>
 
-                    <span class="totalcomments">{{{totalcomments}}}</span>
+                        <span class="totalcomments">{{{totalcomments}}}</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{/isloggedin}}
 
         {{#hasfiles}}
             <div class="card card-body shadow-none">
@@ -73,40 +75,42 @@
             </div>
         {{/hasfiles}}
 
-        <div class="card card-body comments">
-            {{#comments}}
-                <div class="submissioncomment">
-                    <div class="userinfo">
-                        <div class="userimg">
-                            <img src="{{{commentuserpicture}}}" alt="{{{commentuserfullname}}}">
-                        </div>
-                        <div class="nameanddate">
-                            <p class="username">{{{commentuserfullname}}}</p>
-                            <span class="small">{{{humantimecreated}}}</span>
-                            {{#edited}}<span class="badge badge-secondary">{{#str}}edited, mod_portfoliobuilder{{/str}}</span>{{/edited}}
-                        </div>
-                        {{#isowner}}
-                            <div class="editbutton ml-auto">
-                                <a class="btn-editcomment btn btn-sm btn-primary" data-id="{{{commentid}}}">{{#str}}editcomment, mod_portfoliobuilder{{/str}}</a>
+        {{#isloggedin}}
+            <div class="card card-body comments">
+                {{#comments}}
+                    <div class="submissioncomment">
+                        <div class="userinfo">
+                            <div class="userimg">
+                                <img src="{{{commentuserpicture}}}" alt="{{{commentuserfullname}}}">
                             </div>
-                        {{/isowner}}
+                            <div class="nameanddate">
+                                <p class="username">{{{commentuserfullname}}}</p>
+                                <span class="small">{{{humantimecreated}}}</span>
+                                {{#edited}}<span class="badge badge-secondary">{{#str}}edited, mod_portfoliobuilder{{/str}}</span>{{/edited}}
+                            </div>
+                            {{#isowner}}
+                                <div class="editbutton ml-auto">
+                                    <a class="btn-editcomment btn btn-sm btn-primary" data-id="{{{commentid}}}">{{#str}}editcomment, mod_portfoliobuilder{{/str}}</a>
+                                </div>
+                            {{/isowner}}
+                        </div>
+
+                        <p class="text">{{{text}}}</p>
                     </div>
+                {{/comments}}
 
-                    <p class="text">{{{text}}}</p>
-                </div>
-            {{/comments}}
+                <div class="add-comment">
+                    <img src="{{{user.picture}}}" class="userimg" alt="{{{user.fullname}}}">
 
-            <div class="add-comment">
-                <img src="{{{user.picture}}}" class="userimg" alt="{{{user.fullname}}}">
+                    <div class="input-group">
+                        <p class="post-comment-input" placeholder="{{#str}}writeacomment, mod_portfoliobuilder{{/str}}" contenteditable="true" data-tribute="true"></p>
 
-                <div class="input-group">
-                    <p class="post-comment-input" placeholder="{{#str}}writeacomment, mod_portfoliobuilder{{/str}}" contenteditable="true" data-tribute="true"></p>
-
-                    <button class="btn btn-outline-primary post-comment-btn mt-2" type="button">
-                        <i class="fa fa-commenting-o"></i> {{#str}}comment, mod_portfoliobuilder{{/str}}
-                    </button>
+                        <button class="btn btn-outline-primary post-comment-btn mt-2" type="button">
+                            <i class="fa fa-commenting-o"></i> {{#str}}comment, mod_portfoliobuilder{{/str}}
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        {{/isloggedin}}
     </div>
 </div>

@@ -28,11 +28,14 @@ class portfolio implements renderable, templatable {
     public function export_for_template(renderer_base $output) {
         global $USER;
 
+        $isloggedin = isloggedin();
+
         $userutil = new user();
         $data = [
             'userfullname' => fullname($this->user),
             'userimage' => $userutil->get_user_image_or_avatar($this->user),
-            'courseid' => $this->course->id
+            'courseid' => $this->course->id,
+            'isloggedin' => $isloggedin
         ];
 
         $userutil = new user();
@@ -51,7 +54,7 @@ class portfolio implements renderable, templatable {
         $layout = $layoututil->get_user_layout($this->course->id, $this->user->id);
 
         $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/entries",
-            ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->course->id]);
+            ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->course->id, 'isloggedin' => $isloggedin]);
 
         return $data;
     }
