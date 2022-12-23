@@ -312,25 +312,30 @@ function mod_portfoliobuilder_output_fragment_entry_form($args) {
     return $mform->render();
 }
 
-function mod_portfoliobuilder_before_standard_html_head() {
-    global $PAGE, $USER;
+function mod_portfoliobuilder_output_fragment_grade_form($args) {
+    $args = (object) $args;
+    $o = '';
 
-    if ($PAGE->pagetype == 'mod-portfoliobuilder-portfolio') {
-        $id = required_param('id', PARAM_INT);
-        $u = required_param('u', PARAM_INT);
-
-        $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $id, 'u' => $u]);
-
-        $ogimage = new \moodle_url('/mod/portfoliobuilder/pix/og_image.png');
-
-        $header = '
-            <meta property="og:url"           content="'.$publicurl->out(false).'" />
-            <meta property="og:type"          content="website" />
-            <meta property="og:title"         content="My portfolio on evoke" />
-            <meta property="og:description"   content="This is my portfolio on evoke site." />
-            <meta property="og:image"         content="'.$ogimage->out().'" />
-        ';
-
-        return $header;
+    $formdata = [];
+    if (!empty($args->jsonformdata)) {
+        $serialiseddata = json_decode($args->jsonformdata);
+        $formdata = (array)$serialiseddata;
     }
+
+    $mform = new \mod_portfoliobuilder\form\grade($formdata, [
+        'userid' => $serialiseddata->userid,
+        'courseid' => $serialiseddata->courseid
+    ]);
+
+    if (!empty($args->jsonformdata)) {
+        // If we were passed non-empty form data we want the mform to call validation functions and show errors.
+        $mform->is_validated();
+    }
+
+    ob_start();
+    $mform->display();
+    $o .= ob_get_contents();
+    ob_end_clean();
+
+    return $o;
 }

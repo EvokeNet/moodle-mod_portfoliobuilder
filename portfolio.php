@@ -42,7 +42,7 @@ echo $OUTPUT->header();
 
 $renderer = $PAGE->get_renderer('mod_portfoliobuilder');
 
-$contentrenderable = new \mod_portfoliobuilder\output\portfolio($course, $user);
+$contentrenderable = new \mod_portfoliobuilder\output\portfolio($context, $course, $user);
 
 echo $renderer->render($contentrenderable);
 

@@ -17,10 +17,12 @@ use mod_portfoliobuilder\util\entry;
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class portfolio implements renderable, templatable {
+    protected $context;
     protected $course;
     protected $user;
 
-    public function __construct($course, $user) {
+    public function __construct($context, $course, $user) {
+        $this->context = $context;
         $this->course = $course;
         $this->user = $user;
     }
@@ -32,10 +34,13 @@ class portfolio implements renderable, templatable {
 
         $userutil = new user();
         $data = [
+            'userid' => $this->user->id,
             'userfullname' => fullname($this->user),
             'userimage' => $userutil->get_user_image_or_avatar($this->user),
             'courseid' => $this->course->id,
-            'isloggedin' => $isloggedin
+            'isloggedin' => $isloggedin,
+            'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
+            'contextid' => $this->context->id
         ];
 
         $userutil = new user();
@@ -51,7 +56,7 @@ class portfolio implements renderable, templatable {
         $data['hasentries'] = !empty($entries);
 
         $layoututil = new \mod_portfoliobuilder\util\layout();
-        $layout = $layoututil->get_user_layout($this->course->id, $this->user->id);
+        $layout = $layoututil->get_user_layout($this->course->id, $this->user->id, 'timeline');
 
         $data['entries'] = $output->render_from_template("mod_portfoliobuilder/layouts/{$layout}/entries",
             ['entries' => $entries, 'user' => $userdata, 'courseid' => $this->course->id, 'isloggedin' => $isloggedin]);

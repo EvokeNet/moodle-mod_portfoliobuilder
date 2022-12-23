@@ -59,5 +59,12 @@ $functions = [
         'type' => 'read',
         'ajax' => true
     ],
-
+    'mod_portfoliobuilder_gradeportfolio' => [
+        'classname' => 'mod_portfoliobuilder\external\grade',
+        'classpath' => 'mod/portfoliobuilder/classes/external/grade.php',
+        'methodname' => 'grade',
+        'description' => 'Grade a user portfolio',
+        'type' => 'write',
+        'ajax' => true
+    ],
 ];

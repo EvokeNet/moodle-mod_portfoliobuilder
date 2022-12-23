@@ -20,8 +20,6 @@ class portfolio {
     }
 
     public function get_user_course_groups_portfolios() {
-        global $USER;
-
         $groupsutil = new group();
 
         $usercoursegroups = $groupsutil->get_user_groups($this->courseid);
@@ -83,7 +81,7 @@ class portfolio {
             $user->totallikes = $reactionutil->get_total_course_reactions($this->courseid, $user->id);
             $user->totalcomments = $commentutil->get_total_course_comments($this->courseid, $user->id);
             $user->totalentries = $entryutil->get_total_course_entries($this->courseid, $user->id);
-            $user->layout = $layoututil->get_user_layout($this->courseid, $user->id);
+            $user->layout = $layoututil->get_user_layout($this->courseid, $user->id, 'timeline');
             $user->lastentry = $entryutil->get_last_course_entry($this->courseid, $user->id);
 
             $user->userpicture = $userutil->get_user_image_or_avatar($user);

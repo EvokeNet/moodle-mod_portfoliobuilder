@@ -69,3 +69,5 @@ $string['myportfolios'] = 'My Portfolios';
 $string['myportfolio'] = 'My Portfolio';
 $string['teamportfolio'] = 'Team Portfolio';
 $string['networkportfolio'] = 'Network Portfolio';
+
+$string['grade'] = 'Grade';

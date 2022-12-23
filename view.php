@@ -28,14 +28,18 @@ if ($id) {
     $portfoliobuilder = $DB->get_record('portfoliobuilder', ['id' => $cm->instance], '*', MUST_EXIST);
 }
 
+$context = context_module::instance($cm->id);
+
+if (has_capability('mod/portfoliobuilder:grade', $context)) {
+    redirect(new moodle_url('/mod/portfoliobuilder/index.php', ['id' => $course->id]));
+}
+
 $layoututil = new \mod_portfoliobuilder\util\layout();
 if (!$layoututil->user_chose_layout($course->id)) {
     redirect(new moodle_url('/mod/portfoliobuilder/layout.php', ['id' => $id]));
 }
 
 require_course_login($course, true, $cm);
-
-$context = context_module::instance($cm->id);
 
 $event = \mod_portfoliobuilder\event\course_module_viewed::create(array(
     'context' => $context,

@@ -1,9 +1,35 @@
 {{#isloggedin}}
-    <div class="mb-3">
-        <a class="btn btn-primary"
-           href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
+    <div class="mb-3 d-flex">
+        <div class="backbutton">
+            <a class="btn btn-primary"
+               href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
             <i class="fa fa-angle-left"></i> Back to portfolios
-        </a>
+            </a>
+        </div>
+
+        <div class="usergradeinfo ml-auto">
+            {{#isowner}}
+                {{#isevaluated}}
+                    {{#grade}}
+                        <span class="badge badge-success">{{#str}}assessment, mod_evokeportfolio{{/str}}: {{{grade}}}</span>
+                    {{/grade}}
+                    {{^grade}}
+                        <span class="badge badge-primary">{{#str}}notyetassessed, mod_evokeportfolio{{/str}}</span>
+                    {{/grade}}
+                {{/isevaluated}}
+            {{/isowner}}
+            {{#cangrade}}
+                {{#grade}}
+                    <span class="badge badge-success">{{#str}}assessment, mod_evokeportfolio{{/str}}: {{{grade}}}</span>
+                {{/grade}}
+                {{^grade}}
+                    <button class="btn btn-danger grade-portfolio" data-courseid="{{courseid}}" data-userid="{{userid}}">
+                        <i class="fa fa-pencil-square-o"></i>
+                        {{#str}}page_viewsubmission_addgrade, mod_evokeportfolio{{/str}}
+                    </button>
+                {{/grade}}
+            {{/cangrade}}
+        </div>
     </div>
 {{/isloggedin}}
 
@@ -46,13 +72,16 @@
             'mod_portfoliobuilder/togglelike',
             'mod_portfoliobuilder/tribute_init',
             'mod_portfoliobuilder/comment/add',
-            'mod_portfoliobuilder/comment/edit'
-        ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
+            'mod_portfoliobuilder/comment/edit',
+            'mod_portfoliobuilder/addgrade'
+        ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment, AddGrade) {
             TributeInit.init();
 
             AddComment.init();
 
             EditComment.init({{{contextid}}});
+
+            AddGrade.init({{{contextid}}});
 
             ToggleLike.init();
         });
