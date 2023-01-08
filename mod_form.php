@@ -96,11 +96,11 @@ class mod_portfoliobuilder_mod_form extends moodleform_mod {
             return;
         }
 
-        if ($this->gradedorrated && $this->gradedorrated !== 'graded') {
+        if (isset($this->gradedorrated) && $this->gradedorrated !== 'graded') {
             return;
         }
 
-        if ($this->_features->rating) {
+        if (isset($this->_features->rating) && $this->_features->rating === true) {
             return;
         }
 

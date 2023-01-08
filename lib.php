@@ -93,12 +93,26 @@ function portfoliobuilder_update_instance($moduleinstance, $mform = null) {
 function portfoliobuilder_delete_instance($id) {
     global $DB;
 
-    $exists = $DB->get_record('portfoliobuilder', array('id' => $id));
-    if (!$exists) {
+    $portfolio = $DB->get_record('portfoliobuilder', ['id' => $id]);
+    if (!$portfolio) {
         return false;
     }
 
-    $DB->delete_records('portfoliobuilder', array('id' => $id));
+    $entries = $DB->get_records('portfoliobuilder_entries', ['portfolioid' => $id]);
+
+    foreach ($entries as $entry) {
+        $DB->delete_records('portfoliobuilder_comments', ['entryid' => $entry->id]);
+
+        $DB->delete_records('portfoliobuilder_reactions', ['entryid' => $entry->id]);
+    }
+
+    $DB->delete_records('portfoliobuilder_entries', ['portfolioid' => $id]);
+
+    $DB->delete_records('portfoliobuilder_grades', ['portfolioid' => $id]);
+
+    $DB->delete_records('portfoliobuilder', ['id' => $id]);
+
+    portfoliobuilder_grade_item_delete($portfolio);
 
     return true;
 }
@@ -116,11 +130,11 @@ function portfoliobuilder_delete_instance($id) {
 function portfoliobuilder_scale_used($moduleinstanceid, $scaleid) {
     global $DB;
 
-    if ($scaleid && $DB->record_exists('portfoliobuilder', array('id' => $moduleinstanceid, 'grade' => -$scaleid))) {
+    if ($scaleid && $DB->record_exists('portfoliobuilder', ['id' => $moduleinstanceid, 'grade' => -$scaleid])) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 /**
@@ -136,9 +150,9 @@ function portfoliobuilder_scale_used_anywhere($scaleid) {
 
     if ($scaleid and $DB->record_exists('portfoliobuilder', array('grade' => -$scaleid))) {
         return true;
-    } else {
-        return false;
     }
+
+    return false;
 }
 
 /**
