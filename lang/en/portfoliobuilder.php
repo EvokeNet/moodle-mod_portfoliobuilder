@@ -26,6 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['missingidandcmid'] = 'Missing id and cmid';
+$string['missingportfoliowithevaluation'] = 'This course doesn\'t have a portfolio with evaluation.';
 $string['modulename'] = 'Portfolio';
 $string['modulename_help'] = 'Use the portfolio module for...';
 $string['modulenameplural'] = 'Portfolios';
@@ -71,3 +72,7 @@ $string['teamportfolio'] = 'Team Portfolio';
 $string['networkportfolio'] = 'Network Portfolio';
 
 $string['grade'] = 'Grade';
+$string['addgrade'] = 'Add grade';
+$string['assessment'] = 'Assessment';
+$string['notyetassessed'] = 'Not yet assessed';
+$string['grading_success'] = 'Grading successfully finished.';

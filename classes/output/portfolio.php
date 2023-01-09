@@ -4,6 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+use mod_portfoliobuilder\util\grade;
 use renderable;
 use templatable;
 use renderer_base;
@@ -33,6 +34,8 @@ class portfolio implements renderable, templatable {
         $isloggedin = isloggedin();
 
         $userutil = new user();
+        $gradeutil = new grade();
+
         $data = [
             'userid' => $this->user->id,
             'userfullname' => fullname($this->user),
@@ -40,7 +43,8 @@ class portfolio implements renderable, templatable {
             'courseid' => $this->course->id,
             'isloggedin' => $isloggedin,
             'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
-            'contextid' => $this->context->id
+            'contextid' => $this->context->id,
+            'grade' => $gradeutil->get_user_course_grade($this->course->id, $this->user->id)
         ];
 
         $userutil = new user();

@@ -169,7 +169,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
     require_once($CFG->libdir.'/gradelib.php');
 
     $item = array();
-    $item['itemname'] = clean_param($moduleinstance->name, PARAM_NOTAGS);
+    $item['itemname'] = 'Portfolio';
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
     if ($moduleinstance->grade > 0) {
@@ -197,6 +197,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
  */
 function portfoliobuilder_grade_item_delete($moduleinstance) {
     global $CFG;
+
     require_once($CFG->libdir.'/gradelib.php');
 
     return grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder',
@@ -212,11 +213,13 @@ function portfoliobuilder_grade_item_delete($moduleinstance) {
  * @param int $userid Update grade of specific user only, 0 means all participants.
  */
 function portfoliobuilder_update_grades($moduleinstance, $userid = 0) {
-    global $CFG, $DB;
+    global $CFG;
+
     require_once($CFG->libdir.'/gradelib.php');
 
     // Populate array of grade objects indexed by userid.
-    $grades = array();
+    $grades = [];
+
     grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'mod_portfoliobuilder', $moduleinstance->id, 0, $grades);
 }
 
@@ -235,7 +238,7 @@ function portfoliobuilder_update_grades($moduleinstance, $userid = 0) {
  * @return string[].
  */
 function portfoliobuilder_get_file_areas($course, $cm, $context) {
-    return array();
+    return [];
 }
 
 /**

@@ -9,23 +9,21 @@
 
         <div class="usergradeinfo ml-auto">
             {{#isowner}}
-                {{#isevaluated}}
-                    {{#grade}}
-                        <span class="badge badge-success">{{#str}}assessment, mod_evokeportfolio{{/str}}: {{{grade}}}</span>
-                    {{/grade}}
-                    {{^grade}}
-                        <span class="badge badge-primary">{{#str}}notyetassessed, mod_evokeportfolio{{/str}}</span>
-                    {{/grade}}
-                {{/isevaluated}}
+                {{#grade}}
+                    <span class="badge badge-success">{{#str}}assessment, mod_portfoliobuilder{{/str}}: {{{grade}}}</span>
+                {{/grade}}
+                {{^grade}}
+                    <span class="badge badge-primary">{{#str}}notyetassessed, mod_portfoliobuilder{{/str}}</span>
+                {{/grade}}
             {{/isowner}}
             {{#cangrade}}
                 {{#grade}}
-                    <span class="badge badge-success">{{#str}}assessment, mod_evokeportfolio{{/str}}: {{{grade}}}</span>
+                    <span class="badge badge-success">{{#str}}assessment, mod_portfoliobuilder{{/str}}: {{{grade}}}</span>
                 {{/grade}}
                 {{^grade}}
                     <button class="btn btn-danger grade-portfolio" data-courseid="{{courseid}}" data-userid="{{userid}}">
                         <i class="fa fa-pencil-square-o"></i>
-                        {{#str}}page_viewsubmission_addgrade, mod_evokeportfolio{{/str}}
+                        {{#str}}addgrade, mod_portfoliobuilder{{/str}}
                     </button>
                 {{/grade}}
             {{/cangrade}}

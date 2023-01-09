@@ -118,7 +118,11 @@ define([
                 M.core_formchangechecker.reset_form_dirty_state();
             });
 
-            this.gradebutton.closest('.submission').fadeOut().remove();
+            const usergradeinfo = $('.usergradeinfo');
+
+            usergradeinfo.empty();
+
+            usergradeinfo.append("<span class='badge badge-success'>"+data.assessmenttext+"</span>");
 
             var Toast = Swal.mixin({
                 toast: true,

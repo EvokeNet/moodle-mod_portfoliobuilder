@@ -20,7 +20,7 @@ class grade {
     }
 
     public function user_has_grade($portfolio, $userid) {
-        $usergrade = $this->get_user_grade($portfolio, $userid);
+        $usergrade = $this->get_user_grade_object($portfolio, $userid);
 
         if ($usergrade) {
             return true;
@@ -30,24 +30,36 @@ class grade {
     }
 
     public function get_user_grade($portfolio, $userid) {
-        global $DB;
-
-        if ($portfolio->grade == 0) {
-            return false;
-        }
-
-        $usergrade = $DB->get_record('evokeportfolio_grades',
-            [
-                'portfolioid' => $portfolio->id,
-                'userid' => $userid
-            ]
-        );
+        $usergrade = $this->get_user_grade_object($portfolio, $userid);
 
         if (!$usergrade) {
             return false;
         }
 
         return $usergrade->grade;
+    }
+
+    public function get_user_course_grade($courseid, $userid) {
+        $portfolio = $this->get_portfolio_with_evaluation($courseid);
+
+        if (!$portfolio) {
+            return false;
+        }
+
+        return $this->get_user_grade_string($portfolio, $userid);
+    }
+
+    public function get_user_grade_object($portfolio, $userid) {
+        global $DB;
+
+        if ($portfolio->grade == 0) {
+            return false;
+        }
+
+        return $DB->get_record('portfoliobuilder_grades', [
+            'portfolioid' => $portfolio->id,
+            'userid' => $userid
+        ]);
     }
 
     public function get_user_grade_string($portfolio, $userid) {
@@ -70,5 +82,47 @@ class grade {
         $scaleindex = (int)$usergrade - 1;
 
         return $scales[$scaleindex];
+    }
+
+    public function grade_user($portfolio, $userid, $grade) {
+        global $CFG;
+
+        $grades[$userid] = new \stdClass();
+        $grades[$userid]->userid = $userid;
+        $grades[$userid]->rawgrade = $grade;
+
+        $this->update_user_grades($portfolio->id, $grades);
+
+        require_once($CFG->libdir . '/gradelib.php');
+
+        grade_update('mod/portfoliobuilder', $portfolio->course, 'mod', 'portfoliobuilder', $portfolio->id, 0, $grades);
+    }
+
+    private function update_user_grades($portfolioid, $grades) {
+        global $DB, $USER;
+
+        foreach ($grades as $grade) {
+            $dbgrade = $this->get_user_grade_object($portfolioid, $grade->userid);
+
+            if ($dbgrade) {
+                $dbgrade->grader = $USER->id;
+                $dbgrade->grade = $grade->rawgrade;
+                $dbgrade->timemodified = time();
+
+                $DB->update_record('portfoliobuilder_grades', $dbgrade);
+
+                continue;
+            }
+
+            $usergrade = new \stdClass();
+            $usergrade->portfolioid = $portfolioid;
+            $usergrade->userid = $grade->userid;
+            $usergrade->grader = $USER->id;
+            $usergrade->grade = $grade->rawgrade;
+            $usergrade->timecreated = time();
+            $usergrade->timemodified = time();
+
+            $DB->insert_record('portfoliobuilder_grades', $usergrade);
+        }
     }
 }
