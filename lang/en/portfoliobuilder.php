@@ -59,6 +59,7 @@ $string['linkccopiedtoclipboard'] = 'Link copied to clipboard';
 
 $string['backtolayoutchoose'] = 'Back to layout choose';
 
+$string['viewportfolio'] = 'View portfolio';
 $string['comment'] = 'Comment';
 $string['writeacomment'] = '+ Share your thoughts...';
 $string['editcomment'] = 'Edit';
@@ -76,3 +77,7 @@ $string['addgrade'] = 'Add grade';
 $string['assessment'] = 'Assessment';
 $string['notyetassessed'] = 'Not yet assessed';
 $string['grading_success'] = 'Grading successfully finished.';
+
+$string['status'] = 'Status';
+$string['submitted'] = 'Submitted';
+$string['evaluated'] = 'Evaluated';

@@ -74,8 +74,12 @@ class portfolio {
         $entryutil = new entry();
         $layoututil = new layout();
         $logutil = new log();
+        $gradeutil = new grade();
 
         $lastaccesstoportfolios = $logutil->get_last_time_accessed_portfolios($this->courseid);
+
+        $cangrade = has_capability('mod/portfoliobuilder:grade', $this->context);
+        $portfoliowithevaluation = $gradeutil->get_portfolio_with_evaluation($this->courseid);
 
         foreach ($users as $user) {
             $user->totallikes = $reactionutil->get_total_course_reactions($this->courseid, $user->id);
@@ -91,6 +95,10 @@ class portfolio {
 
             if ($user->lastentry && $user->lastentry->timecreated > $lastaccesstoportfolios) {
                 $user->hasnews = true;
+            }
+
+            if ($cangrade) {
+                $user->grade = $gradeutil->get_user_grade_string($portfoliowithevaluation, $user->id);
             }
         }
     }

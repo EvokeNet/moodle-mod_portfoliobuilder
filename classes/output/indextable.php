@@ -4,7 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
-use mod_portfoliobuilder\util\group;
+use mod_portfoliobuilder\table\portfolios;
 use renderable;
 use templatable;
 use renderer_base;
@@ -15,7 +15,7 @@ use renderer_base;
  * @copyright   2022 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
-class index implements renderable, templatable {
+class indextable implements renderable, templatable {
 
     public $context;
     public $course;
@@ -36,14 +36,23 @@ class index implements renderable, templatable {
      * @throws \moodle_exception
      */
     public function export_for_template(renderer_base $output) {
-        $groupsutil = new group();
+        $table = new portfolios(
+            'mod-evokeportfolio-portfolios-table',
+            $this->context,
+            $this->course
+        );
 
-        $usercoursegroups = $groupsutil->get_user_groups($this->course->id);
+        $table->collapsible(false);
 
-        return [
-            'courseid' => $this->course->id,
-            'hasgroup' => !empty($usercoursegroups),
-            'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
+        ob_start();
+        $table->out(30, true);
+        $participantstable = ob_get_contents();
+        ob_end_clean();
+
+        $data = [
+            'portfolios' => $participantstable
         ];
+
+        return $data;
     }
 }

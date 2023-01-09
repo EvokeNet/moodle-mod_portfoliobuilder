@@ -7,6 +7,13 @@
             <img src="{{userpicture}}" class="img img-responsive userpicture" alt="{{fullname}}">
         </div>
         <p>{{fullname}}</p>
+        {{#grade}}
+            <div class="text-left">
+                <div class="badge badge-success">
+                    {{#str}}assessment, mod_portfoliobuilder{{/str}}: {{.}}
+                </div>
+            </div>
+        {{/grade}}
         {{#lastentry}}
             <div class="last-entry">
                 <div>
@@ -18,7 +25,7 @@
         {{/lastentry}}
     </div>
     <div class="card-footer">
-        <a href="{{globals.config.wwwroot}}/mod/portfoliobuilder/portfolio.php?id={{globals.config.courseId}}&u={{id}}">View portfolio</a>
+        <a href="{{globals.config.wwwroot}}/mod/portfoliobuilder/portfolio.php?id={{globals.config.courseId}}&u={{id}}">{{#str}}viewportfolio, mod_portfoliobuilder{{/str}}</a>
     </div>
     <div class="card-footer">
         <div class="d-flex flex-row">
