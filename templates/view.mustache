@@ -1,3 +1,12 @@
+<div class="text-right mb-3">
+    {{#grade}}
+        <span class="badge badge-success">{{#str}}assessment, mod_portfoliobuilder{{/str}}: {{{.}}}</span>
+    {{/grade}}
+    {{^grade}}
+        <span class="badge badge-primary">{{#str}}notyetassessed, mod_portfoliobuilder{{/str}}</span>
+    {{/grade}}
+</div>
+
 <div class="mb-3 d-flex border border-radius p-2">
     <div class="left">
         <a href="{{config.wwwroot}}/mod/portfoliobuilder/submit.php?id={{cmid}}" class="btn btn-primary" data-action="create-entry-modal">

@@ -62,6 +62,10 @@ function portfoliobuilder_add_instance($moduleinstance, $mform = null) {
 
     $id = $DB->insert_record('portfoliobuilder', $moduleinstance);
 
+    $moduleinstance->id = $id;
+
+    portfoliobuilder_grade_item_update($moduleinstance);
+
     return $id;
 }
 
@@ -80,6 +84,8 @@ function portfoliobuilder_update_instance($moduleinstance, $mform = null) {
 
     $moduleinstance->timemodified = time();
     $moduleinstance->id = $moduleinstance->instance;
+
+    portfoliobuilder_grade_item_update($moduleinstance);
 
     return $DB->update_record('portfoliobuilder', $moduleinstance);
 }
@@ -169,7 +175,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
     require_once($CFG->libdir.'/gradelib.php');
 
     $item = array();
-    $item['itemname'] = 'Portfolio';
+    $item['itemname'] = 'Portfolio individual';
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
     if ($moduleinstance->grade > 0) {
@@ -186,7 +192,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
         $item['reset'] = true;
     }
 
-    grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'mod_portfoliobuilder', $moduleinstance->id, 0, null, $item);
+    grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder', $moduleinstance->id, 0, null, $item);
 }
 
 /**

@@ -6,6 +6,7 @@ defined('MOODLE_INTERNAL') || die();
 
 use mod_portfoliobuilder\util\user;
 use mod_portfoliobuilder\util\entry;
+use mod_portfoliobuilder\util\grade;
 use renderable;
 use templatable;
 use renderer_base;
@@ -51,6 +52,9 @@ class view implements renderable, templatable {
         $layoututil = new \mod_portfoliobuilder\util\layout();
         $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
+        $gradeutil = new grade();
+        $grade = $gradeutil->get_user_course_grade($this->portfoliobuilder->course, $USER->id);
+
         $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $this->context->instanceid, 'u' => $USER->id]);
         $data = [
             'id' => $this->portfoliobuilder->id,
@@ -62,8 +66,7 @@ class view implements renderable, templatable {
             'userfullname' => $userdata['fullname'],
             'userpicture' => $userdata['picture'],
             'contextid' => $this->context->id,
-            'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
-            'isevaluated' => $this->portfoliobuilder->grade != 0,
+            'grade' => $grade,
             'encodedpublicurl' => htmlentities($publicurl),
             'isloggedin' => $isloggedin
         ];
