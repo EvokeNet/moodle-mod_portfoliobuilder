@@ -27,6 +27,11 @@
             {{/singleimage}}
         {{/hasimages}}
         <div class="card-body p-4">
+            <div class="text-right">
+                {{#isowner}}
+                    <a class="btn btn-sm btn-primary" href="{{config.wwwroot}}/mod/portfoliobuilder/submit.php?id={{cmid}}&entryid={{id}}">Edit post</a>
+                {{/isowner}}
+            </div>
             <h4 class="fw-bold mb-0">{{title}}</h4>
 
             <p class="text-muted"><i class="far fa-clock" aria-hidden="true"></i>{{timecreated}}</p>

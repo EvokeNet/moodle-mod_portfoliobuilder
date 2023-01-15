@@ -53,10 +53,11 @@ if ($form->is_cancelled()) {
         if (isset($formdata->entryid)) {
             $entry = $DB->get_record('portfoliobuilder_entries', ['id' => $formdata->entryid, 'userid' => $USER->id], '*', MUST_EXIST);
 
-            $entry->content = null;
-            $entry->contentformat = null;
+            $entry->title = $formdata->title;
             $entry->timemodified = time();
 
+            $entry->content = null;
+            $entry->contentformat = null;
             if (isset($formdata->content['text'])) {
                 $entry->content = $formdata->content['text'];
                 $entry->contentformat = $formdata->content['format'];

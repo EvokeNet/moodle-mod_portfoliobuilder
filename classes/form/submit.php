@@ -53,6 +53,8 @@ class submit extends \moodleform {
         if (isset($this->_customdata['entryid'])) {
             $entry = $DB->get_record('portfoliobuilder_entries', ['id' => $this->_customdata['entryid']], '*', MUST_EXIST);
 
+            $mform->getElement('title')->setValue($entry->title);
+
             $mform->getElement('content')->setValue([
                 'text' => $entry->content,
                 'format' => $entry->contentformat

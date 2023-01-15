@@ -59,6 +59,8 @@ class entry {
                 'hasfiles' => !empty($files),
                 'files' => $files,
                 'position' => ($i % 2 == 0) ? 'right' : 'left',
+                'isowner' => $USER->id == $userid,
+                'cmid' => $context->instanceid
             ];
 
             $data[] = array_merge($entry, $this->get_entry_reactions($record->id), $this->get_entry_comments($record->id));
