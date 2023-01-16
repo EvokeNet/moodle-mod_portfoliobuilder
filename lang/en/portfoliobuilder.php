@@ -34,7 +34,7 @@ $string['newmodulesettings'] = 'Settings';
 
 $string['noportfolios'] = 'No portfolios';
 $string['pluginadministration'] = 'Portfolio administration';
-$string['pluginname'] = 'Portfolio';
+$string['pluginname'] = 'Individual portfolio';
 $string['portfoliobuilder:addinstance'] = 'Add instance';
 $string['portfoliobuilder:view'] = 'View instance';
 $string['portfoliobuilder:submit'] = 'Submit portfolio entries';
