@@ -8,6 +8,9 @@ use mod_portfoliobuilder\table\portfolios;
 use renderable;
 use templatable;
 use renderer_base;
+use mod_portfoliobuilder\table\portfolios_filterset;
+use core_table\local\filter\integer_filter;
+use core_table\local\filter\filter;
 
 /**
  * Index renderable class.
@@ -42,11 +45,18 @@ class indextable implements renderable, templatable {
             $this->course
         );
 
-        $table->collapsible(false);
+        $filterset = new portfolios_filterset();
+        $filterset->add_filter(new integer_filter('courseid', filter::JOINTYPE_DEFAULT, [(int)$this->course->id]));
+
+        $portfoliofilter = new portfolios_filter($this->context, $table->uniqueid);
+
+        $filter = $output->render($portfoliofilter);
+
+        $table->set_filterset($filterset);
 
         ob_start();
-        $table->out(30, true);
-        $participantstable = ob_get_contents();
+        $table->out(20, true);
+        $studentstablehtml = ob_get_contents();
         ob_end_clean();
 
         $data = [

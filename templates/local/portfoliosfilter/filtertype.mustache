@@ -1,0 +1,12 @@
+<select {{!
+    }}{{#allowmultiple}}multiple="multiple"{{/allowmultiple}} {{!
+    }}data-field-name="{{name}}" {{!
+    }}data-field-title="{{title}}" {{!
+    }}data-allow-custom="{{allowcustom}}" {{!
+    }}class="hidden" {{!
+    }}{{#filtertypeclass}}data-filter-type-class="{{filtertypeclass}}" {{/filtertypeclass}}{{!
+}}>
+    {{#values}}
+        <option value="{{value}}">{{title}}</option>
+    {{/values}}
+</select>

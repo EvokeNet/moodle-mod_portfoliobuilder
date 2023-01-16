@@ -1,0 +1,13 @@
+<div class="hidden" data-filterregion="filtertypedata">
+    {{#filtertypes}}
+        {{> mod_portfoliobuilder/local/portfoliosfilter/filtertype}}
+    {{/filtertypes}}
+</div>
+<div class="hidden">
+    <select disabled="disabled" data-filterfield="type" data-filterregion="filtertypelist">
+        <option value="">{{#str}}selectfiltertype, core_user{{/str}}</option>
+        {{#filtertypes}}
+            <option value="{{name}}">{{title}}</option>
+        {{/filtertypes}}
+    </select>
+</div>

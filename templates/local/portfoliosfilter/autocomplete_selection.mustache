@@ -1,0 +1,12 @@
+<span class="sr-only" id="{{selectionId}}-label">{{#str}}selecteditems, form{{/str}}</span>
+<div{{!
+    }} class="form-autocomplete-selection d-inline-block my-0{{#multiple}} form-autocomplete-multiple h5{{/multiple}}"{{!
+    }} id="{{selectionId}}"{{!
+    }} aria-labelledby="{{selectionId}}-label"{{!
+    }} role="listbox"{{!
+    }} aria-atomic="true"{{!
+    }} tabindex="0"{{!
+    }}{{#multiple}} aria-multiselectable="true"{{/multiple}}{{!
+    }}>
+    {{> core/form_autocomplete_selection_items }}
+</div>

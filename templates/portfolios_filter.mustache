@@ -1,0 +1,33 @@
+<div id="mod_portfoliobuilder-portfoliosfilter-{{uniqid}}" class="filter-group my-2 p-2 bg-light border-radius border" data-table-region="{{tableregionid}}" data-table-course-id="{{courseid}}" data-filterverb="2">
+    <div data-filterregion="filtermatch" class="hidden">
+        <label for="mod_portfoliobuilder-local-portfoliosfilter-jointype-{{uniqid}}" class="my-0" aria-hidden="true">
+            {{#str}}match, core_user{{/str}}
+        </label>
+        <select class="custom-select" data-filterfield="join" id="mod_portfoliobuilder-local-portfoliosfilter-jointype-{{uniqid}}"
+                aria-label="{{#str}}filtersetmatchdescription, core_user{{/str}}">
+            <option selected=selected value="2">{{#str}}all{{/str}}</option>
+        </select>
+        <span aria-hidden="true">{{#str}}matchofthefollowing, core_user{{/str}}</span>
+    </div>
+
+    <div data-filterregion="filters">
+        {{> mod_portfoliobuilder/local/portfoliosfilter/filterrow }}
+    </div>
+
+    <div class="d-flex" data-filterregion="actions">
+        &nbsp;
+        <button type="button" class="btn btn-link text-reset" data-filteraction="add">
+            <i class="fa fa-plus"></i><span class="pl-3">{{#str}}addcondition, core_user{{/str}}</span>
+        </button>
+        <button data-filteraction="reset" type="button" class="btn btn-secondary ml-auto mr-2">{{#str}}clearfilters, core_user{{/str}}</button>
+        <button data-filteraction="apply" type="button" class="btn btn-primary">{{#str}}applyfilters, core_user{{/str}}</button>
+    </div>
+
+    {{> mod_portfoliobuilder/local/portfoliosfilter/filtertypes}}
+</div>
+
+{{#js}}
+    require(['mod_portfoliobuilder/portfoliosfilter'], function(PortfoliosFilter) {
+        PortfoliosFilter.init('mod_portfoliobuilder-portfoliosfilter-{{uniqid}}');
+    });
+{{/js}}

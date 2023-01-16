@@ -81,3 +81,4 @@ $string['grading_success'] = 'Grading successfully finished.';
 $string['status'] = 'Status';
 $string['submitted'] = 'Submitted';
 $string['evaluated'] = 'Evaluated';
+$string['groups'] = 'Groups';
