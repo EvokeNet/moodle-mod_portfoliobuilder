@@ -19,14 +19,6 @@ $functions = [
         'type' => 'read',
         'ajax' => true
     ],
-    'mod_portfoliobuilder_createentry' => [
-        'classname' => 'mod_portfoliobuilder\external\entry',
-        'classpath' => 'mod/portfoliobuilder/classes/external/entry.php',
-        'methodname' => 'create',
-        'description' => 'Creates a new skill',
-        'type' => 'write',
-        'ajax' => true
-    ],
     'mod_portfoliobuilder_togglereaction' => [
         'classname' => 'mod_portfoliobuilder\external\reaction',
         'classpath' => 'mod/portfoliobuilder/classes/external/reaction.php',
