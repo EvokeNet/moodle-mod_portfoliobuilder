@@ -26,7 +26,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $string['missingidandcmid'] = 'Falta id y cmid';
-$string['missingportfoliowithevaluation'] = 'Este curso no tiene portfolio con evaluación.';
+$string['missingportfoliowithevaluation'] = 'Este curso no tiene portafolio con evaluación.';
 $string['modulename'] = 'Portafolio individual';
 $string['modulename_help'] = 'Usar el módulo de portafolio para...';
 $string['modulenameplural'] = 'Portafolios';
