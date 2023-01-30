@@ -12,7 +12,7 @@ use mod_portfoliobuilder\util\reaction as reactionutil;
  * Reaction external api class.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class reaction extends external_api {

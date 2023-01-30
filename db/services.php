@@ -4,7 +4,7 @@
  * Portfolio builder services definition
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 Willian Mano {@link https://conecti.me}
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 

@@ -1,9 +1,8 @@
 /**
  * Portfolios filter managemnet.
  *
- * @module     mod_portfoliobuilder/portfolios_filter
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 import CourseFilter from './local/portfoliosfilter/filtertypes/courseid';

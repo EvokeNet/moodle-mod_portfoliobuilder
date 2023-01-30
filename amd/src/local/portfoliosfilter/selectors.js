@@ -1,9 +1,9 @@
 /**
  * Module containing the selectors for user filters.
  *
- * @module     mod_portfoliobuilder/local/user_filter/selectors
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @module      mod_portfoliobuilder/local/user_filter/selectors
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 const getFilterRegion = region => `[data-filterregion="${region}"]`;

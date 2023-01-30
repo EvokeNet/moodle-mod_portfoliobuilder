@@ -1,14 +1,11 @@
-/* eslint-disable */
-
 /**
- * Add comment js logic.
+ * Toggle like js logic.
  *
- * @package
- * @subpackage mod_portfoliobuilder
- * @copyright  2021 World Bank Group <https://worldbank.org>
- * @author     Willian Mano <willianmanoaraujo@gmail.com>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
+/* eslint-disable */
 define(['jquery', 'core/ajax', 'mod_portfoliobuilder/sweetalert'], function($, Ajax, Swal) {
     var ToggleLike = function() {
         this.registerEventListeners();

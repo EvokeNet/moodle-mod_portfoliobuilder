@@ -11,7 +11,8 @@ use renderer_base;
 /**
  * Layout preview renderable class.
  *
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class layoutpreview implements renderable, templatable {

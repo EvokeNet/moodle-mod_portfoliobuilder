@@ -10,7 +10,8 @@ use user_picture;
 /**
  * Course utility class helper
  *
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class course {

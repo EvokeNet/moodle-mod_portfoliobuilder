@@ -3,9 +3,9 @@
 /**
  * Wrapper script redirecting portfolios operations to correct destination.
  *
- * @package    mod_portfoliobuilder
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 require_once("../../config.php");

@@ -13,7 +13,7 @@ use mod_portfoliobuilder\form\entry as entryform;
  * Portfolio external api class.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 Willian Mano {@link https://conecti.me}
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class portfolio extends external_api {

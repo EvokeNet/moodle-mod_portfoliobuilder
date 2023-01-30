@@ -13,7 +13,7 @@ use mod_portfoliobuilder\util\user;
  * Course external api class.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class course extends external_api {

@@ -17,7 +17,7 @@ use context_module;
  * Comment external api class.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2021 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class comment extends external_api {

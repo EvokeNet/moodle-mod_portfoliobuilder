@@ -6,8 +6,7 @@ namespace mod_portfoliobuilder\event;
  * The entry_added event class.
  *
  * @package     mod_portfoliobuilder
- * @category    event
- * @copyright   2021 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class entry_added extends \core\event\base {

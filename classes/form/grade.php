@@ -13,7 +13,7 @@ use mod_portfoliobuilder\util\portfolio;
  * Grade form.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2021 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class grade extends \moodleform {

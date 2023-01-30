@@ -1,8 +1,8 @@
 /**
  * Edit chapter js logic.
  *
- * @copyright  2021 World Bank Group <https://worldbank.org>
- * @author     Willian Mano <willianmanoaraujo@gmail.com>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 /* eslint-disable */
 define([

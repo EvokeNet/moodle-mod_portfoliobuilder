@@ -6,8 +6,7 @@ namespace mod_portfoliobuilder\event;
  * The course_module_viewed event class.
  *
  * @package     mod_portfoliobuilder
- * @category    event
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class course_module_viewed extends \core\event\course_module_viewed {

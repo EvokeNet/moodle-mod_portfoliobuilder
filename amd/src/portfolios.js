@@ -1,10 +1,8 @@
 /**
  * Some UI stuff for portfolios page.
- * This is also used by the mod_portfoliobuilder/tutor_index.php because it has the same functionality.
  *
- * @module     mod_portfoliobuilder/portfolios
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 import * as DynamicTable from 'core_table/dynamic';

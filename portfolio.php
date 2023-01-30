@@ -4,7 +4,7 @@
  * Prints user's public portfolio page.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 

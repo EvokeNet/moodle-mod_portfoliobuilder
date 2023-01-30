@@ -1,9 +1,9 @@
 /**
  * Bulk actions for lists of portfolios.
  *
- * @module     mod_portfoliobuilder/local/portfolios/bulkactions
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @module      mod_portfoliobuilder/local/portfolios/bulkactions
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 import * as Repository from 'core_user/repository';

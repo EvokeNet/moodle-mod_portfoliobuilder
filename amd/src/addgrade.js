@@ -1,10 +1,8 @@
 /**
  * Add grade js logic.
  *
- * @package
- * @subpackage mod_portfoliobuilder
- * @copyright  2022 World Bank Group <https://worldbank.org>
- * @author     Willian Mano <willianmanoaraujo@gmail.com>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 
 /* eslint-disable */

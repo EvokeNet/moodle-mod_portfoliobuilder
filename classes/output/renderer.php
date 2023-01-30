@@ -10,7 +10,8 @@ use renderable;
 /**
  * Main portfolio's renderer.
  *
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class renderer extends plugin_renderer_base {

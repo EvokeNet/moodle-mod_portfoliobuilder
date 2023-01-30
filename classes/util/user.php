@@ -8,9 +8,10 @@ use user_picture;
 use context_course;
 
 /**
- * Evoke utility class helper
+ * User utility class helper
  *
- * @copyright   2021 World Bank Group <https://worldbank.org>
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class user {

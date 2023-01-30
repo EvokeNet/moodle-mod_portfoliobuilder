@@ -17,9 +17,10 @@ use core_table\local\filter\filterset;
 use context;
 
 /**
- * Entries table class
+ * Portfolios table class
  *
- * @copyright   2021 World Bank Group <https://worldbank.org>
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class portfolios extends table_sql implements dynamic_table {

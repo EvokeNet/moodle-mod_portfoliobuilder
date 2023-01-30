@@ -6,6 +6,13 @@ defined('MOODLE_INTERNAL') || die;
 
 require_once($CFG->libdir. '/formslib.php');
 
+/**
+ * Submit form.
+ *
+ * @package     mod_portfoliobuilder
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
+ */
 class submit extends \moodleform {
     protected function definition() {
         $mform = $this->_form;

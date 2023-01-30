@@ -12,7 +12,7 @@ use external_function_parameters;
  * Grade external api class.
  *
  * @package     mod_portfoliobuilder
- * @copyright   2022 World Bank Group <https://worldbank.org>
+ * @copyright   2023 World Bank Group <https://worldbank.org>
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class grade extends external_api {

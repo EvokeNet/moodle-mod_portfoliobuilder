@@ -1,9 +1,9 @@
 /**
  * Course ID filter.
  *
- * @module     mod_portfoliobuilder/local/portfoliosfilter/filtertypes/courseid
- * @copyright  2023 Willian Mano - http://conecti.me
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @module      mod_portfoliobuilder/local/portfoliosfilter/filtertypes/courseid
+ * @copyright   2023 World Bank Group <https://worldbank.org>
+ * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 import Filter from '../filter';
 
