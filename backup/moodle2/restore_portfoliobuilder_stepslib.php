@@ -25,8 +25,13 @@ class restore_portfoliobuilder_activity_structure_step extends restore_activity_
         $paths = array();
         $userinfo = $this->get_setting_value('userinfo');
 
-        $paths[] = new restore_path_element('elt', '/path/to/file');
+        $paths[] = new restore_path_element('portfoliobuilder', '/activity/portfoliobuilder');
+        if ($userinfo) {
+            $paths[] = new restore_path_element('portfoliobuilder_entry', '/activity/portfoliobuilder/entries/entry');
+            $paths[] = new restore_path_element('portfoliobuilder_grade', '/activity/portfoliobuilder/grades/grade');
+        }
 
+        // Return the paths wrapped into standard activity structure
         return $this->prepare_activity_structure($paths);
     }
 
@@ -35,14 +40,47 @@ class restore_portfoliobuilder_activity_structure_step extends restore_activity_
      *
      * @param array $data Parsed element data.
      */
-    protected function process_elt($data) {
-        return;
+    protected function process_portfoliobuilder($data) {
+        global $DB;
+
+        $data = (object)$data;
+        $data->course = $this->get_courseid();
+
+        $newitemid = $DB->insert_record('portfoliobuilder', $data);
+
+        $this->apply_activity_instance($newitemid);
     }
 
-    /**
-     * Defines post-execution actions.
-     */
+    protected function process_portfoliobuilder_entry($data) {
+        global $DB;
+
+        $data = (object)$data;
+        $oldid = $data->id;
+
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        $data->portfolioid = $this->get_new_parentid('portfoliobuilder');
+        $data->courseid = $this->get_courseid();
+
+        $newitemid = $DB->insert_record('portfoliobuilder_entries', $data);
+
+        $this->set_mapping('portfoliobuilder_entry', $oldid, $newitemid, true);
+
+        $this->add_related_files('mod_portfoliobuilder', 'attachments', 'portfoliobuilder_entry', null, $oldid);
+    }
+
+    protected function process_portfoliobuilder_grade($data) {
+        global $DB;
+
+        $data = (object)$data;
+
+        $data->userid = $this->get_mappingid('user', $data->userid);
+        $data->grader = $this->get_mappingid('user', $data->grader);
+        $data->portfolioid = $this->get_new_parentid('portfoliobuilder');
+
+        $DB->insert_record('portfoliobuilder_grades', $data);
+    }
+
     protected function after_execute() {
-        return;
+        $this->add_related_files('mod_portfoliobuilder', 'intro', null);
     }
 }

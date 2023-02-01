@@ -205,12 +205,6 @@
     font-weight: 700;
 }
 
-.path-mod-evokeportfolio .submissions .userinfo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .path-mod-portfoliobuilder .userinfo img,
 .path-mod-portfoliobuilder .userinfo h3 {
     display: inline-block;

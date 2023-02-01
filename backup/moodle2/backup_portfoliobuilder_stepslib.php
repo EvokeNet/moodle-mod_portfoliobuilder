@@ -24,24 +24,43 @@ class backup_portfoliobuilder_activity_structure_step extends backup_activity_st
     protected function define_structure() {
         $userinfo = $this->get_setting_value('userinfo');
 
-        // Replace with the attributes and final elements that the element will handle.
-        $attributes = null;
-        $finalelements = null;
-        $root = new backup_nested_element('mod_portfoliobuilder', $attributes, $finalelements);
+        // Build the tree with these elements with $portfoliobuilder as the root of the backup tree.
+        $portfoliobuilder = new backup_nested_element('portfoliobuilder', ['id'], [
+            'course', 'name', 'intro', 'introformat', 'grade', 'timecreated', 'timemodified']);
 
-        // Replace with the attributes and final elements that the element will handle.
-        $attributes = null;
-        $finalelements = null;
-        $elt = new backup_nested_element('elt', $attributes, $finalelements);
+        $entries = new backup_nested_element('entries');
+        $entry = new backup_nested_element('entry', ['id'], [
+            'courseid', 'userid', 'title', 'content', 'contentformat', 'timecreated', 'timemodified']);
 
-        // Build the tree with these elements with $root as the root of the backup tree.
+        $grades = new backup_nested_element('grades');
+        $grade = new backup_nested_element('grade', ['id'], [
+            'userid', 'grader', 'grade', 'timecreated', 'timemodified']);
+
+        $portfoliobuilder->add_child($entries);
+        $entries->add_child($entry);
+        $portfoliobuilder->add_child($grades);
+        $grades->add_child($grade);
 
         // Define the source tables for the elements.
+        $portfoliobuilder->set_source_table('portfoliobuilder', ['id' => backup::VAR_ACTIVITYID]);
 
-        // Define id annotations.
+        // User entries and grades are included only if we are including user info.
+        if ($userinfo) {
+            // Define sources.
+            $entry->set_source_table('portfoliobuilder_entries', ['portfolioid' => backup::VAR_ACTIVITYID, 'courseid' => backup::VAR_COURSEID]);
+            $grade->set_source_table('portfoliobuilder_grades', ['portfolioid' => backup::VAR_ACTIVITYID]);
+        }
+
+        $entry->annotate_ids('user', 'userid');
+
+        $grade->annotate_ids('user', 'userid');
+        $grade->annotate_ids('user', 'grader');
 
         // Define file annotations.
+        $entry->annotate_files('mod_portfoliobuilder', 'attachments', 'id');
 
-        return $this->prepare_activity_structure($root);
+        $portfoliobuilder->annotate_files('mod_portfoliobuilder', 'intro', null);
+
+        return $this->prepare_activity_structure($portfoliobuilder);
     }
 }

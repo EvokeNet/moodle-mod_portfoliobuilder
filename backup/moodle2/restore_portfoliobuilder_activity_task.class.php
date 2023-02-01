@@ -45,6 +45,8 @@ class restore_portfoliobuilder_activity_task extends restore_activity_task {
         $contents = array();
 
         // Define the contents.
+        $contents[] = new restore_decode_content('portfoliobuilder', ['intro'], 'portfoliobuilder');
+        $contents[] = new restore_decode_content('portfoliobuilder_entries', ['content'], 'entry');
 
         return $contents;
     }
@@ -58,6 +60,8 @@ class restore_portfoliobuilder_activity_task extends restore_activity_task {
         $rules = array();
 
         // Define the rules.
+        $rules[] = new restore_decode_rule('PORTFOLIOBUILDERVIEWBYID', '/mod/portfoliobuilder/view.php?id=$1', 'course_module');
+        $rules[] = new restore_decode_rule('PORTFOLIOBUILDERINDEX', '/mod/portfoliobuilder/index.php?id=$1', 'course');
 
         return $rules;
     }
