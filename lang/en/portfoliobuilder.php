@@ -92,3 +92,6 @@ $string['likes'] = 'Likes';
 $string['comments'] = 'Comments';
 $string['shareportfolio'] = 'Share portfolio';
 $string['changelayout'] = 'Change layout';
+
+$string['completionrequiresubmit'] = 'Require submission';
+$string['completionrequiresubmit_help'] = 'The user needs to submit to complete this activity';
