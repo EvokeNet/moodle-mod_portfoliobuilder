@@ -39,7 +39,7 @@ class custom_completion extends activity_custom_completion {
         if ($rule == 'completionrequiresubmit') {
             $submissionutil = new \mod_portfoliobuilder\util\entry();
 
-            if ($submissionutil->get_user_course_entries($portfoliobuilder->course, $userid)) {
+            if ($submissionutil->user_has_entry_in_portfolio_instance($portfoliobuilder->id, $userid)) {
                 return COMPLETION_COMPLETE;
             }
         }

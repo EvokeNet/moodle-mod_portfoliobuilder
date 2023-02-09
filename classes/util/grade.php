@@ -12,14 +12,6 @@ defined('MOODLE_INTERNAL') || die();
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class grade {
-    public function get_portfolio_with_evaluation($courseid) {
-        global $DB;
-
-        $sql = 'SELECT * FROM {portfoliobuilder} WHERE course = :courseid AND grade <> 0';
-
-        return $DB->get_record_sql($sql, ['courseid' => $courseid]);
-    }
-
     public function user_has_grade($portfolio, $userid) {
         $usergrade = $this->get_user_grade_object($portfolio, $userid);
 
@@ -38,16 +30,6 @@ class grade {
         }
 
         return $usergrade->grade;
-    }
-
-    public function get_user_course_grade($courseid, $userid) {
-        $portfolio = $this->get_portfolio_with_evaluation($courseid);
-
-        if (!$portfolio) {
-            return false;
-        }
-
-        return $this->get_user_grade_string($portfolio, $userid);
     }
 
     public function get_user_grade_object($portfolio, $userid) {

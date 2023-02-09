@@ -163,7 +163,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
     require_once($CFG->libdir.'/gradelib.php');
 
     $item = array();
-    $item['itemname'] = 'Portfolio individual';
+    $item['itemname'] = clean_param($moduleinstance->name, PARAM_NOTAGS);
     $item['gradetype'] = GRADE_TYPE_VALUE;
 
     if ($moduleinstance->grade > 0) {
@@ -306,7 +306,7 @@ function mod_portfoliobuilder_output_fragment_grade_form($args) {
 
     $mform = new \mod_portfoliobuilder\form\grade($formdata, [
         'userid' => $serialiseddata->userid,
-        'courseid' => $serialiseddata->courseid
+        'instanceid' => $serialiseddata->instanceid
     ]);
 
     if (!empty($args->jsonformdata)) {

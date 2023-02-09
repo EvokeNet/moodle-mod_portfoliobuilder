@@ -27,18 +27,22 @@ class portfolios extends table_sql implements dynamic_table {
 
     protected $context;
 
-    protected $groupid;
+    protected $portfoliobuilder;
 
     private $portfoliosheaders;
 
     private $portfolioscolumns;
 
-    public function __construct($uniqueid) {
+    public function __construct($uniqueid, $context, $portfoliobuilder) {
         global $OUTPUT, $PAGE;
 
         parent::__construct($uniqueid);
 
-        $PAGE->set_context($this->context);
+        $PAGE->set_context($context);
+
+        $this->context = $context;
+
+        $this->portfoliobuilder = $portfoliobuilder;
 
         $mastercheckbox = new \core\output\checkbox_toggleall('portfolios-table', true, [
             'id' => 'select-all-portfolios',
@@ -79,11 +83,6 @@ class portfolios extends table_sql implements dynamic_table {
     public function set_filterset(filterset $filterset): void {
         // Get the context.
         $this->courseid = $filterset->get_filter('courseid')->current();
-        $this->context = \context_course::instance($this->courseid, MUST_EXIST);
-
-        $gradeutil = new grade();
-
-        $this->portfoliowithevaluation = $gradeutil->get_portfolio_with_evaluation($this->courseid);
 
         // Process the filterset.
         parent::set_filterset($filterset);
@@ -93,7 +92,7 @@ class portfolios extends table_sql implements dynamic_table {
      * Guess the base url for the portfolios table.
      */
     public function guess_base_url(): void {
-        $this->baseurl = new moodle_url('/mod/portfoliobuilder/indextable.php', ['id' => $this->courseid]);
+        $this->baseurl = new moodle_url('/mod/portfoliobuilder/indextable.php', ['id' => $this->context->instanceid]);
     }
 
     /**
@@ -152,14 +151,14 @@ class portfolios extends table_sql implements dynamic_table {
     public function col_group($data) {
         $grouputil = new group();
 
-        return $grouputil->get_user_groups_names($this->courseid, $data->id);
+        return $grouputil->get_user_groups_names($this->portfoliobuilder->course, $data->id);
     }
 
     public function col_status($data) {
         $gradeutil = new grade();
         $entryutil = new entry();
 
-        $url = new moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $this->courseid, 'u' => $data->id]);
+        $url = new moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $this->portfoliobuilder->course, 'u' => $data->id]);
 
         $statuscontent = html_writer::link($url, get_string('viewportfolio', 'mod_portfoliobuilder'), ['class' => 'btn btn-primary btn-sm']);
 
@@ -167,7 +166,7 @@ class portfolios extends table_sql implements dynamic_table {
             $statuscontent .= html_writer::span(get_string('submitted', 'mod_portfoliobuilder'), 'badge badge-info ml-2 p-2');
         }
 
-        if ($this->portfoliowithevaluation && $gradeutil->user_has_grade($this->portfoliowithevaluation, $data->id)) {
+        if ($gradeutil->user_has_grade($this->portfoliobuilder, $data->id)) {
             $statuscontent .= html_writer::span(get_string('evaluated', 'mod_portfoliobuilder'), 'badge badge-success ml-2 p-2');
         }
 

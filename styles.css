@@ -571,7 +571,6 @@
     right: 0;
     background-color: #FFF;
     z-index: 0;
-    transform: skewY(3deg);
 }
 
 .profile-card-4 .profile {
@@ -609,11 +608,6 @@
 .profile-card-4 .profile-overview h4 {
     color: #273751;
     font-weight: bold;
-}
-
-.profile-card-4:hover img:not(.userpicture) {
-    transform: rotate(5deg) scale(1.1, 1.1);
-    filter: brightness(110%);
 }
 
 .profile-card-4 .last-entry {

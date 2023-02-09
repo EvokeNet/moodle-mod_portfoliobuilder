@@ -44,17 +44,21 @@ class grade extends \moodleform {
             $mform->setType('courseid', PARAM_INT);
         }
 
-        $gradeutil = new gradeutil();
-        $portfolio = $gradeutil->get_portfolio_with_evaluation($this->_customdata['courseid']);
-
-        if ($portfolio) {
-            $this->fill_form_with_grade_fields($mform, $portfolio);
+        if (isset($this->_customdata['instanceid'])) {
+            $mform->addElement('hidden', 'instanceid', $this->_customdata['instanceid']);
+            $mform->setType('instanceid', PARAM_INT);
         }
+
+        $this->fill_form_with_grade_fields($mform);
 
         $this->add_action_buttons(true);
     }
 
-    private function fill_form_with_grade_fields($mform, $portfolio) {
+    private function fill_form_with_grade_fields($mform) {
+        global $DB;
+
+        $portfolio = $DB->get_record('portfoliobuilder', ['id' => $this->_customdata['instanceid']], '*', MUST_EXIST);
+
         $usergradegrade = $this->get_user_grade($portfolio, $this->userid);
 
         if ($portfolio->grade > 0) {

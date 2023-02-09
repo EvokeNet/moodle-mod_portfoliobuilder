@@ -4,7 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
-use context_course;
+use context_module;
 use renderable;
 use renderer_base;
 use stdClass;
@@ -18,7 +18,7 @@ use templatable;
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class portfolios_filter implements renderable, templatable {
-    /** @var context_course $context The context where the filters are being rendered. */
+    /** @var context_module $context The context where the filters are being rendered. */
     protected $context;
 
     /** @var string $tableregionid The table to be updated by this filter */
@@ -30,14 +30,14 @@ class portfolios_filter implements renderable, templatable {
     /**
      * Students filter constructor.
      *
-     * @param context_course $context The context where the filters are being rendered.
+     * @param context_module $context The context where the filters are being rendered.
      * @param string $tableregionid The table to be updated by this filter
      */
-    public function __construct(context_course $context, string $tableregionid) {
+    public function __construct(context_module $context, $course, string $tableregionid) {
         $this->context = $context;
         $this->tableregionid = $tableregionid;
 
-        $this->course = get_course($context->instanceid);
+        $this->course = $course;
     }
 
     /**

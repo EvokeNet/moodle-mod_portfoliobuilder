@@ -13,13 +13,16 @@ require(__DIR__.'/../../config.php');
 define('DEFAULT_PAGE_SIZE', 20);
 define('SHOW_ALL_PAGE_SIZE', 5000);
 
+// Course module id.
 $id = required_param('id', PARAM_INT);
 $perpage = optional_param('perpage', DEFAULT_PAGE_SIZE, PARAM_INT);
 
-$course = $DB->get_record('course', array('id' => $id), '*', MUST_EXIST);
+list ($course, $cm) = get_course_and_cm_from_cmid($id, 'portfoliobuilder');
+$portfoliobuilder = $DB->get_record('portfoliobuilder', ['id' => $cm->instance], '*', MUST_EXIST);
+
 require_course_login($course);
 
-$context = context_course::instance($course->id);
+$context = context_module::instance($id);
 
 $pagetitle = format_string($course->fullname);
 
@@ -35,9 +38,9 @@ $renderer = $PAGE->get_renderer('mod_portfoliobuilder');
 $filterset = new \mod_portfoliobuilder\table\portfolios_filterset();
 $filterset->add_filter(new \core_table\local\filter\integer_filter('courseid', \core_table\local\filter\filter::JOINTYPE_DEFAULT, [(int)$course->id]));
 
-$portfoliostable = new \mod_portfoliobuilder\table\portfolios("user-index-portfolios-{$course->id}", $context, $course);
+$portfoliostable = new \mod_portfoliobuilder\table\portfolios("user-index-portfolios-{$course->id}", $context, $portfoliobuilder);
 
-$portfoliofilter = new \mod_portfoliobuilder\output\portfolios_filter($context, $portfoliostable->uniqueid);
+$portfoliofilter = new \mod_portfoliobuilder\output\portfolios_filter($context, $course, $portfoliostable->uniqueid);
 
 echo $OUTPUT->header();
 

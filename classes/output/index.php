@@ -43,8 +43,7 @@ class index implements renderable, templatable {
 
         return [
             'courseid' => $this->course->id,
-            'hasgroup' => !empty($usercoursegroups),
-            'cangrade' => has_capability('mod/portfoliobuilder:grade', $this->context),
+            'hasgroup' => !empty($usercoursegroups)
         ];
     }
 }

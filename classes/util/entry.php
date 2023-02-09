@@ -26,6 +26,22 @@ class entry {
         return $this->portfoliocontexts[$portfolioid];
     }
 
+    public function get_user_portfolio_entries($portfolioid, $userid = null) {
+        global $DB, $USER;
+
+        if (!$userid) {
+            $userid = $USER->id;
+        }
+
+        $records = $DB->get_records('portfoliobuilder_entries', ['portfolioid' => $portfolioid, 'userid' => $userid]);
+
+        if (!$records) {
+            return false;
+        }
+
+        return $this->fill_entries_with_additional_data($records, $userid);
+    }
+
     public function get_user_course_entries($courseid, $userid = null) {
         global $DB, $USER;
 
@@ -38,6 +54,12 @@ class entry {
         if (!$records) {
             return false;
         }
+
+        return $this->fill_entries_with_additional_data($records, $userid);
+    }
+
+    public function fill_entries_with_additional_data($records, $userid) {
+        global $USER;
 
         $data = [];
         $i = 1;
@@ -216,5 +238,21 @@ class entry {
         $record->humantimecreated = userdate($record->timecreated);
 
         return $record;
+    }
+
+    public function user_has_entry_in_portfolio_instance($portfolioid, $userid = null) {
+        global $DB, $USER;
+
+        if (!$userid) {
+            $userid = $USER->id;
+        }
+
+        $count = $DB->count_records('portfoliobuilder_entries', ['portfolioid' => $portfolioid, 'userid' => $userid]);
+
+        if (!$count) {
+            return false;
+        }
+
+        return true;
     }
 }

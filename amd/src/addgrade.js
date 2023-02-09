@@ -51,21 +51,21 @@ define([
             $(".grade-portfolio").click(function(event) {
                 this.gradebutton = $(event.currentTarget);
 
-                this.openModal(this.gradebutton.data('courseid'), this.gradebutton.data('userid'));
+                this.openModal(this.gradebutton.data('portfolioid'), this.gradebutton.data('userid'));
             }.bind(this));
         };
 
-        AddGrade.prototype.openModal = function(courseid, userid) {
+        AddGrade.prototype.openModal = function(portfolioid, userid) {
             ModalFactory.create({
                 type: ModalFactory.types.SAVE_CANCEL,
                 title: 'Add grade',
-                body: this.getBody({courseid: courseid, userid: userid}),
+                body: this.getBody({instanceid: portfolioid, userid: userid}),
             }).then(function(modal) {
                 this.modal = modal;
 
                 // We want to reset the form every time it is opened.
                 this.modal.getRoot().on(ModalEvents.hidden, function() {
-                    this.modal.setBody(this.getBody({courseid: courseid, userid: userid}));
+                    this.modal.setBody(this.getBody({instanceid: portfolioid, userid: userid}));
                 }.bind(this));
 
                 // We want to hide the submit buttons every time it is opened.

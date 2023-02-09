@@ -54,7 +54,7 @@ class view implements renderable, templatable {
         $layout = $layoututil->get_user_layout($this->portfoliobuilder->course);
 
         $gradeutil = new grade();
-        $grade = $gradeutil->get_user_course_grade($this->portfoliobuilder->course, $USER->id);
+        $grade = $gradeutil->get_user_grade_string($this->portfoliobuilder, $USER->id);
 
         $publicurl = new \moodle_url('/mod/portfoliobuilder/portfolio.php', ['id' => $this->context->instanceid, 'u' => $USER->id]);
         $data = [

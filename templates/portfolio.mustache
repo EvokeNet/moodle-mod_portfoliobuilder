@@ -6,28 +6,6 @@
             <i class="fa fa-angle-left"></i> {{#str}}backtoportfolios, mod_portfoliobuilder{{/str}}
             </a>
         </div>
-
-        <div class="usergradeinfo ml-auto">
-            {{#isowner}}
-                {{#grade}}
-                    <span class="badge badge-success">{{#str}}assessment, mod_portfoliobuilder{{/str}}: {{{grade}}}</span>
-                {{/grade}}
-                {{^grade}}
-                    <span class="badge badge-primary">{{#str}}notyetassessed, mod_portfoliobuilder{{/str}}</span>
-                {{/grade}}
-            {{/isowner}}
-            {{#cangrade}}
-                {{#grade}}
-                    <span class="badge badge-success">{{#str}}assessment, mod_portfoliobuilder{{/str}}: {{{grade}}}</span>
-                {{/grade}}
-                {{^grade}}
-                    <button class="btn btn-danger grade-portfolio" data-courseid="{{courseid}}" data-userid="{{userid}}">
-                        <i class="fa fa-pencil-square-o"></i>
-                        {{#str}}addgrade, mod_portfoliobuilder{{/str}}
-                    </button>
-                {{/grade}}
-            {{/cangrade}}
-        </div>
     </div>
 {{/isloggedin}}
 
@@ -70,16 +48,13 @@
             'mod_portfoliobuilder/togglelike',
             'mod_portfoliobuilder/tribute_init',
             'mod_portfoliobuilder/comment/add',
-            'mod_portfoliobuilder/comment/edit',
-            'mod_portfoliobuilder/addgrade'
-        ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment, AddGrade) {
+            'mod_portfoliobuilder/comment/edit'
+        ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
             TributeInit.init();
 
             AddComment.init();
 
             EditComment.init({{{contextid}}});
-
-            AddGrade.init({{{contextid}}});
 
             ToggleLike.init();
         });

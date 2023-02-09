@@ -62,8 +62,9 @@ class grade extends external_api {
         $data = [];
         parse_str($serialiseddata, $data);
 
+        $portfolio = $DB->get_record('portfoliobuilder', ['id' => $data['instanceid']], '*', MUST_EXIST);
+
         $gradeutil = new \mod_portfoliobuilder\util\grade();
-        $portfolio = $gradeutil->get_portfolio_with_evaluation($data['courseid']);
 
         if (!$portfolio) {
             throw new \moodle_exception('missingportfoliowithevaluation', 'mod_portfoliobuilder');

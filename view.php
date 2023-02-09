@@ -31,7 +31,7 @@ if ($id) {
 $context = context_module::instance($cm->id);
 
 if (has_capability('mod/portfoliobuilder:grade', $context)) {
-    redirect(new moodle_url('/mod/portfoliobuilder/index.php', ['id' => $course->id]));
+    redirect(new moodle_url('/mod/portfoliobuilder/indextable.php', ['id' => $id]));
 }
 
 $layoututil = new \mod_portfoliobuilder\util\layout();

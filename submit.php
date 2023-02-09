@@ -105,16 +105,9 @@ if ($form->is_cancelled()) {
             $event->add_record_snapshot('portfoliobuilder_entries', $entry);
             $event->trigger();
 
-            // Completion progress
+            // Completion progress.
             $completion = new completion_info($course);
             $completion->update_state($cm, COMPLETION_COMPLETE);
-
-            $completiondata = $completion->get_data($cm, false, $USER->id);
-
-            // If the user completed the activity and it is a group activity, mark all group members as complete.
-            if ($completiondata->completionstate == 1) {
-                // TODO: Check completion state.
-            }
 
             $redirectstring = get_string('entry:add_success', 'mod_portfoliobuilder');
         }
