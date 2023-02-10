@@ -30,7 +30,7 @@ if ($id) {
 
 $context = context_module::instance($cm->id);
 
-if (has_capability('mod/portfoliobuilder:grade', $context)) {
+if (has_capability('mod/portfoliobuilder:grade', $context) || is_siteadmin()) {
     redirect(new moodle_url('/mod/portfoliobuilder/indextable.php', ['id' => $id]));
 }
 

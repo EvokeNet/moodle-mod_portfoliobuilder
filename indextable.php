@@ -24,6 +24,8 @@ require_course_login($course);
 
 $context = context_module::instance($id);
 
+require_capability('mod/portfoliobuilder:grade', $context);
+
 $pagetitle = format_string($course->fullname);
 
 $PAGE->set_url('/mod/portfoliobuilder/indextable.php', ['id' => $id]);
