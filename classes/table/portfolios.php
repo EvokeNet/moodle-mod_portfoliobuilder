@@ -9,6 +9,7 @@ require_once($CFG->libdir.'/tablelib.php');
 use mod_portfoliobuilder\util\entry;
 use mod_portfoliobuilder\util\grade;
 use mod_portfoliobuilder\util\group;
+use mod_portfoliobuilder\util\user;
 use moodle_url;
 use html_writer;
 use table_sql;
@@ -107,6 +108,8 @@ class portfolios extends table_sql implements dynamic_table {
     }
 
     public function base_sql() {
+        global $DB;
+
         $fields = 'DISTINCT u.id, u.firstname, u.lastname, u.email';
 
         $capjoin = get_enrolled_with_capabilities_join($this->context, '', 'mod/portfoliobuilder:submit');
@@ -120,7 +123,18 @@ class portfolios extends table_sql implements dynamic_table {
             $params['groupid'] = $this->filterset->get_filter('group')->current();
         }
 
-        $this->set_sql($fields, $from, $capjoin->wheres, $params);
+        $where = $capjoin->wheres;
+
+        $userutil = new user();
+        if ($userstoremove = $userutil->get_user_ids_with_grade_capability($this->context)) {
+            list($sqlin, $paramsin) = $DB->get_in_or_equal($userstoremove, SQL_PARAMS_NAMED, 'notin_', false);
+
+            $where .= " AND u.id {$sqlin}";
+
+            $params = array_merge($params, $paramsin);
+        }
+
+        $this->set_sql($fields, $from, $where, $params);
     }
 
     /**

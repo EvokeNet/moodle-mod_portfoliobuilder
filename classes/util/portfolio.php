@@ -55,6 +55,15 @@ class portfolio {
 
         $params = $capjoin->params;
 
+        $userutil = new user();
+        if ($userstoremove = $userutil->get_user_ids_with_grade_capability($this->context)) {
+            list($sqlin, $paramsin) = $DB->get_in_or_equal($userstoremove, SQL_PARAMS_NAMED, 'notin_', false);
+
+            $sql .= " AND u.id {$sqlin}";
+
+            $params = array_merge($params, $paramsin);
+        }
+
         $users = $DB->get_records_sql($sql, $params);
 
         if (!$users) {

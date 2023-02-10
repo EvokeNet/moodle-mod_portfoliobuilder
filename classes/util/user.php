@@ -60,4 +60,38 @@ class user {
 
         return $userpicture;
     }
+
+    public function get_user_ids_with_grade_capability($context) {
+        global $DB, $CFG;
+
+        $fields = 'DISTINCT u.id, u.firstname, u.lastname, u.email';
+
+        $capjoin = get_enrolled_with_capabilities_join($context, '', 'mod/portfoliobuilder:grade');
+
+        $from = ' {user} u ' . $capjoin->joins;
+
+        $sql = "SELECT {$fields} FROM {$from} WHERE {$capjoin->wheres}";
+
+        $users = $DB->get_records_sql($sql, $capjoin->params);
+
+        $ids = [];
+
+        $siteadmins = explode(',', $CFG->siteadmins);
+
+        if (is_array($siteadmins)) {
+            $ids = $siteadmins;
+        } else if (!empty($siteadmins)) {
+            $ids = [(int) $siteadmins];
+        }
+
+        if (!$users) {
+            return $ids;
+        }
+
+        foreach ($users as $user) {
+            $ids[] = $user->id;
+        }
+
+        return $ids;
+    }
 }

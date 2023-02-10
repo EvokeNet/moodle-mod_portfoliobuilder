@@ -83,26 +83,31 @@ class group {
             $ids[] = $group->id;
         }
 
-        list($groupsids, $groupsparams) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'group');
+        list($groupsids, $params) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'group');
 
         $sql = "SELECT u.*
                 FROM {groups_members} gm
                 INNER JOIN {user} u ON u.id = gm.userid
                 WHERE gm.groupid " . $groupsids;
 
-        $groupsmembers = $DB->get_records_sql($sql, $groupsparams);
-
-        if (!$groupsmembers) {
-            return false;
-        }
 
         // Remove any person who have access to grade students. Teachers, mentors...
         if ($contexttofilter) {
-            foreach ($groupsmembers as $key => $groupmember) {
-                if (has_capability('mod/portfoliobuilder:grade', $contexttofilter, $groupmember->id)) {
-                    unset($groupsmembers[$key]);
-                }
+            $userutil = new user();
+
+            if ($userstoremove = $userutil->get_user_ids_with_grade_capability($contexttofilter)) {
+                list($sqlin, $paramsin) = $DB->get_in_or_equal($userstoremove, SQL_PARAMS_NAMED, 'notin_', false);
+
+                $sql .= " AND u.id {$sqlin}";
+
+                $params = array_merge($params, $paramsin);
             }
+        }
+
+        $groupsmembers = $DB->get_records_sql($sql, $params);
+
+        if (!$groupsmembers) {
+            return false;
         }
 
         if ($withfulluserinfo) {
