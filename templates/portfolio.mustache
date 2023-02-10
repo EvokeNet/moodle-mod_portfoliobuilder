@@ -1,10 +1,12 @@
 {{#isloggedin}}
     <div class="mb-3 d-flex">
         <div class="backbutton">
-            <a class="btn btn-primary"
-               href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
-            <i class="fa fa-angle-left"></i> {{#str}}backtoportfolios, mod_portfoliobuilder{{/str}}
-            </a>
+            {{^cangrade}}
+                <a class="btn btn-primary"
+                   href="{{config.wwwroot}}/mod/portfoliobuilder/index.php?id={{courseid}}">
+                    <i class="fa fa-angle-left"></i> {{#str}}backtoportfolios, mod_portfoliobuilder{{/str}}
+                </a>
+            {{/cangrade}}
         </div>
     </div>
 {{/isloggedin}}
