@@ -255,4 +255,35 @@ class entry {
 
         return true;
     }
+
+    public function delete_entry($entryid) {
+        global $DB, $USER;
+
+        $entry = $DB->get_record('portfoliobuilder_entries', ['id' => $entryid, 'userid' => $USER->id], '*', MUST_EXIST);
+
+        $DB->delete_records('portfoliobuilder_comments', ['entryid' => $entry->id]);
+
+        $DB->delete_records('portfoliobuilder_reactions', ['entryid' => $entry->id]);
+
+        $DB->delete_records('portfoliobuilder_entries', ['id' => $entry->id]);
+
+        $coursemodule = get_coursemodule_from_instance('portfoliobuilder', $entry->portfolioid, $entry->courseid);
+
+        $context = \context_module::instance($coursemodule->id);
+
+        $fs = get_file_storage();
+
+        $files = $fs->get_area_files($context->id,
+            'mod_portfoliobuilder',
+            'attachments',
+            $entryid,
+            'timemodified',
+            false);
+
+        if ($files) {
+            foreach ($files as $file) {
+                $file->delete();
+            }
+        }
+    }
 }

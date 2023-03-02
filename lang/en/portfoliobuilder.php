@@ -95,3 +95,12 @@ $string['changelayout'] = 'Change layout';
 
 $string['completionrequiresubmit'] = 'Require submission';
 $string['completionrequiresubmit_help'] = 'The user needs to submit to complete this activity';
+
+$string['editpost'] = 'Edit post';
+$string['deletepost'] = 'Delete post';
+
+$string['entrydelete_confirm_title'] = 'Are you sure?';
+$string['entrydelete_confirm_msg'] = 'Once deleted, this entry cannot be recovered.';
+$string['entrydelete_confirm_yes'] = 'Yes, delete it.';
+$string['entrydelete_confirm_no'] = 'Cancel';
+$string['entrydelete_success'] = 'Entry successfully deleted.';

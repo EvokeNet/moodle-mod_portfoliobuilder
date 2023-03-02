@@ -63,8 +63,9 @@
         'mod_portfoliobuilder/togglelike',
         'mod_portfoliobuilder/tribute_init',
         'mod_portfoliobuilder/comment/add',
-        'mod_portfoliobuilder/comment/edit'
-    ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment) {
+        'mod_portfoliobuilder/comment/edit',
+        'mod_portfoliobuilder/entrydelete'
+    ], function($, Swal, ToggleLike, TributeInit, AddComment, EditComment, EntryDelete) {
         TributeInit.init();
 
         AddComment.init();
@@ -72,6 +73,8 @@
         EditComment.init({{{contextid}}});
 
         ToggleLike.init();
+
+        EntryDelete.init();
 
         $('.carousel').carousel({
             interval: 5000,

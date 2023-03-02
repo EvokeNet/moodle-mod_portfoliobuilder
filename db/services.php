@@ -59,4 +59,12 @@ $functions = [
         'type' => 'write',
         'ajax' => true
     ],
+    'mod_portfoliobuilder_entrydelete' => [
+        'classname' => 'mod_portfoliobuilder\external\entry',
+        'classpath' => 'mod/portfoliobuilder/classes/external/entry.php',
+        'methodname' => 'delete',
+        'description' => 'Delete a portfolio entry',
+        'type' => 'write',
+        'ajax' => true
+    ],
 ];
