@@ -14,7 +14,7 @@ defined('MOODLE_INTERNAL') || die();
 class entry {
     private $portfoliocontexts = [];
 
-    private function get_entry_context($portfolioid) {
+    public function get_entry_context($portfolioid) {
         if (isset($this->portfoliocontexts[$portfolioid])) {
             return $this->portfoliocontexts[$portfolioid];
         }

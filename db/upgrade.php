@@ -37,17 +37,5 @@ function xmldb_portfoliobuilder_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2023012300, 'mod', 'portfoliobuilder');
     }
 
-    if ($oldversion < 2023030200) {
-        $entries = $DB->get_records('portfoliobuilder_entries');
-
-        $entryutil = new \mod_portfoliobuilder\util\entry();
-
-        foreach ($entries as $entry) {
-            $entryutil->create_entry_thumbs($entry);
-        }
-
-        upgrade_plugin_savepoint(true, 2023030200, 'mod', 'portfoliobuilder');
-    }
-
     return true;
 }
