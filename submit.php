@@ -117,6 +117,9 @@ if ($form->is_cancelled()) {
 
         file_save_draft_area_files($draftitemid, $context->id, 'mod_portfoliobuilder', 'attachments', $entry->id, ['subdirs' => 0, 'maxfiles' => 10]);
 
+        $entryutil = new \mod_portfoliobuilder\util\entry();
+        $entryutil->create_entry_thumbs($entry);
+
         $url = new moodle_url('/mod/portfoliobuilder/view.php', ['id' => $cm->id]);
 
         redirect($url, $redirectstring, null, \core\output\notification::NOTIFY_SUCCESS);

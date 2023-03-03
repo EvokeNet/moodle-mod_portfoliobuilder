@@ -123,14 +123,7 @@ class entry {
     }
 
     public function get_attachments($entryid, $context) {
-        $fs = get_file_storage();
-
-        $files = $fs->get_area_files($context->id,
-            'mod_portfoliobuilder',
-            'attachments',
-            $entryid,
-            'timemodified',
-            false);
+        $files = $this->get_entry_attachments($entryid, $context->id);
 
         if (!$files) {
             return false;
@@ -148,11 +141,13 @@ class entry {
 
             $fileurl = \moodle_url::make_file_url('/pluginfile.php', implode('/', $path), true);
 
-            $entryfiles[] = [
-                'filename' => $file->get_filename(),
-                'isimage' => $file->is_valid_image(),
-                'fileurl' => $fileurl->out()
-            ];
+            if (!$file->is_valid_image() || $file->get_filepath() == '/thumb/') {
+                $entryfiles[] = [
+                    'filename' => $file->get_filename(),
+                    'isimage' => $file->is_valid_image(),
+                    'fileurl' => $fileurl->out()
+                ];
+            }
         }
 
         return $entryfiles;
@@ -271,18 +266,59 @@ class entry {
 
         $context = \context_module::instance($coursemodule->id);
 
+        if ($files = $this->get_entry_attachments($entryid, $context->id)) {
+            foreach ($files as $file) {
+                $file->delete();
+            }
+        }
+    }
+
+    public function get_entry_attachments($entryid, $contextid, $filearea = 'attachments') {
         $fs = get_file_storage();
 
-        $files = $fs->get_area_files($context->id,
+        $files = $fs->get_area_files($contextid,
             'mod_portfoliobuilder',
-            'attachments',
+            $filearea,
             $entryid,
             'timemodified',
             false);
 
-        if ($files) {
-            foreach ($files as $file) {
-                $file->delete();
+        if (!$files) {
+            return false;
+        }
+
+        return $files;
+    }
+
+    public function create_entry_thumbs($entry) {
+        $context = $this->get_entry_context($entry->portfolioid);
+
+        if (!$files = $this->get_entry_attachments($entry->id, $context->id)) {
+            return;
+        }
+
+        $fs = get_file_storage();
+
+        foreach ($files as $file) {
+            if ($file->is_valid_image()) {
+                $filerecord = [
+                    'userid' => $entry->userid,
+                    'filename' => $file->get_filename(),
+                    'contextid' => $file->get_contextid(),
+                    'component' => $file->get_component(),
+                    'filearea' => $file->get_filearea(),
+                    'itemid' => $entry->id,
+                    'filepath' => '/thumb/'
+                ];
+
+                $fileinfo = $file->get_imageinfo();
+
+                $width = $fileinfo['width'];
+                if ($width > 600) {
+                    $width = 600;
+                }
+
+                $fs->convert_image($filerecord, $file, $width);
             }
         }
     }
