@@ -46,11 +46,11 @@ class backup_portfoliobuilder_activity_task extends backup_activity_task {
         $base = preg_quote($CFG->wwwroot, '/');
 
         // Link to the list of choices.
-        $search = "/(".$base."\//mod\/portfoliobuilder\/index.php\?id\=)([0-9]+)/";
+        $search = "/(".$base."\/mod\/portfoliobuilder\/index.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PORTFOLIOBUILDERINDEX*$2@$', $content);
 
         // Link to choice view by moduleid.
-        $search = "/(".$base."\//mod\/portfoliobuilder\/view.php\?id\=)([0-9]+)/";
+        $search = "/(".$base."\/mod\/portfoliobuilder\/view.php\?id\=)([0-9]+)/";
         $content = preg_replace($search, '$@PORTFOLIOBUILDERVIEWBYID*$2@$', $content);
 
         return $content;
