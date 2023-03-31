@@ -14,4 +14,4 @@ $plugin->component = 'mod_portfoliobuilder';
 $plugin->release = '1.2.0';
 $plugin->version = 2023030200;
 $plugin->requires = 2022041900;
-$plugin->maturity = MATURITY_BETA;
+$plugin->maturity = MATURITY_STABLE;
