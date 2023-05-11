@@ -80,11 +80,11 @@ class commentmention {
         $clicktoaccessportfolio = get_string('message_clicktoaccessportfolio', 'mod_portfoliobuilder');
 
         $urlparams = [
-            'id' => $this->cmid,
-            'userid' => $this->userid
+            'id' => $this->courseid,
+            'u' => $this->userid
         ];
 
-        $url = new moodle_url("/mod/portfoliobuilder/viewsubmission.php", $urlparams);
+        $url = new moodle_url("/mod/portfoliobuilder/portfolio.php", $urlparams);
 
         $message = new message();
         $message->component = 'mod_portfoliobuilder';

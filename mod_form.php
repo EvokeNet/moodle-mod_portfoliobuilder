@@ -46,6 +46,12 @@ class mod_portfoliobuilder_mod_form extends moodleform_mod {
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
 
+        $options = [];
+        for ($i = 0; $i <= 100; $i++) {
+            $options[$i] = get_string('chapter', 'mod_portfoliobuilder') . ' ' . $i;
+        }
+        $mform->addElement('select', 'chapter', get_string('chapter', 'mod_portfoliobuilder'), $options);
+
         $this->standard_intro_elements();
 
         // Add standard grading elements.

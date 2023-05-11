@@ -37,5 +37,18 @@ function xmldb_portfoliobuilder_upgrade($oldversion) {
         upgrade_plugin_savepoint(true, 2023012300, 'mod', 'portfoliobuilder');
     }
 
+    if ($oldversion < 2023050100) {
+        $dbman = $DB->get_manager();
+
+        $table = new xmldb_table('portfoliobuilder');
+        if ($dbman->table_exists($table)) {
+            $completionfield = new xmldb_field('chapter', XMLDB_TYPE_INTEGER, '10', XMLDB_UNSIGNED, XMLDB_NOTNULL, null, 0, 'completionrequiresubmit');
+
+            $dbman->add_field($table, $completionfield);
+        }
+
+        upgrade_plugin_savepoint(true, 2023050100, 'mod', 'portfoliobuilder');
+    }
+
     return true;
 }

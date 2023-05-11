@@ -26,7 +26,7 @@ class backup_portfoliobuilder_activity_structure_step extends backup_activity_st
 
         // Build the tree with these elements with $portfoliobuilder as the root of the backup tree.
         $portfoliobuilder = new backup_nested_element('portfoliobuilder', ['id'], [
-            'course', 'name', 'intro', 'introformat', 'grade', 'completionrequiresubmit', 'timecreated', 'timemodified']);
+            'course', 'name', 'intro', 'introformat', 'grade', 'completionrequiresubmit', 'chapter', 'timecreated', 'timemodified']);
 
         $entries = new backup_nested_element('entries');
         $entry = new backup_nested_element('entry', ['id'], [
