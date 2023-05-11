@@ -7,6 +7,7 @@ use external_value;
 use external_single_structure;
 use external_function_parameters;
 use mod_portfoliobuilder\notification\commentmention;
+use mod_portfoliobuilder\notification\commentonyourportfolio;
 use mod_portfoliobuilder\util\user;
 use moodle_url;
 use html_writer;
@@ -128,6 +129,12 @@ class comment extends external_api {
 
         if (!empty($userstonotifymention)) {
             $notification->send_mentions_notifications($userstonotifymention);
+        }
+
+        if ($utildata->userid != $USER->id) {
+            $notification = new commentonyourportfolio($contextmodule, $cm->id, $utildata->course, $utildata->portfolioname, $utildata->userid);
+
+            $notification->send_notification();
         }
 
         return [

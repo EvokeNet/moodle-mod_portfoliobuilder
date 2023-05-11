@@ -111,3 +111,6 @@ $string['message_mentioned'] = 'You were mentioned in a comment';
 $string['message_mentionedinaportfolio'] = 'You were mentioned in a comment in the portfolio <b>{$a}</b>';
 $string['message_mentioncontextname'] = 'Mentioned in a comment.';
 $string['message_clicktoaccessportfolio'] = 'Click here to access the portfolio';
+
+$string['message_someonecommentedyourportfolio'] = '{$a} commented on your portfolio';
+$string['message_commentportfoliocontextname'] = 'Someone commented on a portfolio.';
