@@ -42,6 +42,24 @@ class portfolio {
         return array_values($groupsmembers);
     }
 
+    public function get_course_group_portfolios($groupid) {
+        $groupsutil = new group();
+
+        $group = $groupsutil->get_group($groupid);
+
+        $groupsmembers = $groupsutil->get_groups_members([$group], true, $this->context);
+
+        if (empty($groupsmembers)) {
+            return [];
+        }
+
+        $this->fill_user_portfolios_with_extra_data($groupsmembers);
+
+        shuffle($groupsmembers);
+
+        return array_values($groupsmembers);
+    }
+
     public function get_course_portfolios() {
         global $DB;
 

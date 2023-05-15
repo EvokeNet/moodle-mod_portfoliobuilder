@@ -4,6 +4,7 @@ namespace mod_portfoliobuilder\output;
 
 defined('MOODLE_INTERNAL') || die();
 
+use mod_portfoliobuilder\util\chapter;
 use mod_portfoliobuilder\util\group;
 use renderable;
 use templatable;
@@ -41,9 +42,17 @@ class index implements renderable, templatable {
 
         $usercoursegroups = $groupsutil->get_user_groups($this->course->id);
 
+        $groups = $groupsutil->get_course_groups($this->course, false);
+
+        $chapterutil = new chapter();
+
+        $chapters = $chapterutil->get_chapters_used_in_course($this->course->id);
+
         return [
             'courseid' => $this->course->id,
-            'hasgroup' => !empty($usercoursegroups)
+            'hasgroup' => !empty($usercoursegroups),
+            'groups' => $groups,
+            'chapters' => $chapters
         ];
     }
 }

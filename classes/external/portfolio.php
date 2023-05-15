@@ -26,6 +26,7 @@ class portfolio extends external_api {
         return new external_function_parameters([
             'courseid' => new external_value(PARAM_INT, 'The course id'),
             'type' => new external_value(PARAM_ALPHANUM, 'The portfolio type(group or network)'),
+            'groupid' => new external_value(PARAM_ALPHANUM, 'The group id', VALUE_OPTIONAL),
         ]);
     }
 
@@ -34,6 +35,7 @@ class portfolio extends external_api {
      *
      * @param int $courseid
      * @param string $type
+     * @param int $groupid
      *
      * @return array
      *
@@ -42,11 +44,11 @@ class portfolio extends external_api {
      * @throws \invalid_parameter_exception
      * @throws \moodle_exception
      */
-    public static function load($courseid, $type) {
+    public static function load($courseid, $type, $groupid = null) {
         global $PAGE;
 
         // We always must pass webservice params through validate_parameters.
-        self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type]);
+        self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type, 'groupid' => $groupid]);
 
         $context = \context_course::instance($courseid);
 
@@ -60,7 +62,11 @@ class portfolio extends external_api {
         }
 
         if ($type == 'network') {
-            $portfolios = $portfolioutil->get_course_portfolios();
+            if ($groupid) {
+                $portfolios = $portfolioutil->get_course_group_portfolios($groupid);
+            } else {
+                $portfolios = $portfolioutil->get_course_portfolios();
+            }
         }
 
         return [

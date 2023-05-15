@@ -28,6 +28,12 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
                 this.loadItems();
             }
         }.bind(this));
+
+        $('#input-group').change(function(event) {
+            this.groupid = event.target.value;
+
+            this.loadItemsWithFilters();
+        }.bind(this));
     }
 
     LoadPortfolios.prototype.loadItems = function() {
@@ -60,9 +66,53 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
         this.controlbutton.dataset.loaded = true;
     };
 
+    LoadPortfolios.prototype.loadItemsWithFilters = function() {
+        const targetdiv = $(this.targetdiv);
+
+        targetdiv.find('.entry_loading-placeholder').removeClass('hidden');
+
+        var args = {
+            courseid: this.courseid,
+            type: this.type
+        };
+
+        if (this.groupid !== 0) {
+            args.groupid = this.groupid;
+        }
+
+        const request = Ajax.call([{
+            methodname: 'mod_portfoliobuilder_loadportfolios',
+            args: args
+        }]);
+
+        request[0].done(function(response) {
+            var data = JSON.parse(response.data);
+
+            this.handleLoadDataWithFilters(data);
+        }.bind(this));
+    };
+
+    LoadPortfolios.prototype.handleLoadDataWithFilters = function(data) {
+        const targetdiv = $(this.targetdiv);
+
+        targetdiv.find('.entry_loading-placeholder').addClass('hidden');
+
+        $(targetdiv.find('.entries .card-columns')).empty();
+
+        $.each(data, function(index, value) {
+            Templates.render('mod_portfoliobuilder/portfolio_card', value).then(function(content) {
+                targetdiv.find('.entries .card-columns').append(content);
+            });
+        });
+
+        this.controlbutton.dataset.loaded = true;
+    };
+
     LoadPortfolios.prototype.courseid = 0;
 
     LoadPortfolios.prototype.type = 'team';
+
+    LoadPortfolios.prototype.groupid = 0;
 
     LoadPortfolios.prototype.targetdiv = '#teamportfolio';
 

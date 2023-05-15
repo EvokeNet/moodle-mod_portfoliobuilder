@@ -192,4 +192,10 @@ class group {
 
         return $CFG->wwwroot . '/blocks/evokehq/pix/defaultgroupimg.png';
     }
+
+    public function get_group($groupid) {
+        global $DB;
+
+        return $DB->get_record('groups', ['id' => $groupid], '*', MUST_EXIST);
+    }
 }

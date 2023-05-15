@@ -105,6 +105,7 @@ $string['entrydelete_confirm_yes'] = 'Yes, delete it.';
 $string['entrydelete_confirm_no'] = 'Cancel';
 $string['entrydelete_success'] = 'Entry successfully deleted.';
 
+$string['allchapters'] = 'All chapters';
 $string['chapter'] = 'Chapter';
 
 $string['message_mentioned'] = 'You were mentioned in a comment';
@@ -114,3 +115,5 @@ $string['message_clicktoaccessportfolio'] = 'Click here to access the portfolio'
 
 $string['message_someonecommentedyourportfolio'] = '{$a} commented on your portfolio';
 $string['message_commentportfoliocontextname'] = 'Someone commented on a portfolio.';
+
+$string['allgroups'] = 'All groups';
