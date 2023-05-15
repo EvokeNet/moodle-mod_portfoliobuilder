@@ -29,8 +29,9 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
             }
         }.bind(this));
 
-        $('#input-group').change(function(event) {
-            this.groupid = event.target.value;
+        $('#filter-chapter, #filter-group').change(function() {
+            this.chapter = parseInt($('#filter-chapter').val());
+            this.groupid = parseInt($('#filter-group').val());
 
             this.loadItemsWithFilters();
         }.bind(this));
@@ -59,7 +60,7 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
 
         $.each(data, function(index, value) {
             Templates.render('mod_portfoliobuilder/portfolio_card', value).then(function(content) {
-                targetdiv.find('.entries .card-columns').append(content);
+                targetdiv.find('.portfolios-area').append(content);
             });
         });
 
@@ -67,22 +68,18 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
     };
 
     LoadPortfolios.prototype.loadItemsWithFilters = function() {
-        const targetdiv = $(this.targetdiv);
+        const targetdiv = $('#networkportfolio');
 
-        targetdiv.find('.entry_loading-placeholder').removeClass('hidden');
-
-        var args = {
-            courseid: this.courseid,
-            type: this.type
-        };
-
-        if (this.groupid !== 0) {
-            args.groupid = this.groupid;
-        }
+        $(targetdiv.find('.entry_loading-placeholder')).removeClass('hidden');
 
         const request = Ajax.call([{
             methodname: 'mod_portfoliobuilder_loadportfolios',
-            args: args
+            args: {
+                courseid: this.courseid,
+                type: this.type,
+                groupid: this.groupid,
+                chapter: this.chapter
+            }
         }]);
 
         request[0].done(function(response) {
@@ -93,15 +90,15 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
     };
 
     LoadPortfolios.prototype.handleLoadDataWithFilters = function(data) {
-        const targetdiv = $(this.targetdiv);
+        const targetdiv = $('#networkportfolio');
 
-        targetdiv.find('.entry_loading-placeholder').addClass('hidden');
+        $(targetdiv.find('.entry_loading-placeholder')).addClass('hidden');
 
-        $(targetdiv.find('.entries .card-columns')).empty();
+        $(targetdiv.find('.portfolios-area')).empty();
 
         $.each(data, function(index, value) {
             Templates.render('mod_portfoliobuilder/portfolio_card', value).then(function(content) {
-                targetdiv.find('.entries .card-columns').append(content);
+                targetdiv.find('.portfolios-area').append(content);
             });
         });
 
@@ -113,6 +110,8 @@ define(['jquery', 'core/ajax', 'core/templates'], function($, Ajax, Templates) {
     LoadPortfolios.prototype.type = 'team';
 
     LoadPortfolios.prototype.groupid = 0;
+
+    LoadPortfolios.prototype.chapter = 0;
 
     LoadPortfolios.prototype.targetdiv = '#teamportfolio';
 

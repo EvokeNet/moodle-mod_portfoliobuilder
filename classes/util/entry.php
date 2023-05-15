@@ -206,25 +206,44 @@ class entry {
         ];
     }
 
-    public function get_total_course_entries($courseid, $userid) {
+    public function get_total_course_entries($courseid, $userid, $chapter = null) {
         global $DB;
 
         $sql = 'SELECT count(*)
-                FROM {portfoliobuilder_entries}
-                WHERE courseid = :courseid AND userid = :userid';
+                FROM {portfoliobuilder_entries} e
+                INNER JOIN {portfoliobuilder} p ON p.id = e.portfolioid
+                WHERE e.courseid = :courseid AND e.userid = :userid';
 
-        return $DB->count_records_sql($sql, ['userid' => $userid, 'courseid' => $courseid]);
+        $parameters = ['userid' => $userid, 'courseid' => $courseid];
+
+        if (!is_null($chapter)) {
+            $sql .= ' AND p.chapter = :chapter';
+
+            $parameters['chapter'] = $chapter;
+        }
+
+        return $DB->count_records_sql($sql, $parameters);
     }
 
-    public function get_last_course_entry($courseid, $userid) {
+    public function get_last_course_entry($courseid, $userid, $chapter = null) {
         global $DB;
 
-        $sql = 'SELECT id, title, timecreated
-                FROM {portfoliobuilder_entries}
-                WHERE courseid = :courseid AND userid = :userid
-                ORDER BY id DESC LIMIT 1';
+        $sql = 'SELECT e.id, e.title, e.timecreated
+                FROM {portfoliobuilder_entries} e
+                INNER JOIN {portfoliobuilder} p ON p.id = e.portfolioid
+                WHERE e.courseid = :courseid AND e.userid = :userid';
 
-        $record = $DB->get_record_sql($sql, ['courseid' => $courseid, 'userid' => $userid]);
+        $parameters = ['courseid' => $courseid, 'userid' => $userid];
+
+        if (!is_null($chapter)) {
+            $sql .= ' AND p.chapter = :chapter';
+
+            $parameters['chapter'] = $chapter;
+        }
+
+        $sql .= ' ORDER BY id DESC LIMIT 1';
+
+        $record = $DB->get_record_sql($sql, $parameters);
 
         if (!$record) {
             return false;

@@ -40,7 +40,7 @@
             <div class="entries mt-2" data-courseid="{{{courseid}}}">
                 {{> mod_portfoliobuilder/loading_portfolios }}
 
-                <div class="card-columns columns-4"></div>
+                <div class="card-columns columns-4 portfolios-area"></div>
             </div>
         </div>
     {{/hasgroup}}
@@ -49,16 +49,16 @@
         <div class="alert alert-secondary py-3">
             <div class="form-row justify-content-end">
                 <div class="col-md-4">
-                    <select id="input-chapter" class="form-control">
-                        <option selected>{{#str}}allchapters, mod_portfoliobuilder{{/str}}</option>
+                    <select id="filter-chapter" class="form-control">
+                        <option value="-1" selected>{{#str}}allchapters, mod_portfoliobuilder{{/str}}</option>
                         {{#chapters}}
                             <option value="{{key}}">{{value}}</option>
                         {{/chapters}}
                     </select>
                 </div>
                 <div class="col-md-4">
-                    <select id="input-group" class="form-control">
-                        <option value="0" selected>{{#str}}allgroups, mod_portfoliobuilder{{/str}}</option>
+                    <select id="filter-group" class="form-control">
+                        <option value="-1" selected>{{#str}}allgroups, mod_portfoliobuilder{{/str}}</option>
                         {{#groups}}
                             <option value="{{id}}">{{name}}</option>
                         {{/groups}}
@@ -70,7 +70,7 @@
         <div class="entries mt-2" data-courseid="{{{courseid}}}">
             {{> mod_portfoliobuilder/loading_portfolios }}
 
-            <div class="card-columns columns-4"></div>
+            <div class="card-columns columns-4 portfolios-area"></div>
         </div>
     </div>
 </div>

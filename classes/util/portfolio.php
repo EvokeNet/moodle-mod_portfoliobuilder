@@ -42,7 +42,7 @@ class portfolio {
         return array_values($groupsmembers);
     }
 
-    public function get_course_group_portfolios($groupid) {
+    public function get_course_group_portfolios($groupid, $chapterid = null) {
         $groupsutil = new group();
 
         $group = $groupsutil->get_group($groupid);
@@ -53,14 +53,14 @@ class portfolio {
             return [];
         }
 
-        $this->fill_user_portfolios_with_extra_data($groupsmembers);
+        $this->fill_user_portfolios_with_extra_data($groupsmembers, $chapterid);
 
         shuffle($groupsmembers);
 
         return array_values($groupsmembers);
     }
 
-    public function get_course_portfolios() {
+    public function get_course_portfolios($chapterid = null) {
         global $DB;
 
         $fields = 'DISTINCT u.*';
@@ -88,14 +88,14 @@ class portfolio {
             return [];
         }
 
-        $this->fill_user_portfolios_with_extra_data($users);
+        $this->fill_user_portfolios_with_extra_data($users, $chapterid);
 
         shuffle($users);
 
         return array_values($users);
     }
 
-    private function fill_user_portfolios_with_extra_data($users) {
+    private function fill_user_portfolios_with_extra_data($users, $chapter = null) {
         $userutil = new user();
         $reactionutil = new reaction();
         $commentutil = new comment();
@@ -106,11 +106,11 @@ class portfolio {
         $lastaccesstoportfolios = $logutil->get_last_time_accessed_portfolios($this->courseid);
 
         foreach ($users as $user) {
-            $user->totallikes = $reactionutil->get_total_course_reactions($this->courseid, $user->id);
-            $user->totalcomments = $commentutil->get_total_course_comments($this->courseid, $user->id);
-            $user->totalentries = $entryutil->get_total_course_entries($this->courseid, $user->id);
+            $user->totallikes = $reactionutil->get_total_course_reactions($this->courseid, $user->id, 1, $chapter);
+            $user->totalcomments = $commentutil->get_total_course_comments($this->courseid, $user->id, $chapter);
+            $user->totalentries = $entryutil->get_total_course_entries($this->courseid, $user->id, $chapter);
             $user->layout = $layoututil->get_user_layout($this->courseid, $user->id, 'timeline');
-            $user->lastentry = $entryutil->get_last_course_entry($this->courseid, $user->id);
+            $user->lastentry = $entryutil->get_last_course_entry($this->courseid, $user->id, $chapter);
 
             $user->userpicture = $userutil->get_user_image_or_avatar($user);
             $user->fullname = fullname($user);

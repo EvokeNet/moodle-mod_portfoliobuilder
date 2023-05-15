@@ -26,7 +26,8 @@ class portfolio extends external_api {
         return new external_function_parameters([
             'courseid' => new external_value(PARAM_INT, 'The course id'),
             'type' => new external_value(PARAM_ALPHANUM, 'The portfolio type(group or network)'),
-            'groupid' => new external_value(PARAM_ALPHANUM, 'The group id', VALUE_OPTIONAL),
+            'chapter' => new external_value(PARAM_INT, 'The chapter id', VALUE_OPTIONAL),
+            'groupid' => new external_value(PARAM_INT, 'The group id', VALUE_OPTIONAL),
         ]);
     }
 
@@ -35,6 +36,7 @@ class portfolio extends external_api {
      *
      * @param int $courseid
      * @param string $type
+     * @param int $chapter
      * @param int $groupid
      *
      * @return array
@@ -44,11 +46,19 @@ class portfolio extends external_api {
      * @throws \invalid_parameter_exception
      * @throws \moodle_exception
      */
-    public static function load($courseid, $type, $groupid = null) {
+    public static function load($courseid, $type, $chapter = null, $groupid = null) {
         global $PAGE;
 
+        if ($chapter == -1) {
+            $chapter = null;
+        }
+
+        if ($groupid == -1) {
+            $groupid = null;
+        }
+
         // We always must pass webservice params through validate_parameters.
-        self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type, 'groupid' => $groupid]);
+        self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type, 'chapter' => $chapter, 'groupid' => $groupid]);
 
         $context = \context_course::instance($courseid);
 
@@ -63,9 +73,9 @@ class portfolio extends external_api {
 
         if ($type == 'network') {
             if ($groupid) {
-                $portfolios = $portfolioutil->get_course_group_portfolios($groupid);
+                $portfolios = $portfolioutil->get_course_group_portfolios($groupid, $chapter);
             } else {
-                $portfolios = $portfolioutil->get_course_portfolios();
+                $portfolios = $portfolioutil->get_course_portfolios($chapter);
             }
         }
 
