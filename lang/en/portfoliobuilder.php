@@ -105,7 +105,7 @@ $string['entrydelete_confirm_yes'] = 'Yes, delete it.';
 $string['entrydelete_confirm_no'] = 'Cancel';
 $string['entrydelete_success'] = 'Entry successfully deleted.';
 
-$string['chapter'] = 'Chapter';
+$string['chapter'] = 'Week';
 
 $string['message_mentioned'] = 'You were mentioned in a comment';
 $string['message_mentionedinaportfolio'] = 'You were mentioned in a comment in the portfolio <b>{$a}</b>';
