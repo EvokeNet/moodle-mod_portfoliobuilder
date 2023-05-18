@@ -15,6 +15,7 @@ global $DB;
 // Course id.
 $id = required_param('id', PARAM_INT);
 $userid = required_param('u', PARAM_INT);
+$embed = optional_param('embed', 0, PARAM_BOOL);
 
 $course = $DB->get_record('course', ['id' => $id], '*', MUST_EXIST);
 $user = $DB->get_record('user', ['id' => $userid], '*', MUST_EXIST);
@@ -25,7 +26,13 @@ if ($user->id == $USER->id) {
     if ($instances) {
         $current = current($instances);
 
-        redirect(new moodle_url('/mod/portfoliobuilder/view.php', ['id' => $current->coursemodule]));
+        $params = ['id' => $current->coursemodule];
+
+        if ($embed) {
+            $params['embed'] = 1;
+        }
+
+        redirect(new moodle_url('/mod/portfoliobuilder/view.php', $params));
     }
 }
 

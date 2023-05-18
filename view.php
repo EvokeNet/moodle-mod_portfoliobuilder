@@ -15,6 +15,7 @@ global $DB;
 // Course module id.
 $id = optional_param('id', null, PARAM_INT);
 $portfolioid = optional_param('portfolioid', null, PARAM_INT);
+$embed = optional_param('embed', 0, PARAM_BOOL);
 
 if (!$id && !$portfolioid) {
     throw new Exception('Illegal access');
@@ -58,11 +59,15 @@ $PAGE->set_title(format_string($portfoliobuilder->name));
 $PAGE->set_heading(format_string($portfoliobuilder->name));
 $PAGE->set_context($context);
 
+if ($embed) {
+    $PAGE->set_pagelayout('embedded');
+}
+
 echo $OUTPUT->header();
 
 $renderer = $PAGE->get_renderer('mod_portfoliobuilder');
 
-$contentrenderable = new \mod_portfoliobuilder\output\view($portfoliobuilder, $context);
+$contentrenderable = new \mod_portfoliobuilder\output\view($portfoliobuilder, $context, $embed);
 
 echo $renderer->render($contentrenderable);
 

@@ -22,10 +22,12 @@ class view implements renderable, templatable {
 
     public $portfoliobuilder;
     public $context;
+    public $embed;
 
-    public function __construct($portfoliobuilder, $context) {
+    public function __construct($portfoliobuilder, $context, $embed = false) {
         $this->portfoliobuilder = $portfoliobuilder;
         $this->context = $context;
+        $this->embed = $embed;
     }
 
     /**
@@ -69,7 +71,8 @@ class view implements renderable, templatable {
             'contextid' => $this->context->id,
             'grade' => $grade,
             'encodedpublicurl' => htmlentities($publicurl),
-            'isloggedin' => $isloggedin
+            'isloggedin' => $isloggedin,
+            'embed' => $this->embed
         ];
 
         $entryutil = new entry();
