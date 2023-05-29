@@ -180,7 +180,7 @@ function portfoliobuilder_grade_item_update($moduleinstance, $reset=false) {
         $item['reset'] = true;
     }
 
-    grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder', $moduleinstance->id, 0, null, $item);
+    grade_update('mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder', $moduleinstance->id, 0, null, $item);
 }
 
 /**
@@ -194,7 +194,7 @@ function portfoliobuilder_grade_item_delete($moduleinstance) {
 
     require_once($CFG->libdir.'/gradelib.php');
 
-    return grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder',
+    return grade_update('mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder',
                         $moduleinstance->id, 0, null, array('deleted' => 1));
 }
 
@@ -214,7 +214,7 @@ function portfoliobuilder_update_grades($moduleinstance, $userid = 0) {
     // Populate array of grade objects indexed by userid.
     $grades = [];
 
-    grade_update('/mod/portfoliobuilder', $moduleinstance->course, 'mod', 'mod_portfoliobuilder', $moduleinstance->id, 0, $grades);
+    grade_update('mod/portfoliobuilder', $moduleinstance->course, 'mod', 'portfoliobuilder', $moduleinstance->id, 0, $grades);
 }
 
 /**
