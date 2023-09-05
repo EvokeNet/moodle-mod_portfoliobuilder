@@ -21,8 +21,8 @@
 }
 #page-mod-portfoliobuilder-layout input[type="radio"]:after {
     position: absolute;
-    font-family: "FontAwesome";
-    font-weight: 400;
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
     content: "\f10c";
     font-size: 18px;
     color: #478bfb;
@@ -30,7 +30,6 @@
     top: -25px;
 }
 #page-mod-portfoliobuilder-layout input[type="radio"]:checked:after {
-    font-weight: 900;
     content: "\f192";
     color: #478bfb;
 }
