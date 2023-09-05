@@ -2,17 +2,17 @@
 
 namespace mod_portfoliobuilder\external;
 
-use external_api;
-use external_value;
-use external_single_structure;
-use external_function_parameters;
+use core_external\external_api;
+use core_external\external_value;
+use core_external\external_single_structure;
+use core_external\external_function_parameters;
 use mod_portfoliobuilder\notification\commentmention;
 use mod_portfoliobuilder\notification\commentonyourportfolio;
 use mod_portfoliobuilder\util\user;
 use moodle_url;
 use html_writer;
-use context_course;
-use context_module;
+use core\context\course as context_course;
+use core\context\module as context_module;
 
 /**
  * Comment external api class.

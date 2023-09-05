@@ -2,12 +2,10 @@
 
 namespace mod_portfoliobuilder\external;
 
-use context;
-use external_api;
-use external_value;
-use external_single_structure;
-use external_function_parameters;
-use mod_portfoliobuilder\form\entry as entryform;
+use core_external\external_api;
+use core_external\external_value;
+use core_external\external_single_structure;
+use core_external\external_function_parameters;
 
 /**
  * Portfolio external api class.
@@ -60,7 +58,7 @@ class portfolio extends external_api {
         // We always must pass webservice params through validate_parameters.
         self::validate_parameters(self::load_parameters(), ['courseid' => $courseid, 'type' => $type, 'chapter' => $chapter, 'groupid' => $groupid]);
 
-        $context = \context_course::instance($courseid);
+        $context = \core\context\course::instance($courseid);
 
         $PAGE->set_context($context);
 
