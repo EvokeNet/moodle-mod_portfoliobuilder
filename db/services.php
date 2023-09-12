@@ -67,4 +67,29 @@ $functions = [
         'type' => 'write',
         'ajax' => true
     ],
+    'mod_portfoliobuilder_alchemy_comment_add' => [
+        'classname' => 'mod_portfoliobuilder\external\alchemy',
+        'classpath' => 'mod/portfoliobuilder/classes/external/alchemy.php',
+        'methodname' => 'comment_add',
+        'description' => 'Add a comment in a portfolio entry',
+        'type' => 'write',
+    ],
+    'mod_portfoliobuilder_alchemy_comment_get' => [
+        'classname' => 'mod_portfoliobuilder\external\alchemy',
+        'classpath' => 'mod/portfoliobuilder/classes/external/alchemy.php',
+        'methodname' => 'comment_get',
+        'description' => 'Get all portfolio entries of a given date in y-m-d format',
+        'type' => 'read',
+    ],
+];
+
+$services = [
+    'Alchemy IA portfolio integration' => [
+        'functions' => [
+            'mod_portfoliobuilder_alchemy_comment_add',
+            'mod_portfoliobuilder_alchemy_comment_get'
+        ],
+        'restrictedusers' => 1,
+        'enabled' => 1
+    ]
 ];
