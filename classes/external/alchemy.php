@@ -102,14 +102,18 @@ class alchemy extends external_api {
      */
     public static function comment_get_parameters() {
         return new external_function_parameters([
-            'date' => new external_value(PARAM_TEXT, 'The entries date in d-m-y format', VALUE_REQUIRED)
+            'starttime' => new external_value(PARAM_TEXT, 'The start time in Y-m-d H:i:s format', VALUE_REQUIRED),
+            'endtime' => new external_value(PARAM_TEXT, 'The end time in Y-m-d H:i:s format', VALUE_REQUIRED),
+            'courseid' => new external_value(PARAM_TEXT, 'The entries course id', VALUE_OPTIONAL),
         ]);
     }
 
     /**
      * Create comment method
      *
-     * @param $date
+     * @param $starttime
+     * @param $endtime
+     * @param $courseid
      *
      * @return array
      *
@@ -118,24 +122,44 @@ class alchemy extends external_api {
      * @throws \invalid_parameter_exception
      * @throws \moodle_exception
      */
-    public static function comment_get($date) {
+    public static function comment_get($starttime, $endtime, $courseid = null) {
         global $DB;
 
-        self::validate_parameters(self::comment_get_parameters(), ['date' => $date]);
+        self::validate_parameters(self::comment_get_parameters(), ['starttime' => $starttime, 'endtime' => $endtime, 'courseid' => $courseid]);
 
-        $date .= ' 00:00:00';
-        $datetime = \DateTime::createFromFormat( 'Y-m-d H:i:s', $date, \core_date::get_server_timezone_object());
+        $startdatetime = \DateTime::createFromFormat( 'Y-m-d H:i:s', $starttime, \core_date::get_server_timezone_object());
+        $enddatetime = \DateTime::createFromFormat( 'Y-m-d H:i:s', $endtime, \core_date::get_server_timezone_object());
 
-        $date = $datetime->getTimestamp();
+        $starttime = $startdatetime->getTimestamp();
+        $endtime = $enddatetime->getTimestamp();
 
-        unset($datetime);
+        if ($starttime >= $endtime) {
+            throw new \Exception('Start time needs to be less than end time');
+        }
 
-        $sql = 'SELECT e.id, e.userid, e.title, e.content, e.contentformat, p.id as portfolioid, p.name as portfolioname, p.course AS courseid
+        if ($starttime >= time()) {
+            throw new \Exception('Start time needs to be less than now');
+        }
+
+        unset($startdatetime, $enddatetime);
+
+        $sql = 'SELECT e.id, e.userid, e.title, e.content, e.contentformat, p.id as portfolioid, p.name as portfolioname, p.course AS courseid, p.intro, p.introformat
                 FROM {portfoliobuilder_entries} e
                 INNER JOIN {portfoliobuilder} p ON p.id = e.portfolioid
-                WHERE (e.content IS NOT NULL AND e.content <> "") AND e.timecreated > :timecreated';
+                WHERE (e.content IS NOT NULL AND e.content <> "") AND e.timecreated >= :starttime AND e.timecreated <= :endtime';
 
-        $entries = $DB->get_records_sql($sql, ['timecreated' => $date]);
+        $params = [
+            'starttime' => $starttime,
+            'endtime' => $endtime
+        ];
+
+        if ($courseid) {
+            $sql .= ' AND e.courseid = :courseid';
+
+            $params['courseid'] = $courseid;
+        }
+
+        $entries = $DB->get_records_sql($sql, $params);
 
         if (!$entries) {
             return ['entries' => []];
@@ -145,6 +169,7 @@ class alchemy extends external_api {
         foreach ($entries as $entry) {
 
             $content = strip_tags(format_text($entry->content, $entry->contentformat));
+            $intro = strip_tags(format_text($entry->intro, $entry->introformat));
 
             if (empty($content)) {
                 continue;
@@ -157,6 +182,7 @@ class alchemy extends external_api {
                 'content' => $content,
                 'portfolioid' => $entry->portfolioid,
                 'portfolioname' => $entry->portfolioname,
+                'portfoliodescription' => $intro,
                 'courseid' => $entry->courseid,
             ];
         }
@@ -181,6 +207,7 @@ class alchemy extends external_api {
                             'content' => new external_value(PARAM_RAW, "The entry content text"),
                             'portfolioid' => new external_value(PARAM_INT, "The portfolio id"),
                             'portfolioname' => new external_value(PARAM_TEXT, "The portfolio name"),
+                            'portfoliodescription' => new external_value(PARAM_TEXT, "The portfolio intro/description text"),
                             'courseid' => new external_value(PARAM_INT, "The course id"),
                         )
                     )
