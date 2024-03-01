@@ -437,7 +437,8 @@
     left: -14px;
 }
 
-.path-mod-portfoliobuilder .entry video {
+.path-mod-portfoliobuilder .entry video,
+.path-mod-portfoliobuilder .entry audio{
     max-width: 100%;
 }
 
