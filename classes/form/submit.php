@@ -14,7 +14,18 @@ require_once($CFG->libdir. '/formslib.php');
  * @author      Willian Mano <willianmanoaraujo@gmail.com>
  */
 class submit extends \moodleform {
+    protected $context;
+
+    public function __construct($url, $formdata, $context)
+    {
+        $this->context = $context;
+
+        parent::__construct($url, $formdata);
+    }
+
     protected function definition() {
+        global $CFG;
+
         $mform = $this->_form;
 
         if (isset($this->_customdata['entryid'])) {
@@ -32,19 +43,26 @@ class submit extends \moodleform {
         $mform->addRule('title', null, 'required', null, 'client');
         $mform->setType('title', PARAM_TEXT);
 
-        $options = [
-            'subdirs'=> 0,
-            'maxbytes'=> 0,
-            'maxfiles'=> 0,
-            'changeformat'=> 0,
-            'context'=> null,
-            'noclean'=> 0,
-            'trusttext'=> 0,
-            'enable_filemanagement' => false
-        ];
+        $editoroptions = array(
+            'noclean' => false,
+            'maxfiles' => EDITOR_UNLIMITED_FILES,
+            'maxbytes' => $CFG->maxbytes,
+            'context' => $this->context,
+            'return_types' => (FILE_INTERNAL | FILE_EXTERNAL | FILE_CONTROLLED_LINK),
+            'removeorphaneddrafts' => true // Whether or not to remove any draft files which aren't referenced in the text.
+        );
 
-        $mform->addElement('editor', 'content', get_string('content', 'mod_portfoliobuilder', $options));
-        $mform->setType('content', PARAM_CLEANHTML);
+        $data = (object) $this->_customdata;
+
+        file_prepare_standard_editor($data,
+            'content',
+            $editoroptions,
+            $this->context,
+            'mod_portfoliobuilder',
+            'entries_content',
+            $data->entryid ?? null);
+
+        $mform->addElement('editor', 'content_editor', get_string('content', 'mod_portfoliobuilder'), null, $editoroptions);
 
         $mform->addElement('filemanager', 'attachments', get_string('attachments', 'mod_portfoliobuilder'), null,
             ['subdirs' => 0, 'maxfiles' => 10, 'accepted_types' => ['document', 'presentation', 'optimised_image'], 'return_types'=> FILE_INTERNAL | FILE_EXTERNAL]);
@@ -95,12 +113,12 @@ class submit extends \moodleform {
             $errors['title'] = get_string('validation:titlerequirelen', 'mod_portfoliobuilder');
         }
 
-        if (empty($files) && ($data['content'] && empty($data['content']['text']))) {
+        if (empty($files) && ($data['content_editor'] && empty($data['content_editor']['text']))) {
             $errors['attachments'] = get_string('validation:contentachmentsrequired', 'mod_portfoliobuilder');
             $errors['content'] = get_string('validation:contentachmentsrequired', 'mod_portfoliobuilder');
         }
 
-        if ($data['content'] && !empty($data['content']['text']) && mb_strlen(strip_tags($data['content']['text'])) < 10) {
+        if ($data['content_editor'] && !empty($data['content_editor']['text']) && mb_strlen(strip_tags($data['content_editor']['text'])) < 10) {
             $errors['content'] = get_string('validation:contentlen', 'mod_portfoliobuilder');
         }
 

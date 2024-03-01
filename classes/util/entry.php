@@ -71,10 +71,12 @@ class entry {
             $images = $this->get_images($attachments);
             $files = $this->get_files($attachments);
 
+            $content = file_rewrite_pluginfile_urls($record->content, 'pluginfile.php', $context->id, 'mod_portfoliobuilder', 'entries_content', $record->id);
+
             $entry = [
                 'id' => $record->id,
                 'title' => $record->title,
-                'content' => format_text($record->content, $record->contentformat),
+                'content' => $content,
                 'timecreated' => userdate($record->timecreated),
                 'hasimages' => !empty($images),
                 'images' => $images,

@@ -9,6 +9,7 @@
  */
 
 require(__DIR__.'/../../config.php');
+require_once($CFG->dirroot . '/repository/lib.php');
 
 // Course module id.
 $id = required_param('id', PARAM_INT);
@@ -42,7 +43,7 @@ if ($entryid) {
     $formdata['entryid'] = $entryid;
 }
 
-$form = new \mod_portfoliobuilder\form\submit($url, $formdata);
+$form = new \mod_portfoliobuilder\form\submit($url, $formdata, $context);
 
 if ($form->is_cancelled()) {
     redirect(new moodle_url('/mod/portfoliobuilder/view.php', ['id' => $id]));
@@ -55,13 +56,6 @@ if ($form->is_cancelled()) {
 
             $entry->title = $formdata->title;
             $entry->timemodified = time();
-
-            $entry->content = null;
-            $entry->contentformat = null;
-            if (isset($formdata->content['text'])) {
-                $entry->content = $formdata->content['text'];
-                $entry->contentformat = $formdata->content['format'];
-            }
 
             $DB->update_record('portfoliobuilder_entries', $entry);
 
@@ -87,11 +81,6 @@ if ($form->is_cancelled()) {
             $entry->timecreated = time();
             $entry->timemodified = time();
 
-            if (isset($formdata->content['text'])) {
-                $entry->content = $formdata->content['text'];
-                $entry->contentformat = $formdata->content['format'];
-            }
-
             $entryid = $DB->insert_record('portfoliobuilder_entries', $entry);
             $entry->id = $entryid;
 
@@ -110,6 +99,31 @@ if ($form->is_cancelled()) {
             $completion->update_state($cm, COMPLETION_COMPLETE);
 
             $redirectstring = get_string('entry:add_success', 'mod_portfoliobuilder');
+        }
+
+        // Process content text with audio and video.
+        $editoroptions = array(
+            'noclean' => false,
+            'maxfiles' => EDITOR_UNLIMITED_FILES,
+            'maxbytes' => $CFG->maxbytes,
+            'context' => $context,
+            'return_types' => (FILE_INTERNAL | FILE_EXTERNAL | FILE_CONTROLLED_LINK),
+            'removeorphaneddrafts' => true // Whether or not to remove any draft files which aren't referenced in the text.
+        );
+
+        $formdata = file_postupdate_standard_editor($formdata,
+            'content',
+            $editoroptions,
+            $context,
+            'mod_portfoliobuilder',
+            'entries_content',
+            $entry->id);
+
+        if (isset($formdata->content)) {
+            $entry->content = $formdata->content;
+            $entry->contentformat = $formdata->contentformat;
+
+            $DB->update_record('portfoliobuilder_entries', $entry);
         }
 
         // Process attachments.
