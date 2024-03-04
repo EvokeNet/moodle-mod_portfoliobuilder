@@ -232,7 +232,9 @@ function portfoliobuilder_update_grades($moduleinstance, $userid = 0) {
  * @return string[].
  */
 function portfoliobuilder_get_file_areas($course, $cm, $context) {
-    return [];
+    return [
+        'entries_content' => get_string('content', 'mod_portfoliobuilder')
+    ];
 }
 
 /**

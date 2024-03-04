@@ -15,6 +15,7 @@ require_once($CFG->libdir. '/formslib.php');
  */
 class submit extends \moodleform {
     protected $context;
+    private $editordata = null;
 
     public function __construct($url, $formdata, $context)
     {
@@ -43,26 +44,22 @@ class submit extends \moodleform {
         $mform->addRule('title', null, 'required', null, 'client');
         $mform->setType('title', PARAM_TEXT);
 
-        $editoroptions = array(
-            'noclean' => false,
-            'maxfiles' => EDITOR_UNLIMITED_FILES,
-            'maxbytes' => $CFG->maxbytes,
-            'context' => $this->context,
-            'return_types' => (FILE_INTERNAL | FILE_EXTERNAL | FILE_CONTROLLED_LINK),
-            'removeorphaneddrafts' => true // Whether or not to remove any draft files which aren't referenced in the text.
-        );
+        $data = new \stdClass();
+        if ($this->_customdata['entryid']) {
+            $data = $this->get_entry_content($this->_customdata['entryid']);
+        }
 
-        $data = (object) $this->_customdata;
-
-        file_prepare_standard_editor($data,
+        $data = file_prepare_standard_editor($data,
             'content',
-            $editoroptions,
+            $this->get_editor_options(),
             $this->context,
             'mod_portfoliobuilder',
             'entries_content',
-            $data->entryid ?? null);
+            $data->id ?? null);
 
-        $mform->addElement('editor', 'content_editor', get_string('content', 'mod_portfoliobuilder'), null, $editoroptions);
+        $this->editordata = $data->content_editor;
+
+        $mform->addElement('editor', 'content_editor', get_string('content', 'mod_portfoliobuilder'), null, $this->get_editor_options());
 
         $mform->addElement('filemanager', 'attachments', get_string('attachments', 'mod_portfoliobuilder'), null,
             ['subdirs' => 0, 'maxfiles' => 10, 'accepted_types' => ['document', 'presentation', 'optimised_image'], 'return_types'=> FILE_INTERNAL | FILE_EXTERNAL]);
@@ -76,18 +73,21 @@ class submit extends \moodleform {
         $mform = $this->_form;
 
         if (isset($this->_customdata['entryid'])) {
+            $cm = get_coursemodule_from_instance('portfoliobuilder', $this->_customdata['portfolioid']);
+
+            $context = \context_module::instance($cm->id);
+
             $entry = $DB->get_record('portfoliobuilder_entries', ['id' => $this->_customdata['entryid']], '*', MUST_EXIST);
 
             $mform->getElement('title')->setValue($entry->title);
 
-            $mform->getElement('content')->setValue([
-                'text' => $entry->content,
-                'format' => $entry->contentformat
-            ]);
+            if (isset($entry->content)) {
+                $mform->getElement('content_editor')->setValue([
+                    'text' => $this->editordata['text'],
+                    'format' => $entry->contentformat
+                ]);
+            }
 
-            $cm = get_coursemodule_from_instance('portfoliobuilder', $this->_customdata['portfolioid']);
-
-            $context = \context_module::instance($cm->id);
             $draftitemid = file_get_submitted_draft_itemid('attachments');
 
             file_prepare_draft_area($draftitemid, $context->id, 'mod_portfoliobuilder', 'attachments', $entry->id, ['subdirs' => 0, 'maxfiles' => 10]);
@@ -123,5 +123,24 @@ class submit extends \moodleform {
         }
 
         return $errors;
+    }
+
+    private function get_editor_options() {
+        global $CFG;
+
+        return [
+            'noclean' => false,
+            'maxfiles' => EDITOR_UNLIMITED_FILES,
+            'maxbytes' => $CFG->maxbytes,
+            'context' => $this->context,
+            'return_types' => (FILE_INTERNAL | FILE_EXTERNAL | FILE_CONTROLLED_LINK),
+            'removeorphaneddrafts' => true // Whether or not to remove any draft files which aren't referenced in the text.
+        ];
+    }
+
+    private function get_entry_content($id) {
+        global $DB;
+
+        return $DB->get_record('portfoliobuilder_entries', ['id' => $id], 'id, content, contentformat', MUST_EXIST);
     }
 }

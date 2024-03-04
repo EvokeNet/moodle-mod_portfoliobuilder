@@ -73,6 +73,9 @@ class entry {
 
             $content = file_rewrite_pluginfile_urls($record->content, 'pluginfile.php', $context->id, 'mod_portfoliobuilder', 'entries_content', $record->id);
 
+            $params = ['overflowdiv' => true, 'context' => $context];
+            $content = format_text($content, $record->contentformat, $params);
+
             $entry = [
                 'id' => $record->id,
                 'title' => $record->title,
