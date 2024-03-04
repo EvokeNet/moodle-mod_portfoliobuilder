@@ -107,6 +107,9 @@ $string['entrydelete_success'] = 'Entry successfully deleted.';
 
 $string['chapter'] = 'Week';
 
+$string['messageprovider:commentmention'] = 'You were mentioned in a comment';
+$string['messageprovider:commentonyourportfolio'] = 'Someone commented in your portfolio';
+
 $string['message_mentioned'] = 'You were mentioned in a comment';
 $string['message_mentionedinaportfolio'] = 'You were mentioned in a comment in the portfolio <b>{$a}</b>';
 $string['message_mentioncontextname'] = 'Mentioned in a comment.';
