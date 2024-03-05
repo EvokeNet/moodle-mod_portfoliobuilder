@@ -120,3 +120,9 @@ $string['message_commentportfoliocontextname'] = 'Someone commented on a portfol
 
 $string['allactivities'] = 'All activities';
 $string['allgroups'] = 'All groups';
+
+$string['chapter0'] = 'Before you begin';
+$string['chapter1'] = 'Reflection Activity';
+$string['chapter2'] = 'Country Examples';
+$string['chapter3'] = 'How AI supports teachers';
+$string['chapter4'] = 'Main takeaways';

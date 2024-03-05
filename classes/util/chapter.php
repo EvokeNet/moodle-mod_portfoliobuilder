@@ -30,6 +30,14 @@ class chapter {
         $data = [];
 
         foreach ($chapters as $chapter) {
+            if ($chapter < 5) {
+                $data[] = [
+                    'key' => $chapter->chapter,
+                    'value' => get_string('chapter' . $chapter->chapter, 'mod_portfoliobuilder')
+                ];
+
+                continue;
+            }
             $data[] = [
                 'key' => $chapter->chapter,
                 'value' => get_string('chapter', 'mod_portfoliobuilder') . ' ' . $chapter->chapter
