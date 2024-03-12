@@ -77,6 +77,14 @@ class portfolio extends external_api {
             }
         }
 
+        if (!is_null($chapter)) {
+            foreach ($portfolios as $key => $portfolio) {
+                if (!$portfolio->lastentry) {
+                    unset($portfolios[$key]);
+                }
+            }
+        }
+
         return [
             'data' => json_encode($portfolios)
         ];

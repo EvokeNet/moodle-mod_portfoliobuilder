@@ -85,11 +85,10 @@ class group {
 
         list($groupsids, $params) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'group');
 
-        $sql = "SELECT u.*
+        $sql = "SELECT u.id, u.picture, u.imagealt, u.firstname, u.middlename, u.alternatename, u.lastname
                 FROM {groups_members} gm
                 INNER JOIN {user} u ON u.id = gm.userid
                 WHERE gm.groupid " . $groupsids;
-
 
         // Remove any person who have access to grade students. Teachers, mentors...
         if ($contexttofilter) {

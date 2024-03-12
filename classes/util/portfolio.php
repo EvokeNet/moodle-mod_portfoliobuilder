@@ -63,7 +63,7 @@ class portfolio {
     public function get_course_portfolios($chapterid = null) {
         global $DB;
 
-        $fields = 'DISTINCT u.*';
+        $fields = 'DISTINCT u.id, u.picture, u.imagealt, u.firstname, u.middlename, u.alternatename, u.lastname';
 
         $capjoin = get_enrolled_with_capabilities_join($this->context, '', 'mod/portfoliobuilder:submit');
 
@@ -119,6 +119,10 @@ class portfolio {
 
             if ($user->lastentry && $user->lastentry->timecreated > $lastaccesstoportfolios) {
                 $user->hasnews = true;
+            }
+
+            if (isset($user->preference)) {
+                unset($user->preference);
             }
         }
     }
