@@ -177,4 +177,6 @@ echo '</form>';
 
 $PAGE->requires->js_call_amd('mod_portfoliobuilder/portfolios', 'init', [$bulkoptions]);
 
+$PAGE->requires->js_call_amd('mod_portfoliobuilder/addgrade', 'init', [$context->id]);
+
 echo $OUTPUT->footer();

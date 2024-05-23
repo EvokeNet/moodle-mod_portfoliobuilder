@@ -110,34 +110,7 @@ define([
          */
         AddGrade.prototype.handleFormSubmissionResponse = function(data) {
             this.modal.hide();
-
-            // We could trigger an event instead.
-            Y.use('moodle-core-formchangechecker', function() {
-                M.core_formchangechecker.reset_form_dirty_state();
-            });
-
-            const usergradeinfo = $('.usergradeinfo');
-
-            usergradeinfo.empty();
-
-            usergradeinfo.append("<span class='badge badge-success'>"+data.assessmenttext+"</span>");
-
-            var Toast = Swal.mixin({
-                toast: true,
-                position: 'top-end',
-                showConfirmButton: false,
-                timer: 8000,
-                timerProgressBar: true,
-                onOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                }
-            });
-
-            Toast.fire({
-                icon: 'success',
-                title: data.message
-            });
+            document.location.reload();
         };
 
         /**

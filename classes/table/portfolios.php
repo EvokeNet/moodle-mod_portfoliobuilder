@@ -176,12 +176,23 @@ class portfolios extends table_sql implements dynamic_table {
 
         $statuscontent = html_writer::link($url, get_string('viewportfolio', 'mod_portfoliobuilder'), ['class' => 'btn btn-primary btn-sm']);
 
-        if ($entryutil->get_total_course_entries($this->courseid, $data->id)) {
+        $hasgrade = $gradeutil->user_has_grade($this->portfoliobuilder, $data->id);
+        $hasentries = $entryutil->get_total_course_entries($this->courseid, $data->id);
+
+        if ($hasentries) {
+            if (!$hasgrade) {
+                $statuscontent .= html_writer::link('#', get_string('addgrade', 'mod_portfoliobuilder'), [
+                    'class' => 'btn btn-dark btn-sm ml-2 grade-portfolio',
+                    'data-userid' => $data->id,
+                    'data-portfolioid' => $this->portfoliobuilder->id,
+                ]);
+            }
+
             $statuscontent .= html_writer::span(get_string('submitted', 'mod_portfoliobuilder'), 'badge badge-info ml-2 p-2');
         }
 
-        if ($gradeutil->user_has_grade($this->portfoliobuilder, $data->id)) {
-            $statuscontent .= html_writer::span(get_string('evaluated', 'mod_portfoliobuilder'), 'badge badge-success ml-2 p-2');
+        if ($hasgrade) {
+            $statuscontent .= html_writer::span(get_string('evaluated', 'mod_portfoliobuilder', $gradeutil->get_user_grade_string($this->portfoliobuilder, $data->id)), 'badge text-sm badge-success ml-2 p-2');
         }
 
         return $statuscontent;

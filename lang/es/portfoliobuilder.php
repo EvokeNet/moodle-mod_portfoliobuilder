@@ -65,7 +65,7 @@ $string['grading_success'] = 'Calificación finalizada con éxito.';
 
 $string['status'] = 'Estado';
 $string['submitted'] = 'Enviado';
-$string['evaluated'] = 'Evaluado';
+$string['evaluated'] = 'Evaluado: {$a}';
 $string['groups'] = 'Grupos';
 
 $string['previous'] = 'Anterior';
