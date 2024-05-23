@@ -109,6 +109,7 @@ $string['chapter'] = 'Week';
 
 $string['messageprovider:commentmention'] = 'You were mentioned in a comment';
 $string['messageprovider:commentonyourportfolio'] = 'Someone commented in your portfolio';
+$string['messageprovider:newportfolioentry'] = 'A student added a new portfolio entry';
 
 $string['message_mentioned'] = 'You were mentioned in a comment';
 $string['message_mentionedinaportfolio'] = 'You were mentioned in a comment in the portfolio <b>{$a}</b>';
@@ -117,6 +118,9 @@ $string['message_clicktoaccessportfolio'] = 'Click here to access the portfolio'
 
 $string['message_someonecommentedyourportfolio'] = '{$a} commented on your portfolio';
 $string['message_commentportfoliocontextname'] = 'Someone commented on a portfolio.';
+
+$string['message_newportfolioentry'] = '{$a} added a new entry in a portfolio';
+$string['message_newportfolioentrycontextname'] = 'New entry added to a portfolio.';
 
 $string['allactivities'] = 'All activities';
 $string['allgroups'] = 'All groups';

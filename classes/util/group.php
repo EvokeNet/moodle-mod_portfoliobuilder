@@ -123,6 +123,55 @@ class group {
         return array_values($groupsmembers);
     }
 
+    public function get_groups_mentors($groups, $contexttofilter, $withfulluserinfo = false) {
+        global $DB;
+
+        $ids = [];
+        foreach ($groups as $group) {
+            $ids[] = $group->id;
+        }
+
+        list($groupsids, $params) = $DB->get_in_or_equal($ids, SQL_PARAMS_NAMED, 'group');
+
+        $sql = "SELECT u.id, u.picture, u.imagealt, u.firstname, u.middlename, u.alternatename, u.lastname
+                FROM {groups_members} gm
+                INNER JOIN {user} u ON u.id = gm.userid
+                WHERE gm.groupid " . $groupsids;
+
+        $userutil = new user();
+
+        $mentors = $userutil->get_user_ids_with_grade_capability($contexttofilter);
+
+        if (!$mentors) {
+            return false;
+        }
+
+        list($sqlin, $paramsin) = $DB->get_in_or_equal($mentors, SQL_PARAMS_NAMED);
+
+        $sql .= " AND u.id {$sqlin}";
+
+        $params = array_merge($params, $paramsin);
+
+        $groupsmembers = $DB->get_records_sql($sql, $params);
+
+        if (!$groupsmembers) {
+            return false;
+        }
+
+        if ($withfulluserinfo) {
+            $userutil = new user();
+            foreach ($groupsmembers as $key => $groupmember) {
+                $userpicture = $userutil->get_user_image_or_avatar($groupmember);
+
+                $groupsmembers[$key]->userpicture = $userpicture;
+
+                $groupsmembers[$key]->fullname = fullname($groupmember);
+            }
+        }
+
+        return array_values($groupsmembers);
+    }
+
     public function get_group_members($groupid, $withfulluserinfo = true) {
         global $DB;
 

@@ -98,6 +98,10 @@ if ($form->is_cancelled()) {
             $completion = new completion_info($course);
             $completion->update_state($cm, COMPLETION_COMPLETE);
 
+            // Notify mentors.
+            $notification = new \mod_portfoliobuilder\notification\newportfolioentry($context, $cm->id, $course->id, $portfoliobuilder->name, $USER->id);
+            $notification->send_notifications();
+
             $redirectstring = get_string('entry:add_success', 'mod_portfoliobuilder');
         }
 
