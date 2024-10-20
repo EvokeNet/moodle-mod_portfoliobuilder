@@ -48,7 +48,7 @@ class mod_portfoliobuilder_mod_form extends moodleform_mod {
 
         $options = [];
         for ($i = 0; $i <= 100; $i++) {
-            if ($i < 5) {
+            if ($i < 6) {
                 $options[$i] = get_string('chapter' . $i, 'mod_portfoliobuilder');
 
                 continue;

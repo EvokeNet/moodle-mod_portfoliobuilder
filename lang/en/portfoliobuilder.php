@@ -130,3 +130,4 @@ $string['chapter1'] = 'Reflection Activity';
 $string['chapter2'] = 'Country Examples';
 $string['chapter3'] = 'How AI supports teachers';
 $string['chapter4'] = 'Main takeaways';
+$string['chapter5'] = 'Chapter 5';
