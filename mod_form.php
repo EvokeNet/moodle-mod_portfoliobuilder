@@ -47,14 +47,8 @@ class mod_portfoliobuilder_mod_form extends moodleform_mod {
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
 
         $options = [];
-        for ($i = 0; $i <= 100; $i++) {
-            if ($i < 6) {
-                $options[$i] = get_string('chapter' . $i, 'mod_portfoliobuilder');
-
-                continue;
-            }
-
-            $options[$i] = get_string('chapter', 'mod_portfoliobuilder') . ' ' . $i;
+        for ($i = 0; $i < 10; $i++) {
+            $options[$i] = get_string('chapter' . $i, 'mod_portfoliobuilder');
         }
         $mform->addElement('select', 'chapter', get_string('chapter', 'mod_portfoliobuilder'), $options);
 
